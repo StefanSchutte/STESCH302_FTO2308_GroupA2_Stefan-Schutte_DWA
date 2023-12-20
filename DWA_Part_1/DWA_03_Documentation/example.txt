@@ -1,0 +1,34 @@
+ToDo App
+
+Write a paragraph explaining a todo app that has a focus on the following:
+- very simple
+- user friendly
+- only bare bones minimal functionality
+- has all the basic features need in a todo app
+
+This todo app is designed to be incredibly simple and user friendly, with a
+ focus on providing just the minimal functionality needed to help manage
+ their tasks effectively. Despite its simplicity, the app includes all the basic
+ features that users expect from a todo app, including the ability to create
+ tasks, set due dates and reminders, and mark tasks as completed.
+The app's minimalist design and intuitive
+interface make it easy to use, with no unnecessary clutter or distractions.
+
+Features
+
+- Simple and user friendly
+- focus on minimal functionality
+- ability to add, edit and complete tasks
+
+Requirments
+
+- An IDE like VSC (https://code.visualstudio.com)
+- Basic HTML, CSS and javascript skills (https://developer.mozilla.org/en-US/docs/Learn)
+- a browser like chrome
+
+Getting Started
+
+Clone the repository (https://github.com/)
+Run local host server
+Open index.html
+
