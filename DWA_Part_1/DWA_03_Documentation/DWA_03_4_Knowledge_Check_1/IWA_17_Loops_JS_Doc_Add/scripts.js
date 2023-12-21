@@ -1,4 +1,4 @@
-// ts-check
+// @ts-check
 
 /**
  * Array that contains the months.
