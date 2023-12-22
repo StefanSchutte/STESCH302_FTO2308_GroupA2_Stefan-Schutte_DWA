@@ -1,0 +1,13 @@
+/*
+Abstraction
+
+    how to design software
+    where to place focus
+    take principles and combine pieces of composable pieces of abstraction
+    above low level elements
+    abstraction is key
+
+getting into practical size
+
+
+ */
