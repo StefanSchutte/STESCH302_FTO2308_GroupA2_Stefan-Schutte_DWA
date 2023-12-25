@@ -1,0 +1,384 @@
+Paradigms focus on abstraction
+I spent a lot of time now talking about object oriented programming and you know
+specifically this idea of an abstraction and how all of these different paradigms
+actually advise us to create our abstractions in a different way as means
+to solve a specific problem and all these paradigms consider something different to be the primary problem of
+programming and in most cases depending on what you're building it might be a different problem I'm going to start by
+introducing oop uh object orientated programming I have already started
+introducing it in the previous lesson there's no particular reason why I start with that first apart from the fact that
+it was kind of the main Paradigm for a very long time 20 years ago 15 years ago
+leading up to 10 years ago you wouldn't actually have even considered writing
+your code in any other Paradigm except for object oriented programming and in
+the last decade we've actually just seen a very big change in terms of that just because some of the actual things that
+we're building on the web nowadays are traditional oop approach actually struggles with I think at some point
+point will also have to chat about there are different flavors of oop and I think
+There are different flavours of OOP
+sometimes that Nuance is lost as well and people come to JavaScript with a
+class-based oop mindset whereas JavaScript is actually a prototype based
+language you're not a class-based language which is why I'm not a big fan of this term class and I've kind of been
+mentioning this a lot of times and hopefully in this lesson I can actually start unpacking a little bit why I
+actually think loss isn't the best name for what classes actually are in JavaScript but it is what it is and we
+have to work with it all right so before I start with anything else I want to quickly just write some example code and
+Creating practical example
+then we're going to return to tasks and we're going to look at how we can actually use the principles of
+encapsulation specifically as encapsulation expressed by oop because
+other paradigms also have opinions about in cap isolation but let's look at it purely from an oop perspective and how
+we can apply that to create an actual task entity so in the previous lesson we
+spoke about in oop you have this idea of things that have data and behavior so
+how can we create a task which is a thing that has data and behavior and what would the other thing things quote
+unquote be in our app let me just down here create a trusty old
+example dot JS file and its core I've
+Co-locating data and behaviour
+mentioned this now a couple of times oop is about co-locating your data and your
+behavior and you do that by means of something called encapsulation in oop let me just show an example of this okay
+so let's say let's return to the very very very first example we ever did in
+JavaScript that tally app that we built maybe also is take a moment to reflect on how far you've come since then think
+about how confusing JavaScript was and how much more you know about JavaScript
+Appreciate how far you have come
+now but also I often find that think about how easy you thought JavaScript was going to be and now that you're a
+bit deeper in you actually realize how hard it is hold on to that feeling you're always going to feel that feeling in your
+career and I can trust you it's gonna get worse give it a year give it two three years get to the point where I am
+right now and I feel like your JavaScript is so much more complicated than I ever thought five four three two
+a year ago this is paradox where as you grow you just also start developing an
+appreciation for how much deeper it goes but the good news there is like you can build your entire career not only on
+JavaScript but just on one aspect of JavaScript you can build your entire career around a single framework in
+JavaScript because the rabbit hole ghost goes so deep you can spend your entire life this is just trying to get better
+at JavaScript and getting better at programming in general right so that out of the way let's talk about that example
+so in that example we had a value let's say let value because we know it's going
+to change it's not a const if it was a const we won't be able to change it and
+then we have two functions so let's just say increase and const decrease which
+takes value and minuses from it all right I also realized that in the
+previous session we actually haven't set up eslint and prettier and all those things for this project so let's just
+quickly do it right now right so by the magic of video editing I've just quickly set up all the eslint stuff I'm
+obviously not going to cover all of it again if you can't remember how to do that just check out the video again in
+Setting up ESLint and Prettier
+code style but I quickly just behind the scenes set it up again so I don't have
+to spend time in this video actually going through it once again so just a reminder if you Contour me about how to
+do it or if you don't know what I'm talking about um just check out how I set up eslint and prettier and all of those things in
+the code Style videos all right so task is defined but never used and the reason
+for that is because we pulled that in purely just for odd types so in this
+case we might need to ignore that specific rule so just say eslint
+disable next line but we don't want to disable everything so usually I just
+type a random character there and I just check no unused bars because you do want
+to get that notification when that is actually the case again that's also complaining because we're not using this
+ever but we are going to also complaining that we're not using this also complaining that we're not using
+changes and so forth okay these make sense they are to be expected so state
+is still fine helpers is also fine and scripts is going to be a mess because we
+used it last time for our example so let me just clear scripts okay so let us get into this okay and that is
+Procedural Programming example
+unhappy pipe safety let's add TS check so it automatically just assumes this is a number unless we State otherwise we
+can run increase decrease increase and then the console and let us run this in
+the browser cool and that is four so obviously STAR test three we add one we remove one we add one more and that's
+four so this is pure purely procedural programming you're running these as instructions so how would we actually
+Misconceptions about OOP
+refactor this into an oop approach so let us get down to what is the basic
+premise of oop and I think we need to hold on to this because there's a lot of fusing and misleading and just like
+actually plain incorrect information out there about oop if you just go on YouTube you will see a ton of videos
+about oop and there's a ton of really really bad information out there like be
+careful at the Crux always hold on to this because someone will tell you you need to use a class for oop or you need
+OOP example of Tally App
+to use inheritance with or extends with oop or it just comes down basically to
+combine your data and behavior into a single encapsulated unit okay so data so
+here we have our data up here here we have our Behavior none of this is encapsulated because you can call it
+from anywhere I can even just go here and directly change it and say no I actually want value to be ABC you know
+so none of this is encapsulated with if this is encapsulated the interface there would be an interface that controls what
+we can actually do the the easiest way to do this in JavaScript is with a plain
+object literal period you can do oop in JavaScript with a plain object literal people have been Gene overp in
+JavaScript way before classes classes is only classes was only added like five six years ago let's have a constant
+OOP with object literals
+let's call this counter and what is counter so counter inside it has a value
+that starts as one it has a method in it that is increase and all this method
+does it checks counter or this takes the value and does that we have decrease
+where we just do the opposite and then we just have display which just console
+logs this and we need to just add some commas there to separate them why am I
+using this um yeah I did mention you know this sucks try and avoid using this you so
+you can actually even just do this all right let me just comment all of this out and so now we can do counter and
+you'll see we actually get Auto completed things and you know let's even take this a step further let's actually
+add you know some jazz doc so you're not adding anything but you can't say hey this method actually takes something but
+let's just say increases counter value by one and this is decreases counter
+value by one logs the counter value to the console obviously the value itself
+is just the actual tracked value let's do that so let's do counter and then we
+see oh these are all the things that are encounter so in vs code it'll also show the purple squares an actual method and
+the blue square is actual value let's say we want to increase it okay and it knows it's a function so it needs we
+need to call it let's increase it two times and let us just then run display and there we go three so it starts as
+one we increase increase and display three so there's a couple of things here so the first one being that you don't
+Object literals partial encapsulation
+have full encapsulation here because you can and still go counter dot value
+equals so if value is something in this object and we don't want people to
+actually to be able to do this in our code unfortunately we that is just the
+reality with objects and classes also suffer from this but there are some actual ways to solve that but the
+Function closure full encapsulation
+simplest way in the way people have been doing this for a very long time since almost the start of JavaScript is to use
+a closure instead of just having our counter expressed like that let us do the following let's wrap that in a
+function that creates the counter for us so you remember about closures and Scopes and so forth we can actually use
+it to hide things because remember a closure or a scope only has access to
+the things above it not below it and we can use that to our advantage to actually hide things so const and let's
+What is a "factory function"?
+just say create counter and this is something called a factory function I usually have the invention that I prefix
+my factory function functions with create you will see the same thing in
+reactor and so forth so for example you will see you know for example create ref
+or whatever and so inside that scope let us create our actual object so we're
+just wrap setting it directly in an actual object we just handle it in here like we did before so let's just say let
+value and it starts as one and then we create our functions in here honestly
+like this is my actual preferred way of oop or working with objects in
+JavaScript it is nice separating your actual logic from the actual interface
+that you actually Expose and I'll show you in a second and for example react allows you to do the exact same thing
+all that this does is value plus plus one and value yeah and let's also just
+add some extra code here like so there's an optional value it's that actually
+says well let's just say a melt we have a mount and that is by default the amount otherwise it just falls back to
+one if you don't specify that and so then we also have our display console
+log the value itself all right so all of this is encapsulated uh if we for example go just comment all of this out
+if we for example down here go you know counter and create counter there's no
+way we can actually access that value from the counter like actually nothing is getting exposed there's nothing like
+all of this is inside the scope you can't go from outside the scope into the scope of this function physically
+nowhere in JavaScript so there's no way from outside this function that you can actually get the information inside it
+unless you actually expose it so I really like Factory functions I actually prefer them much over classes but this
+Different ways to encapsulate in JS
+is just a personal preference um if you like classes you like working with classes that make sense to you by
+all means to use classes functionality and Frameworks actually require classes
+angular is is a big example where everything is a class even native things like web components you need to use a
+class and this is sometimes a frustrating thing about JavaScript like it's not even consistent in that then
+there are other things that are exposed through means of a factory so I would say for all intents and purposes proxy
+is a factory I'm not going to explain how proxy works now but so forth and you know it's all over the place in JavaScript that's one of the reasons why
+JavaScript sometimes hard to work with yeah so do what makes sense to you um when you're working with something
+existing do what that thing does if you're working with a team that has a specific convention just do what they do
+a consistency is key and it's also the differences between these things aren't that critical but if you have a
+preference and you're writing your own code then go with the one you enjoy working with so as mentioned what I like about this
+"Factory function" return objects
+one is then you actually return an object but in that object this is kind of like the package that you actually
+deliver from this function so you do all your logic and then you decide cool what what am I packaging up in like a little
+box and like giving back afterwards you can even literally just do it you know like this create your object there and
+then just return the object or you can just create it in the return itself what I'm doing here right now is I'm just
+giving display increase and decrease that is all you can do there's no way to get this value because that's all that I
+return so it creates this object for me with the factory function and I can only
+decrease display or increase I can't do anything else I can't go value equals 10. JavaScript thinks I can and the
+reason for that is complicated but just to show you guys that I can't actually if I then go if I then run down to
+Cannot directly modify value
+display here it's actually not going to log that so let me show you show you one what's that all about and so there's a
+couple of reasons for this the one is we actually didn't create an interface let's quickly do that and that's going
+to also prevent this from happening so let's just type def let's create our interface here counter and count as an
+object I want to effectively just has the following functions on it so once
+again we can if you like like if you want to do the quick route you can go increase uh decrease display and you
+know this is a case away down here sorry is where eslint is complaining but we actually know better so and as I saved
+it actually reformatted this for me as well and so increase so I can actually just so I can write it like this in here
+you know but let's just stick with jstock proper and here we can actually
+use a bit of abstraction and reuse Joe's dock so we can actually say we're going to create a function we're just going to
+Create JSDoc for methods
+call that function modify that just takes a single param which is a number
+and it's also optional and that param's name is amount and we're indicating it's optional like that and we can just say
+amount modify the value with and now check this out we can actually oops and
+I actually made a typo this is one of those classic typos where as you're talking you actually type the right
+thing because of a saying function but in just doc you actually have to say callback if you remember from the last
+time and then this is we can also just create another one so it's also once again it's useful to sort of callback
+and we can just call that just call that empty function in other words it's a
+function that doesn't take anything it doesn't return anything is we can just say at returns a counter so create
+counter returns a counter if we hover over that we can even give counter a description if we want and we can say an
+object that keeps internal State and allows you to increase decrease log the
+value note that there is no way to to access the value from inside so now
+it'll actually warn us and say this isn't part of the interface that we provided so counter and that's just
+unhappy because we don't use it this type of this thing is counter so let's just do counter and what do we want to
+do we want to increase and if we hover over that okay and let's also just add
+some uh increases I can't remember what we said previously oh here it is actually so this is actually the type of
+comments you shouldn't write they're not very I guess they're of value at the
+release it says what you're going to increase but and I also did this wrong and this should actually be like that
+I'm obviously just doing these to illustrate a point don't look at this as
+kind of the best way to write comments All right so now this ground set counter
+all right and these are the two things we can do at the counter so if you say increase and we hover over it okay
+increase counter value provider value or we can leave it so let's just leave it and then let's count
+Different objects from same factory
+a decrease by 10 and counter display right so minus eight there you go what's
+also nice about having Factory functions is that we can actually use it to create
+different instances of something so let's say you know temperature and let's also just have humidity and so we can go
+humidity increase by 20 temperature decrease by three temperature increase
+Configuration when creating
+by by 10 and then we can just display temperature display right there we go
+but so let's say we actually want to from the start actually Define what
+these things are when we create them we want to have different information because at the moment they are the exact
+same thing so what we can do is we can also put something else in here and let's say we pass that through actual
+parent M so let's say at RAM and that is just a string and we can call it label
+all right then we can just put a description there the actual value that is being measured okay and it's unhappy
+because we obviously need to put label in there and label is required and it's also unhappy because we're not using label and so what we can do is let's
+actually just only place we use the label is when we are outputting like that so now this is unhappy because
+we're not adding labels so let's say Celsius I don't even know what what do you measure humidity in let's just go
+with humidity factor I don't even know what you measure I'm not going to Google it now so now when we do that should
+actually because we're passing in an actual things at when we create them so you can set configurations when you
+create them with a with a factory function 21 humidity factor and eight Celsius so let's say you should be able
+to actually get the label at any time you know export it there as well we
+can't you don't have it in our actual interface so let's just do and this is the string and label so now you can even
+go let's say we want to see what is the actual humidity label you can grab it
+and console log it okay so it actually gives us humidity Factor today but the problem is now so let's say you want to
+be able to go you know temperature label and you want to set it to fahren
+I think that's how you spell it to say if so let's say you want to do that okay
+yeah it didn't update it still says Celsius so why is that and then that is because we are actually just exporting A
+Can't update primitives from interface
+Primitive if you remember one of the things about Primitives and composite
+types is that uh Primitives are actually immutable you can't actually go and all
+the way up back through the argument that's being passed and and we shot a
+couple of examples where this actually happens by accident but generally you want to avoid this but that also means
+you can't do this because if we can maybe try and do the following so let's do let and let's do inner label and that
+just comes from the label and then actually what we export here is the inner label and you'll see but okay so
+there's a couple of things going on here and the one is that Airbnb says it's a const so why are you assigning it to a
+let it's actually very smart and so far that it knows once we pass it through this object you're not going to be able
+to change it afterwards what you can do is you can use Getters and Setters and
+this is what I like where I like Factory functions maybe a bit more than I like classes is because there's a there's a
+clear separation here that the interface you can't go back and update values
+through the interface unless it explicitly says you can't updated which is what you don't get with a class if we
+want to add that functionality so what's nice here is by default it's disabled unless you actually enable it and you
+can do that by means of Getters and Setters label so again a set is a method generally you always have a good and a
+getters" and "setters
+Setter you always use them in combination just for me out of habit and like I find it just good to use both of
+them and they're both so both sides even if the one doesn't do anything or even if the one literally just Returns the
+actual value itself so in this case it is just going to return Innova in a label okay so this is maybe a bit
+Overkill and you can probably get around this having to save yourself from writing both together in the setter but
+usually for me I just out of good practice do both just so I know I have accounted for both so you actually
+control what happens when Trump someone tries to get a value from this interface
+or they actually try and set a value to this interface so with the setting you
+know you can completely just prevent that you can even go so in here you would actually get the value that's
+trying to be set you can even throw an error if that is not allowed then what
+we currently have here as someone thinks is being set and then when they log it it actually never updated you can just
+here say label can not be updated to and
+Throwing an error on assignment
+it is unhappy because at line 27 we already have value yes so let's just
+call this new label and in a label is const okay because it never gets updated
+cool so label cannot be updated to F but let's say we want to do that so now we can actually just put actual logic in
+here and we can just say take in a label and set it to the new label obviously this is unhappy because it's a const
+Working assignment behaviour
+let's make it a let that we actually need to read from in a label here and so we also need to ensure that we're no
+longer reading from there but actually from the variable there we go it turns it to F actually and you can even do
+anything you want like you have a lot of power here you can actually say don't actually replace it you can actually say
+modify it actually before you assign it the changer to is the label boy so we're
+"setters" can transform on assignment
+setting if but it's actually modifying it because of the internal logic and
+likewise you can actually override the getter as well so you can so let's say we're actually not ever actually
+reassigning it we just want to check what it is so let's say we've console log it here we go so LCS is the label oh
+Completely override normal logic
+boy you can even just straight up say when they try and get label it's just
+gonna return hello you're gonna completely override this as well and say you know when they try and said it it
+doesn't even care about new label it just takes inner label and sets it to you know so like you you have a lot of
+power here not only that but you can even just like have it return something random every time you call it new math
+and I need to turn it to a string because it is actually I marked it up as a string up here let's just do console
+Returning something dynamic
+log temperature label and every time we log it it's going to just give us something random because it's just
+executing this and returning that so this is what I like about Factory functions is so just quickly there's no
+one other thing I not sure why that I mentioned it before but I I spoke about these structuring you know so for
+Recapping "destructuring"
+example if you have an array that is you know one two three four you
+can go into structure uh you know that first button
+one thing you can also do is you can do the remainder and so if I do you know
+or whatever or you know remaining or whatever and it's going to take what you
+didn't destructure so in other words and just provide that as an array
+uh it's the same with objects as well so if I destructured for example first and
+second and then whatever's left in the object will just be returned as a new
+object but you can also do spreading it's just exactly the opposite so inside
+What is "spread" operator?
+another array or inside another object you can actually just go props and it's
+going to spread everything that gets part in the incubus so you might ask okay it's called but what is the
+difference between object sine if I do this where I combine two objects
+together and the spread operator that just used and the answer is absolutely nothing I just find a little bit more
+readable but you know depends on what you prefer personally um
+I prefer just using the spread operator yeah so we update our HTML task there would be changes and but then we don't
+"destructuring" props object
+do anything of changes in here what we want to do is we want to see if those
+changes are present and then actually update the HTML and so here we're actually still using the old way so we
+would actually just go 8 HTML which would have the validation Falls in and we would just say pause so
+that gets rid of all of this code for us so let us restructure all those values here
+the changes new title but you might say listen like what if we only pass title
+yeah then urgency due and complete or not it's going to be undefined okay so you might also be tempted to go so if
+completed in other words if complete has been passed and this is sorry
+um for the audio quality there guys um it's embarrassing to admit but I I
+realized my mic was facing the other way around so just heads up sorry about that but here we go now we're back on track
+um I hope you were able to get that so I was saying that you know if you check if completed is there then kind of make the
+change the problem here is keep in mind that because of the way truthy and falsy works if you pass completed to be false
+Careful of "truthy" or "falsey" bugs
+if you say hey I want completed but I want it to be false it would actually not trigger because it checks if it's a
+truthy value so you would actually have to check if it's not undefined so if if
+you're not selling it it's going to be undefined also another thing which I maybe forgot to mention you might have
+Discussing "Firacode" font
+seen that my code editor if I do things like you know this like triple equals or
+strictly quality of or if I do not equals it does that or greater than or
+even Arrow functions it actually creates these what's called ligatures so I just
+actually use so the font that I use in my IDE is something called firear code you can actually just have a
+look so it's if I are a so like fire but with an A and it's this one here at the
+top so almost 50 000 as you'll see it kind of does these ligature type things maybe you don't like it maybe you like
+it I think it actually makes my code more readable so just I actually never mentioned that explicitly but so if
+you've been curious about that now you know if completed is not undefined do is
+not undefined so what I would actually do in this case like and it depends on
+Conditions in variables for readability
+what what works for you I would actually just write it like this has do as title
+and has urgency and just get that value first um just find it a little bit more
+readable because this this not checking for a true not State um sometimes it's a
+bit confusing so I actually just write it like that so then we can say F has completed if has date a has to if has
+title if has urgency all right so has completed so what we want to do is we
+want to get the HTML for that and we can just actually write it as follows get
+Adding the "data atrributes"
+HTML and that will be I don't think we actually have set these yet so let's
+actually do that so that will be data checkbox data table let's actually move
+this up to the and let's also make this up but because it's something you'll click and let's do data delete all right
+so now we have our three things there so get HTML checkbox we're not actually
+doing anything with you or urgency so that's actually just these so we act so
+we I think we're going to do something with you a bit later so let's just keep this in for now I'll just comment it out
+Regular comments vs JSDoc
+you can still pass it here we might want to put a note keep in mind that do can
+also be passed but we don't do anything
+with it yet and you'll actually see for regular comments that are not like J stock I just write them like this with
+the regular forward slashes just to separate them from JS dot comments so let's just remove that the element so we
+have element which is an HTML element also we're not doing anything with urgency as well keep in mind that
+urgency e and also be passed but we don't do anything with them yet one
+thing to keep in mind here so we have this gate HTML but it's going to check against the entire document we just
+wanted to check inside that specific so what you can do is we can add a third
+parameter here param and that will be an optional HTML element that you can't
+Extending "getHtml" abstraction
+pass and that'll just be the target so this will be what where it tries to get
+that HTML make it as simple as saying Target so in here we can just do scope
+and that is just Target if there is a target or if there's not just fall back to document all right so it's an
+optional thing that we can't pass and whatever we pass there is where you
+select is going to be run on alternative is going to be applied to the document so this is actually an indication of a
+really good abstraction because we actually change the the behavior quite
+Realise whether abstraction was good/bad
+dramatic practically but we actually needed to do the very minimal changes it
+literally just okay so obviously the Jazz doc we have to do so we just added this here and we just added this here
+and now we have like this massive new piece of functionality generally these are signs of like really good
+abstractions is that when you're changing things like it actually takes very minimal of effort because also now
+like the likelihood of us us introducing a new bug or breaking something existing on the site actually isn't that big
+everything else can still be used as it is and you know just with experience you get better at anticipating these type of
+things or building things in a manner where they can easily be extended like this once again by separating it up into
+Be mindful to get better at abstraction
+these two things that also make like prevents it from being like a massive
+change there might be something else that's now also has to be updated over here and so or it might update how we
+kind of do like now so these by break or whatever so there's a lot of value in
+keeping things like single responsibility and this is and and the difference here is why we split this up
+into a separate thing and why we didn't do targeted HTML or whatever just copied
+Whether same or new responsibility
+that and created a completely new thing is this I like this is still within the same responsibility I would say that
+checking if something exists or actually getting that thing like these are still
+the same responsibilities and so we're just adding we're just extending that responsibility we're not changing or
+adding new types of responsibilities okay so but those things they're very nuanced and it takes a very long time to
+really get good at them and get a feel for them so this is also a very good example where I actually find props to
+Example of props vs. params
+be better than arguments because now what we need to do is we need to pass them in order we need to pass undefined
+first all right so let's just also quickly change that to actual props and
+once I again you know this is going to be a very easy change so let's just replace that with props let's create a
+single param up here which is an object and let's just call it props and then we
+just go props dot data attribute props.value
+props.target destructure them here so let's just do that put them in this but instead of
+prop and there we go it's as easy as that once again you know like so the sign of a good abstraction is that it's
+very easy to change and because you don't have a lot of experience with this once again that's going to be very hard
+for you to preempt but it's just useful to say that that is how you learn as
+well so be mindful of that if you create abstractions and it's very hard to update them very hard to change them
+very hard to extend them then you could have probably done it better and that's
+how you learn like eventually you get a sense for what abstractions are easy to change what is easy to update and extend
+and so forth and once again like this isn't within the realm of the open close
+principle because because the type of extension that we're doing here isn't regarding actually adding new things
+they're actually extending the scope of what the abstraction does so it actually
+allows you to give it a specific value now as well whereas in the pre previous one because we had that Loop every time
+we add a new type of thing we're going to have to add that so generally this doesn't violate that because there's no
+foreseeable reason why we might need to modify that on a recurring basis to
+maintain this functionality but there are actual people that would say that
+Be careful of over-abstracting
+you need to be able to even that needs to be solved with composition I don't
+know like honestly I think that's maybe a bit over abstraction at that point you you get to the point where you're just
+managing abstractions instead of actually writing code actually doing things but I think it's a balancing act
+but it's just worth actually noting that okay and this is also a static typing is also really helped because now we might
+very easily miss an example where we now need to update it it's going to give us alerts everywhere and where the
+interface is being used and we need to update it now and so the new one is data
+attribute list all right so
