@@ -1,0 +1,346 @@
+Getting HTML elements
+now we have data attribute and then we can also add Target and the target is
+actually the element that we got up here right so now it is getting those for us let's just call that inner right and so
+all that we do is it is selected I think it is selected that just needs to be set
+to whatever complete it is but here's a problem and it is that it just knows
+it's a generic HTML element it doesn't know that it's actually an input because
+we're just checking if it's an actual generic HTML element and get HTML so we might need to do another error here that
+once again we throw early and loudly if we are if we think something is wrong and so what we can do is we can write
+Connecting state to HTML
+the following we can say we can check is selected in inner over here but we need
+to wrap it in double because we're checking if it's not and if it's not throw new error expected input element
+so sometimes you might need to do something like this because we're just checking if it's a generic HTML element
+we don't know what type you can get stricter types so you can go for example
+HTML input element as a type or something but it it's just too much
+effort I'd rather just solve it in this way case the title so inner and in a
+text sorry is equal to whatever gets passed to title in our scrubs so we
+let's pull that in and let's pull in modules.js and let's pull in create task
+so create task doesn't return anything just yet it just adds it to the Dom and
+I can see it did add it but the title wasn't added we are actually getting
+this error over here and so we had that window error catcher thing previously
+but I removed it so this is also so you might be like ah damn it like it through an error but keep in mind like this is
+much better than actually if we perceive it now we wouldn't have known like it would just not have shown if it's
+completed we wouldn't have known that that behavior doesn't even work so we just need to check for checked instead
+but it's not adding the title and so let's we never update you might have seen me do this in what I've been stop
+stop stop stop what are you doing and once again I don't know why yeah I make
+these stupid mistakes Okay cool so let's Maybe by default say just remove these
+disableds for now let's add a couple of these so let's say create task create
+task um write code and the due date is right now so this is cool
+um one thing though so here's a couple of things and and we can get them just straight from the Dom so I can just find
+this but there's some other things that are not actually being represented in the Dom so what if we at a later Point
+want to check what is the due date for this but it's not being represented in the Dom so we probably need some type of
+object that we can work with and this is where oop comes in so we create that task and let's just call this you know
+task one and call this one task two and we might even want to be able to go task
+two title is no no and if we set that it
+should actually update here as well probably already realize the way we're going to do that is with Getters and Setters let's first just return an
+actual object currently there is nothing there let's write an interface for our tasks have it actually in our state
+already and as you can imagine with oop you actually move all of that into worth
+Moving types into abstraction
+the actual task itself so let's move all of that in here okay so we'll Define all of this up here and so let's create our
+actual interface according to that so what this should return is the actual
+task so then the question is where do we store these values because for example we're definitely going to have an action
+Storing data inside closure itself
+where if you click on it it's going to show you more details and so let's actually create the object that contains
+these in our actual closure so before we actually modify our HTML let's just do
+it straight up in here just save all the and let's just call it State you know
+because effectively this is this of the task if we want more type security we can actually just explicitly say add
+type task so this is the current state we can just pass the props once again we
+can just spread the props in there and we can just add the ID which doesn't
+come with the props and then also because we did this it can actually tell us what is missing so what is missing
+completed and created so completed is just false and created is literally when
+we run this so created is created we can literally just do new okay so this is
+the internal state of the task we which is not always what gets shown so for example you can click on it to see more
+Decoupling data state from DOM
+info so you should be able to update the due date or whatever even if the due date isn't in the Dom anywhere at the
+moment or update the title even if the task itself isn't showing right now so it's important to keep this in mind this
+is a persistent in your app whether it's currently showing on the screen or not
+let do get and Setters for all of these yet so you can get the ID and that is
+just going to return state ID but you can't update the IDE so what you can do
+"id" getter and setter
+is you can just return nothing but I would actually just throw an error in
+here because you shouldn't try and do this and if you're trying to do this there's something wrong and why are you
+trying to do this so I would actually just say cannot directly change ID so we
+need to pass a actual parameter here even if we don't use it so let's just
+say new value let's do get completed and set completed get created it's obviously
+"created" getter and setter
+going to be the exact same with set created you cannot directly change created obvious reasons and get credit
+just return release date re-hate it set completed so here we can actually do
+something cool and we can actually just say if the new value equals what the
+current value is so if you're trying to set it to true and it is already true then just don't do anything because
+"completed" getter and setter
+theoretically then it is set to true because it was true so if it is the same just return don't do anything just
+return State completed okay otherwise State completed equals new value this
+gives you rate tight control around the interface of your actual object let's
+just pass that in there even if we don't use it and completed created so do we
+can even put validation in here if we want we can even say that you know if new value type of new value it's not
+equal to Boolean Pro new error is not a Boolean get title and that is just going
+"title" getter and setter
+to return State title so when people illustrate like Getters and Setters they they always do stuff like you know so
+you have something called first name and last name and then you create a getter that is like full name that just
+combines the two or whatever and I find those super contrived um it's like I
+don't know like I don't like I think initially when I was learning about Getters and said is I didn't really see
+the value in that to me this is a much more useful um actual use case where it allows you
+to control the interface and actually allows the way that people can inter interface with this actual object and
+what they're allowed to do all right so let's also just do set title and we can also put a couple of conditions in here
+we can say if it isn't a new value if there's no new value then obviously throw an error or if type of not a
+string or if new value is empty then throw new error title is required to be
+a non-empty trim which for his actual function that we run once again like
+this is thank you tsj let's just add urgency and set urgency and we can
+"urgency" getter and setter
+actually just and create a valid array of urgency autocompletion here and we
+can just say valid includes new value so if the new value isn't one of these then
+it's going to throw an error so we can say if so by default it's also then if it's a if it's not a string if it's
+empty or whatever then obviously by default it's not going to be any of these so we don't need to do those extra
+checks Pro new error which is valid is
+required to be high low and this is unhappy because so I'll get back to that
+"due" getter and setter
+in a second let's just move on I think all that's left now is due so let's say get you and set you you can do the exact
+same here where if new value instance of date so if it's not a date in Throne
+error throw new error du is required to
+be a date and then you just State all right let's add some commas here also
+some commas up here urgency so I actually just noticed you
+Fixing problem with "urgency"
+might have been yelling at me all this time um I'm returning the title which is why did it make sense I I couldn't for the
+life of me figure out why is this unhappy and so that's once again you know that's the value of static typing
+otherwise I might not have picked that up all right let's give this a go okay so write code watch the dog so we are
+getting these Task 1 and task two back now so task one and we set it to hello
+Example of modifying a task
+so it's not updating so let's go in here and let's also this is also what's
+really cool about Setters and Getters is that even in here let's we can console log the new value so if you have any
+errors or whatever say log when someone tries to update this thing so it makes
+debugging a bit easier though right so it actually shows when we set that but
+it doesn't update here and the the reason is it updates the state but we
+need to manually update the HTML and if you're using Getters and sellers you can actually do that as follows you can just
+Auto-update HTML in "setter"
+ensure it gets set here the HTML gets updated as well so we can actually just
+go HTML update HTML task so the areas where it should have an influence is
+when you update completed so update task and you just we just set completed to
+the new thing obviously we don't want to de-structure props in there and obviously you want to say new value and
+then we also need to make sure so we don't have anything like this in the HTML just yet title so we need to make
+sure as well and we actually never updated the state here new value let's
+update the title as well over here so we're kind of having this entire object managed like the HTML state for us and
+and everything urgency is not being shown cool it changed it to hello and so let's
+actually see that in action if we set a timeout and only do that after like two
+Example of behaviour in real-time
+seconds okay watch the dog and then three seconds there you go so you'll see if you did it automatically you said
+cubes.html and the actual object itself in sync what we would actually end up
+doing is we'll probably just put these in an array so we'll just say we have
+this array of tasks and then that's obviously just going to be easier to access let's just say list we need to
+wrap that in rehire task all right so you'll see probably this is very similar to what we did with our events okay I
+also just want to check something so let's do list and let's say the second one remember arrays or zero index so the
+second one and let's set completed to false oops I actually mean true hey
+there we go check that out just add a couple more here let's just say do dishes learn JavaScript but so at the
+moment we don't have a way to manually add tasks so we kind of do it like this
+so ideally we want to be able to manually do that so I'm just going to write that in here quickly Let's uh just
+do quickly const uh create adding HTML so what that is going to do it's going
+Allowing adding of new tasks
+to do two things for me it's going to create a button for me that we are going
+to insert here underneath app title and let's just do an area and let's call it
+data okay so that is where that is going to go import from modules helpers so
+we're going to do get HTML and let's just get the element itself so get HTML so we created adding what we're going to
+do is in that element a pen child and let's just put a single so so what we're
+going to do is we're going to create a fragment where we are going to add two things to it so fragment is eventually
+Creating HTML for "adding"
+just a fragment is basically just a placeholder for things that where you
+can put the HTML on that would be a document fragment okay and so the first
+thing we're going to add on that fragment is we're going to create a button and document create element let's
+just do a button and let's also add a class I think we have class names I think we have a button class if I'm not
+mistaken I'm just going to add that on there and the inner text is just going
+to be and so let's actually add that to our fragment quickly I actually realized
+we actually don't need the fragment we can just add it to the element directly I don't know what I was thinking Okay cool so there we go and let's actually
+just run create adding HTML and and we we never actually set up TS check up
+Automatically enable "ts-check"
+here there we go let me actually show you how you can enable it for everything the way you would do that is be great by
+creating a TS config file so tsconfig dot Json I am going to speak much more
+about this much more about typescript you might have heard typescript now being mentioned a couple of times but
+now all you need to understand is that vs code you might not get this in other Ides vs code uses typescript under the
+VS Code uses TypeScript under hood
+hood to do your static type checking for you that's all you need to understand now you don't need to know anything
+about typescript so this is why this word typescript keeps on look at it much later when we look at something like
+angular also compiler options not only do we allow JavaScript so true but we
+actually check the JavaScript that's automatically you're just going to check all JavaScript whether we have TS check
+at the top or not and this is just unhappy because obviously we move these
+out of the state over here I can just disable this we're not using State at
+the moment we're just using tasks and obviously so we no longer need this because this is not actually in the task itself yes so you also we also need to
+say what version of es we're using so you remember like when we spoke about
+JavaScript we spoke about ecmascript we also need to say a Target definitely not
+Define level of browser support
+ES3 it actually shows you all the ones let's go like es2017
+um it's just so it's widely supported obviously if you go this current year that spec hasn't even been finalized yet
+so no browsers are going to support it so obviously the further back you go the more browsers are going to actually
+support it sir so what it effectively told us that this is also what's really cool is it effectively told us like
+because it was targeting ES3 it told us like includes doesn't exist for it to do
+proper type checking for you as well you also need to tell it what version of JavaScript are you actually assuming
+remember this isn't going to compile this isn't going to create that for you it's going to depend on the browser but
+what is the lowest version that you're aiming to support and let's get rid of that and so let's go back to here so top
+string is not okay cool so I we would have gotten that error if we had type
+checking enabled by default all right cool so add task and so what we also
+want to do is we want to add a modal as well I think I have one that we can use
+Adding HTML dialog code
+in here to copy that it has all the stuff in that we need so let's also just
+create that and append it so document create element
+dialogue in HTML set it from here one thing you'll see is that it the prettier
+doesn't unfortunately do formatting for you on this because it's technically a string even if we do get the syntax
+highlighting and then let's just say element add append child and that would
+be dialogue doing that oh because obviously we have the dialogue inside
+the dialog we need to instead dialog class name and let's also just set it to
+open open true and class layer is just overlay okay and let's just remove these
+wrapping things and now it should actually show up and it should be open all right so okay so let's just change
+this to say add task remove the message for now I think it's clear what you need
+to do and as mentioned the design of this isn't the prettiest but like we're here to learn JavaScript so I just made
+something basic that we can work with what we have is we have title and you
+know let's for now just leave all the other things um I just want to show you just do the
+single thing so let's um create this quickly let's do adding
+dot JS and let's move all the stuff we created right now into adding once again
+Seperating "adding" from tasks
+like the goal here is to keep things decoupled so as far as possible adding
+should know as little about tasks as possible and then what is also nice with
+the Imports is like you can actually see now it doesn't know anything about tasks okay because we're not importing
+anything about tasks all right so let's pull in adding and let's say export cons
+create adding and that is just going to fire off this HTML for now and it tells
+us once again that it's a good idea to if we only have a single thing to do a default pull that in here let's get rid
+Creating higher-level of abstraction
+of all of this you can already see here how we're starting to work with like higher level like abstractions over here
+okay cool so there are no tasks at the moment so let's go into adding right so we're not doing much with it just yet
+but this one is a bit different because we're not just displaying information we actually want to react to events so
+actually this shouldn't be the lead it should actually be add task or save or
+whatever so we want to also now start using event listeners as well so what
+we'll probably do is when we create the HTML we'll also attach an event listener
+Adding event listeners to "adding"
+so let's actually start the dialog as closed by default it should be we don't
+even need to set dialogue okay and then obviously when we click the add task we
+want it to actually show the dialog so then after we create it let's actually
+add our event listeners so we can go let's just get the actual adding itself
+after we create it and document query select but an easier way might actually
+be to just straight up export it from here so let's actually just return their references remember these are references
+Return HTML references after creation
+uh they because Dom elements are theoretically objects they just retain a
+reference these are not actually the object itself it's just a reference to
+where the object lives in memory okay so that's actually it saves us this so
+let's actually have a look and let's launched and we should be able to even destructure it straight from there so in
+this case um it was smart enough to actually know uh that we didn't even have to mark up
+the Jazz Doc it's smart enough to figure it out itself so in those cases I won't actually even mark it up where I will
+mark it up is when like for example here it's the main thing that I'm exporting
+and I want super tight control what people can do with it add event listener
+and what that is going to do is because we already have the reference to dialogue we can do dialogue open is true
+there we go opens it up for us and then cancel maybe closes it for us we don't have a reference here to that but what
+we can do data cancel and data save and then we can actually just return them
+here as well so let's just do save and cancel we can just go dialogue we select
+the data save okay so this makes it a lot more a lot easier so now we can all
+just go so let's pull those out as well so cancel and save add event listen and
+it just does the exact hey check this out another thing that you'll see is uh
+Native "showModal" and "close" methods
+there's actually this weird thing in JavaScript where if you want the like it to have a dark background you need to
+actually show modal like that and I can't remember what the opposite is it's
+actually just close yeah now what we want to do is when you click save what happens so let's make save the actual
+submit button so that actually means let's put the event listener on the form itself these aren't actually even in a
+Adding HTML form to dialog
+form wrap them in a form a form is just one element and let's just do data form
+instead of data save and this is just type submit and it is for this form
+needs a ID and let's just call it adding and it is to submit adding once again
+you might need to format this by hand pretty as unfortunately not going to do
+it for you and I see it already messed up the indentation so let us continue we
+want to listen for a submit event and also save it should be form and we
+should look for data form and we should look for a submit listen for a submit event on that so add event listener
+Adding "submit" event listener
+submit and this is the event and let's do event prevent default for now or
+whenever pulling that out okay and let's just console log that to see that it
+actually fires when we submit close the dialog when we submit I actually got it wrong it's actually not submitted form
+so now we want to do something with that title and we want to well let me bring
+Adding "due" and "urgency" fields
+in the whole package so let's actually do so the name of this input is title let's
+bring in the other one so there is due this is
+urgency and urgency we want to transform into a select list this is three that
+you can choose from with the default being the medium and high and low and
+let's just ensure that this responds with actual values that we have and so
+do so this urgency isn't is required but it say it is required but this is not an
+issue because it's set to medium by default title is also required and du is
+not required so it won't even let us submit without that du is the actual
+type is actually date select the date title and that and save and effectively
+now it should create tasks for us all right so then the question is is how if
+we're not allowed to bring tasks in here and assume tasks if we want to keep
+Adding "callback" behaviour to "adding"
+these decoupled from one another and so what we can do is we can just say that you can set all back on this actual
+object so let's say let's create our type def so for adding itself the moment
+all that it returns is Mission and that is just a callback that will be
+submission and let's create that up here at callback submission and what a
+submission do submission just turns what actually gets submitted and so what
+actually gets submitted type def listens to data which is an object and prop so
+that is the title which is has to be a string and also prop not props a date or
+null which is due and once again here I will just duplicate it because remember remember as if you share as little as
+possible between your actual objects the better okay so and then we can just say
+urgency okay and so the submission all that that does is takes a param data
+which is the shape of that data okay there we go if we try and submit so obviously we need to now do state as
+well and just submission again submission starts as undefined and so
+what we can just say over here if State submission doesn't exist or even this is
+a type of is not a function then we just throw a new error that is submission
+value has to be set as function so you can't submit until that is set and let's
+Keeping "tasks" and "adding" decoupled
+just do returns adding okay so obviously it's unhappy so submission let's do our
+Setters and I'll get this set submission and get submission so so it's a return
+State and set submission just takes the new value and state the mission equals
+the value okay so the reason why it's useful to keep these decoupled is let's
+say maybe we want to do something with the actual values before then transform it beforehand or something so create
+adding so let's just have our adding here and then on adding we go submission
+and let's just say that is a function DOTA and this is console log the data
+and so we should also remember to actually just call it we can get it from the form by going const entries and
+let's just say new form data and we pass event Target so we get that then we
+Executing callback inside form submit
+convert it into actual object from entries take the entries send it into
+response and we we need to bump this up a little bit I don't think it's supported in that so this goes like 2020
+event Target let's also just check if if there is no event Target throw new error
+but I think it also needs we need to check actually if it is a form so we
+actually need to say if event Target not an instance of HTML form cool because
+obviously you can only pass a form to form data the response just take what we
+have and let's then run submission on it so this is the Callback that we sent oh
+State submission console add task there we go save and what we will do is we
+will just say in response every time this form is submitted just take that
+pass it to create task you can even pause create tasks directly in us that
+Connecting "tasks" and "adding"
+as the function that should be run so in adding when we actually before we close
+we should just take the actual Target itself so event and just reset it in
+other words clear everything okay and hello all right so I hope that was
+helpful in terms of I'm just going to remove the state here because obviously we are no longer using that so we can't
+When not to encapsulate with OOP
+keep helpers like this um a lot of people actually put helpers in like have
+almost like a create helpers as well uh like here um I don't know I just pull them
+directly from the module if you want to be like super strict oop then technically so the big problem at the
+moment is that we don't get full encapsulation so we do get encapsulation in the abstract sense so you know like
+with adding like there's only one thing that we can do with it and you know likewise if we were to create a task
+Still not achieving full encapsulation
+here you know like we are working with the interfaces here so to control and
+make sense of the high level things that are happening even if you have no idea what's actually happening in the task
+file you can just work with these abstractions so technically speaking we
+don't have full encapsulation here from a software point of view because there's
+CSS file can still change HTML
+things in other files that you can actually do that can influence them for example I can go back around red Here
+and Now changes something that should actually be confined only within this object and likewise I can go document
+you know query selector so I can completely circumvent all of this and I can go hey you know what like actually
+get me the an a the H2 which is this so
+get me any H2 on the page just change the inner text to something else you
+Can still directly target via DOM
+know hey and now it's actually changing so it's very easy to to accidentally even like Target the wrong thing or
+whatever so it would be really nice if we can encapsulate everything in a single object and this is going to
+become something that we're going to speak a lot of Frameworks as well and and that is like in modern like software
+so there's this traditional idea to separate your CSS and your HTML and your JavaScript uh into kind of layers but
+We can encapsulate DOM and CSS
+when you're building like web apps that is very hard to have all those things
+spread out and if you want to take a truly oop approach like then theoretically you want everything so in
+other words if you press delete and this button adding is gone you can't use adding anymore everything for adding is
+in this file if you create it here this creates everything that you are allowed to do with adding but now you have like
+all this other stuff spread out like in your Styles file and also you can directly like Target it through the Dom
+regardless of what we do in this actual object what interface we give here someone can just go I don't care about
+Web Components help achieve this
+this I'm just going to directly change it and not not even maybe even intentionally maybe accidentally so in
+the next lesson we're going to look at how web components allow us to solve that by using inheritance and that is
+where we where I finally actually show you how to do this with classes because the way the web components API is built
+means that you need to use classes unfortunately it doesn't work with Factory functions
+what some people do is they actually wrap the web component classes in factories we can even look at maybe
+Web Components need "Class"
+doing that um if there is time but so a good
+example is is this a library called hybrids which as you'll see actually
+allows you to create web components um by just running this Define Factory
+yeah you won't know what any of this is um we are going to talk about it in the
+next lesson but so the point being that you can actually do web components and Factory functions but natively
+unfortunately the way it works you need to use classes and that is just the API
+limitation that is just what tc39 decided how it is going to work all
