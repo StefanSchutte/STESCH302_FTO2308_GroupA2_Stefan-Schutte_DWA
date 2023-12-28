@@ -1,0 +1,562 @@
+Introduction
+all right so we have actually done a ton and I hope that you have a bit of a better understanding now of um not only
+oop but encapsulation and how encapsulation can help us keep our code maintainable what I want to cover now is
+let me just create a trusty old example.js file again we spoke about the
+tally app previously and how we could actually use a factory function
+to create a completely encapsulated version of it and then I also showed how
+we can create encapsulation in our code base wrapping our data and our Behavior
+underneath this kind of simplified interface that you can just use so let's
+say I know absolutely nothing about this code base but I know kind of it's a
+Example of "encapsulation" benefit
+to-do app and so forth so I'm like okay cool how would I create a task uh probably with create tasks so let's say
+you know like I'm gonna create a task that is called example and all right so
+what do I need so let's click on that and let's control space Oh okay I said the title so the task is do homework
+what else do I need yeah I need you again but what is due so do is a user
+specified date for when the task should be completed okay so this should be by so let's say there's no due date and
+urgency what is urgency okay urgency is you use a specified indication of how important the task is okay so let's just
+say oh okay cool so high low medium let's say hi okay cool there we go let's
+see it in action so let me open it up here on the side oh cool okay there it is and I what can I do oh I can toggle
+it on and off so let's look at the task let's see what we can do so example oh I can actually get these things and set
+them so let's try and set the ID to something and as you know it's actually
+throwing an error cannot directly change ID oh okay sure it doesn't quickly add the window add event listener let's just
+Re-adding error event listener
+say error just to catch the errors and and so critical errors let's just say document something went very wrong all
+right okay cool uh all right so let's maybe try changing the title hey we can do that let's see if we can actually get
+even though it's not being displayed right now let's see if we can get when it was created let's have a look in the
+console oh okay cool so you can see over here here how abstracting things and
+encapsulating them through means of interfaces really helps keep your code maintainable and really helps making it
+easy to work with your code base even for yourself so what I want to do now so
+the next thing I want to talk about is inheritance and specifically how we use
+class-based inheritance to create web components but before I do that I just
+want to introduce classes I've been speaking about it a ton now and you're finally going to get to see it so let me
+What are JavaScript "class" keyword?
+just do a super basic example of the tally example so it's very similar to a
+factory function here's the actual secret it is actually a factory function in JavaScript there isn't a thing like a
+class it is what is called syntactic sugar so syntactic sugar it's a computer
+science principle which is a syntax within a language that is designed to
+make things easier to easier to read or Express it makes the language sweeter for human
+use things can be expressed more clearly or in an alternative style that some may
+prefer it is usually shorthand for a common operation that can also be expressed in an alternate more verbose
+form let me show you an example an example of syntactic sugar is
+What is "syntatic sugar"?
+destructuring in other words it doesn't add anything new to the language it just
+gives you extra some tactical alternatives to expressing things obviously if we have an object here and
+we have the object name is skulk and surname is Fender and we want to
+destructure that this didn't exist in JavaScript a decade ago the way you used
+to do this would have been like this so you would have had to do it this way so this is just synthetic sugar it still
+does this under the hood it's just an easier nicer way to write it so before I
+actually show you the underlying mechanism um let's actually just get into classes so how would we do that tally app as a
+Creating example of JavaScript class
+class so classes you do by starting with the word class then you write the name
+of the class so let's just say counter the convention is usually classes are written as Pascal case like this so you
+won't write it like that it's just a convention you can do this it's not the end of the world inside our class we can
+actually set the value directory so we can say the value is one we can add
+methods in here that let's do increase decrease let's just do it exactly the
+way we did it before so here's the first difference between a class and object
+literal is in an object literal we had this we could reference the object and
+go for example you know increase counter so we could reference itself in here so
+whether that's a good or a bad thing is Up For Debate but you could do this because this is an actual thing and also
+you also note that the way you'd clay actual values in a class is a bit different you can't do this here because
+as mentioned counters are actually syntactic sugar on top of factory functions so the counter itself so the
+class itself is actually not the thing you have to create the thing in this manner like we did previously there's a
+catch classes you have to start with the word Neo this is not going to create the
+Using "new" with JS Classes
+class so effectively there we have the thing so we can't so inside a class you have to use this there's no way around
+it if you're creating classes you're gonna use this all over the place which
+is also one of the reasons why I don't actually like classes that much so you can have to go this value and we
+actually need to say amount and let us also just add display and all that
+display does it console logs this dot value okay
+so we create our instance here and then as you can see it's exactly the same
+Classes require usage of "this"
+decrease display increase we can do that and then we can go example display uh
+the only caveat being that similar to objects
+um unfortunately there is no way to hide this if something is accessible from
+inside the class it is also accessible from outside so the has been a recent
+ly that if you dash before it like that and this actually creates a private
+Hiding class properties with "#"
+property or a private method okay so this has been added very very recently
+to JavaScript it might not be supported in all browsers uh but yeah so recently
+JavaScript actually got the ability to create private properties and so forth but this is only in very new browsers
+okay but so at this point still this kind of exactly the same as olfactory
+"constructor" method in JS Classes
+functions and so if we want to do the temperature example again we can also do the same so you can actually create
+something called a Constructor so a Constructor effectively just runs it's a
+method that automatically runs when the class gets created and so what we can do
+is we can say in there the label and then we can say this label equals label
+in other words you need to pass in a label and when you pass in that label
+it's going to set it in here and you can actually get it from inside the class
+itself so then we can go this is similar to the fahrenheit and things we did this
+label and so obviously it doesn't give us an error yet so what we can do is
+let's just create an interface for this so already we have a problem where my
+How to use JSDoc with JS Classes
+convention that I previously did where I made my types Pascal case no longer work so what a lot of people do is they
+prefix it with I to indicate that it's an interface and this is actually something that comes from other
+languages and let's do a prop and we also want this to be hidden so we're not
+going to include this and in here we are just going to have two callbacks so it
+doesn't take anything doesn't return anything and that is just display all right so can we go returns I counter so
+this doesn't work unfortunately the way classes work in JavaScript I mean it's
+actually very hard to wholly separate your interfaces from your actual classes
+themselves like this so if you want to do that you would need to assign it here
+you actually set everything in the class itself so you would you know you would
+write your documentation like this inside the class itself instead of in a
+separate type definition and so that might be a good thing or a bad thing uh
+depending about how you feel about that but um I actually prefer completely
+separating my interface um sometimes even in a completely different file
+um from the actual implementation of that interface and the reason being that when you're talking about classes
+interfaces aren't necessarily something that is separate from the actual code
+that gets run within like very class-based oope the class itself is the
+Historically "classes" in OOP are the interface
+interface I'm not going to go too much into the theoretical reasons and that critical underpinnings but just know
+when you are working with classes this is probably the way you want to do it instead of doing a typedef completely
+separately I prefer to keep my definition separate but yeah it depends on what you if this might actually be a
+plus point for you with classes which is why what I sometimes do when I am forced
+to use classes and and I actually want to do this is that I actually wrap the class in a further Factory function so I
+Can still wrap JS Class in factory function
+would go you know create counter and then in there I would create the class
+and then just return an instance props that I pass through here I would just
+pass directly into that because if I do this I can go returns I counter okay and
+in here because I now have this namespace a lot of times I just call this or whatever which means that I can
+do this again so now I can just do okay so this is just me personally but um
+yeah let's put I just wanted to show that so um let's just also show this behavior of
+where we use the Constructor so let me just pop that out of there and let's just get rid of all of this okay so then
+you would set the parameters on here and obviously now it's unhappy and let's
+Setting "@param" on constructor method
+just say the label is Celsius when we do example display one Celsius
+okay so that's how you would do that the other thing then is that you will see
+now example the label is now actually this is also where I like working
+directly with Factory functions where you have tighter control you can't accidentally expose something like this
+so we will need to do this but the thing is you can't do a private function like
+Unless made private is public by default
+this you need to prepare it first create it first up here before you assign into
+it in the Constructor so obviously but it is going to have to be undefined until the Constructor is called right so
+now it is gone so another thing that I also want to note about losses is so for
+Examples of built-in JS Classes
+example obviously there are a couple of things in JavaScript that you can only access by means of a Class A lot of
+times your hand is kind of forced whether you want to use a class or not you know if we want to do today
+and new date and this is where the new comes from you might have been wondering about that because date is actually a
+class and the same for math you very rarely use math to create an instance so
+Some classes do not have constructors
+you actually see you can't actually math doesn't even have a Constructor and what with math you use what's called like
+static properties on it so in other words you know if you do random that is a static property so in other words you
+can use it without instantiating it so math has both static methods and also
+static values so for example pi and so we can create static methods or static
+values by just using the word static and the convention is usually to put them at
+Example of "static" properties in classes
+the top so static values can be used without instantiating a clause so I can go static first name it's also just do
+static surname and let's do a static method as well static read and that just
+returns yo-yo so then we can run run those so we can go for example console
+log counter DOT first name counter dot surname and let's also just do counter
+dot greet and let's run that because it's a method skull painter yoyo all
+right and so then the other thing is as well is you can also do Setters and Getters so if we want to do expose this
+we will have we can also go set value new value this value is new value okay
+and get value is just return this dot value so you can already see you're just
+"setters" and "getters" in JS Classes
+writing this all over the place so many this is but effectively what we've done now is we've just replicated the normal
+functionality of value keep in mind that in classes you can't have Setters and
+Getters for something that already exists so uh even if you want this to be
+public the set time geta needs to be a different name so let's just say diff
+"setters" and "getters" need unique name
+value so even if this is public example value and example the value will give us
+the same stuff right and also this is also one of the things that I don't like that much about classes is as you can
+see it's much harder to split out your functionality
+and a lot of times you end up with this massive long class you can do this you
+can for example do functions up here increase and so forth and then you know
+Classes are generally harder to split up
+just return it in here generally in my experience class get a bit more unwieldy
+a lot quicker let me just remove all of this let's get back to our counter
+example so now what I'm going to do is I'm going to show you what inheritance
+means has to be stated that a lot of people consider inheritance as something
+that's at the core of oop but it's worth noting that like probably the biggest
+book in the world of op called design patterns elements of reusable object orientated software even in this book it
+Misconception that inheritance is core of OOP
+actually says favor composition over inheritance so what does this mean so
+we've looked at composition before composition is effectively where we take things and combine them into a bigger
+whole so I'm going to show you how to do this how to do the same thing with composition and how to do the same thing
+with inheritance and these aren't p class principles they're not even purely
+Favour composition over inheritance
+oop principles but inheritance becomes very easy with classes and there's also
+a popular notion that inheritance is somehow the preferred way to do things in oop so it is important to talk about
+this there are instances where you need to do inheritance one of them being web
+components inheritance always within JavaScript needs to be your last option there are
+Avoid inheritance as far as you can
+way better ways to achieve higher levels of abstraction without inheritance but
+it's very easy with classes which you've guessed it is another reason I don't like classes
+so let me show you how inheritance Works let's say we have a class and that class
+is animal and we know that all animals can I can either be alive or dead Okay
+so let's say alive which is true so it's a Boolean let's just create an instance
+How does inheritance work?
+and let's say new animal and on that instance live and let's just console log
+alive and it's smart enough to know it's a Boolean if we wanted to say only be
+alive uh we needed to add a bit more typing information so we need to say like a true literal now they can just be
+alive but a Boolean is fine then there are specific types of animals they are
+mammals so let's say mammal mammals extend animals so it inherits from
+Using "extends" with JS classes
+animals in other words in other words these values from CES lint actually like
+doesn't even want us there doesn't even allow us to have more than one class in
+a file so let me just use lint disable it just so he can focus what do we know
+about mammals mammals have legs but mammals have different amount of legs we
+generally don't know how many but we know they have legs so what type of mammals do we get so
+Example of inheritance hierarchy
+let's say we have a dog okay and we have a cat both of these should be alive
+um and we can actually set their legs now we know that both of them have four legs they both extend mammal but let's
+create a specific dog and let's say spot the dog which is extended from dogs
+unfortunately spot wasn't a very tragic accident and he lost one of his legs okay so spot only has three legs so
+let's create some things here so let's say hey we want to create a cat so let's
+say new cat um we just want to create a general mammal and we want to create let's say
+spot the dog okay and all these we just want to check how many legs they have example one all of them should be alive
+cool four undefined and three so effectively you can think about
+inheritance as you're almost kind of going over over it and you can add more
+specific information every time you extend it further this is something that sounds great in principle and it can
+actually make your code look really nice I mean like looking at this you're like sure this is pretty neat you know like
+we have a very nice structure here but in practice results in a lot of hidden
+things that are very hard to debug for example let's say we're working on spot the dog we're like okay example three
+Example of how properties are inherited
+this oh I never set this thing alive where does Alive come from all right let's go so animal okay but how does
+spot the dog get this from animal okay let's go to spot the dog so this and it
+takes it okay there it's declared and let's go to spot the dog it doesn't extend animal it extends dog okay but so
+let's go deeper into dog so like you have this chain and you need to dig and find things and it it it really it's it
+Inheritance creates extremely tight coupling
+come couples your code very tightly because another thing now is let's say
+someone is working on spot the dog and they have you know they add a method run
+that is you know Zoom because even with three legs this guy is fast okay but
+let's say further up someone else creates run here the intent here is they
+want to actually they should start executing something you know so so let's say you know animals start as dead and
+Example accidentally overriding behaviour
+then you have to execute the run method on them to actually set them to True
+again this guy's gonna be like cool okay so everything had inherits now from animals um actually will need to do this we can
+go you know the cat so example one and run and there we go and now if we log
+example one and let's check if the cat is alive after we run that cool true all
+right okay so obviously because spot is a mammal um and he's an animal we should be able
+to do the same on example three okay let's have a look wait why is Scott still dead we did what we were supposed
+to do because it's an animal we executed run to actually create him but he's
+still dead not only is he dead but he's what is this so I guess you have a zombie duck running at full speed down
+the road um so yeah you can see like the problem with extension is it hides too many
+Inheritance hides too many things
+things which is why composition should always be referred and so how you would
+do that is instead of saying what something is you would just Express the
+behavior and the data itself compose those together to create things very
+similar to what we have done up until now so an example let's say a duck all right so let's say instead of
+categorizing things into the type of things that they are we just we just
+"mixins" as alternative to inheritance
+create more loose threats of behavior and values and so forth so let's say
+classic objects what we would do is and this approach is actually called mixins
+so you can actually read up about that so make is a concept in computer science
+so effectively you can think about it as you know you're cons you're creating an ice cream and you kind of say I want
+chocolate I want sprinkles I want a flake so you have these specific things so you don't say I want uh this specific
+ice cream you effectively take all the ingredients and you can combine them into any ice cream that you want so but
+let's just do it with the example of once again for animals or whatever so let's say uh flyable and things that are
+flyable obviously has a value is flying and they usually start as false and lift
+off which just sets this is flying to true and then land this is flying to
+Focus on "has" or "can" instead of "is"
+false okay let's just wrap those in curly brackets and let's just say metal
+so something can be metal material is just metal if you tap it it goes clang
+clang and then you also have something that can be they're those like a duck
+it's just so material is hard material is soft when you tap it I don't know
+what sound it makes if you tap feathers I guess just like so now we can actually create two things
+here purely just from composition alone actually before we proceed I actually just picked up something here it
+obviously it doesn't affect the actual point or the example itself but just in case anyone actually tries to run this
+uh this actually won't work because um over here it's fine we don't need like this lexical scope because we're
+just console logging but if you remember correctly if you use an arrow function it actually doesn't create lexical scope
+Side-note about lexical scope in methods
+meaning this is not going to work so we actually need to write it like that for
+it to work so just a heads up but it's not related to the actual point I'm trying to illustrate so but anyway let's
+continue so we can actually say hey we want an airplane an airplane is flyable
+and it is metal we want a duck and a duck is flyable and it has feathers now
+we can go airplane liftoff airplane let's tap it while it's lifted off and
+Example of "mixin"-based composition
+it's should be able to go clang clang clang we have a duck and duck lifts off it's flying duck lands it's a duck lifts
+off again lands again tap the duck and it goes let's change this to poke poke
+that makes a lot more sense if you because if you if you tap or not so yeah
+this is composition this is a lot easier so you can actually just go if you want
+to know where something comes from so you're like hey what like why why can a duck lift off so let's look at a duck
+let's hover over this oh okay it comes from Fly ball oh this is where this comes from okay and you know so if you
+do this correctly you can compose basically anything you want whereas with
+Composition more flexible than inheritance
+inheritance you're just gonna have to keep on like creating these these different levels of inheritance
+um until you have like a million classes there's this image and this is 100 my
+experience as well don't mind oop part here you know I think this is more about inheritance than it is actually about oh
+and once again it's because like a lot of people think oop is about inheritance and you know so here is what you know
+like kind of a basic example like we did here you know so you have an animal and that can be a human or a pet and a pet
+Problem of "inheritance" in real-world
+can be a cat or a dog here is what tends to happen in actual practice when you
+actually build software with this this has definitely been my experience it's something that's very seems very easy
+and like a cool idea and practice and then when you try and build something in it the requirements become clearer and
+you want to add stuff you want to extend stuff sure it just turns into this coupled mess which is why one of the
+core books about oop says always always always prefer composition over inherited
+I also appreciate this when someone says this isn't accurate you're saying every class would also have an interface and a
+test implementation so there's not enough stuff here oh man some of these jokes are amazing
+okay but there are cases where you can't avoid inheritance sometimes this is for
+Unable to always avoid inheritance
+legacy reasons uh sometimes this is because someone created a framework and this is their preferred way of actually
+extending things even if you find something like this and you have to
+change the code or fix a bug or whatever I would just continue the approach even like if there are a million classes
+because the moment you start combining this and composition like then things
+Conistency is always most important
+are just getting wild I'm not saying avoid this I'm just saying when when you have a choice prefer composition but
+sometimes like it makes sense to rather just continue with this one of those instances are web components because
+what web component we're going to touch on web components now in a second the only way to create web components is to
+extend existing HTML elements and I'm going to show you now why this is what
+the dc39 decided and it's because of a lot of Legacy stuff it's because of the
+way the Dom works and the Dom is a very frustrating thing to work with Douglas
+JavaScript DOM in frustrating to work with
+crockford who wrote the book JavaScript the good parts he actually said that for him to write a book called JavaScript
+the good parts he needs to pretend that the Dom doesn't exist Because he believes there are no good parts to the
+Dom I agree with that the Dom is a mess but it is what it is and it is what we have and we have to work with it and we
+can't change it because of those reasons about backwards compatibility that I mentioned and because of a lot of that
+web components are dependent on classes or not necessarily even classes but what classes abstract so I did mention a
+couple of times under the hood that classes and functions are actually a lot closer than you think and so I just want
+Classes and factory functions closer than think
+to kind of actually show what is this underlying logic that class is actually
+abstract and as mentioned you know like this is purely syntactical sugar it's still does this for you actually beneath
+under the hood before we start talking about this it's important to talk about
+prototypes in JavaScript so what exactly are prototypes I did mention that a lot
+of the confusion that especially other developers coming from class based oop
+JS Classes are not same as other language classes
+languages actually experience is that they assume JavaScript classes are
+actually similar to classes in other languages and I think I made it clear by
+now that the big problem is that they are actually not classes in JavaScript are actually based on something called
+prototypes in order to show you what exactly prototypes are let me just open
+the browser console and let us just get a random element on this page at Google
+What are JavaScript "prototypes"?
+at the Google page let us just find the very first button on this page I don't
+even know what it is so let's go document query selector and let's just
+find right I don't even know what this is um but let's also console der so if you
+remember duh actually shows it to us as an object because remember all Dom
+elements even though they get displayed like HTML in the console that is just
+for help with debugging similar to what it does with the shadow Dom they are
+actually objects not only that everything in JavaScript is an object and I'll speak about that in a second so
+if we open this up we can see all of these properties and if we scroll all
+Example of DOM "prototypal chain"
+the way down you will see this prototype in two brackets written here and it
+actually even tells you where this prototype comes from so let's open that up here is lots of properties so we can
+just keep on scrolling scrolling scrolling and then the next prototype which is HTML element so let's see what
+comes from the HTML element and if you're scrolling and you get this this means that there's more and you can just
+click on that to show more then further we get stuff from element and then if we go further down we get stuff from node
+and then if we go further down event Target and finally we reach object and
+after object there is no more prototypes a everything in JavaScript is based on
+this object prototype so how do we create that thing thinking back to that
+example that we have about you know animal and we have like mammal and all
+of that we can think about everything in JavaScript is actually based on object
+Everything in JavaScript based on "Object"
+it just extends it so we have event Target which which extends object and
+then if we go further up node extends event Target and so forth and so forth
+and so forth until we get all the way to HTML element so this is called the
+prototypal chain and if you go and have a look on mdn so you can actually see
+Prototypal chain in MDN documentation
+the prototypal chain here HTML button element HTML element element node event Target so you can follow it
+all the way down so this is very similar to that inheritance example that we
+showed but there's an important mistake function between prototypes at actual true to form classes I obviously can't
+illustrate real actual classes here because we don't have real actual
+classes in the true sense in JavaScript so for example languages like Java
+python C shops and these are class-based oop languages obvious example where this
+JavaScript classes can only extend one prototype
+differs from traditional classes is traditional class-based oop languages you can actually extend several things
+so this would have actually made our composition example a bit easier so if we remember that example that we had we
+in if this was a true class-based language we would have been able to go extends flying and Feathers likewise
+plane extends flying and metal so one of
+the key things about prototypes and prototypal inheritance is you can only extend a single thing at a time you
+can't actually compose different things together and likewise in through
+class-based systems you you can also not only extend but you can also Implement so I can actually then create something
+JavaScript does not have "implements"
+and say class Johnny the duck implements and so obviously it gives me a warning
+because it says can only be used in typescript files it's not supported in JavaScript and then it ensures that I
+have actually everything that a duck needs so a lot of classic oop languages
+allow mechanisms to ensure that something is the shape of a specific thing in JavaScript there's no way to do
+that so that also means in actual class-based languages that you can
+actually create something purely as a what would be called an abstract class
+JavaScript does not have "abstract"
+purely as almost like an interface like we had so you can I can create you know
+human first name and last name and then I can go plus skulk implements human and
+then it's gonna give me an error if I don't put first name and that stuff in
+it I'm going to show you um just what a class actually does under the hood and then I'm going to talk a
+bit more about prototypes even before the days of the actual class syntax and so forth so if I were to do class
+example one and that is just Constructor and we just pass it let's just say label
+What happens under hood of JS class?
+and all that that does is it sets this in a test and test starts out as
+undefined it just actually sets this test to whatever you pass in label then
+we would call that and we would just say you know instance one is new example one
+so like that what does this actually do under the hood this is just syntactic sugar on top of the following function
+function two okay there we go and we pass in label there and remember
+everything in JavaScript is an object including functions so what we can
+actually do this is a very clever actual approach is that this will refer to the
+function itself which is also why you need to use it in this way you can't do it with a an arrow function because an
+arrow function doesn't have lexical scope so the function itself test equals
+label so then we can also do new example two so let's console log sorry instance
+JS class use function prototype
+one and instance two and you will see that they are the exact and also we need
+to pass actually something to it let's just pass one to both of them and let's
+have a look and see go you'll see that they do exactly the same you can even
+check if it's an instance of so I can check console log is instance 2 instance
+of example two and let's just do the same without class as well let's run
+We assigned manually before JS Classes
+this to show you that it treats both of these as if they are the same thing there you go both are true okay so it
+treats both of these as if they kind of have the exact same functionality this is just written in this manner which is
+the syntactic sugar on top of this and we can even have a look at the prototypal inheritance so you'll see it
+just inherits how does prototypal inheritance work effectively it works as follows so I'm just gonna so in that
+example that we had where we had where we had animal and then we had mammal and
+then we had dog and then we had spot the dog effectively if we go spot the dog
+Prototypes" do not actually "inherit
+effectively if we have you know const let's say we create an instance of you
+know new spot the dog yeah obviously it's going to give an error because that doesn't exist and on that instance we go
+bark a chicks does spot the dog have something called bark if it does it runs
+it it doesn't find it checks the next one it checks dog and dog maybe has bark and then it runs that the big difference
+as well is with prototypes the actual values themselves don't even come along
+for the ride the actual when you call it it checks the current thing and if it
+"Prototypes" are merely fallbacks
+doesn't find it goes on to the next thing into the next and so it kind of keeps on falling back until it
+eventually reaches something which as you can imagine once again can result in
+a lot of really subtle bugs that are hard to pick up as with the example
+where we had you know run on animal which created we created the animal but then we also had run on spot spot the
+dog so if we did run then immediately it would get the one on here on the other
+so if we just did run on cat you know which also inherited from mammal it
+Can introduce bugs that are hard to find
+doesn't have run so it goes to the next one it doesn't have run and then finally it reaches this and you might even have
+other things above that which is like organism and so forth so generally you
+want to kind of stay away from inheritance it kind of results in a lot of these type of things if we just go in
+here and let's just grab the first H1 document query selector H1 and but let's
+also do console der to just show it as a Dom node all right so you can click on
+Example of prototypes in DOM
+that and then you can see this specific H1 we go down what is the Proto what's
+the next prototype in the line HTML heading element all right so we can go down so we can follow this entire
+prototype chain so for example something like click click is something that is a
+actual method on all HTML elements so anything that inherits and also the term
+inherent is actually a bit misleading here because it doesn't actually inherit it doesn't come along it just sets that
+as the target fallback so in other words if I do click on this H1 it's going to
+see is there something called click on it there isn't so it's going to go to the next item in the Prototype chain
+HTML heading element does that have click no it doesn't and then it finally
+runs this over here but here's where it gets even Wilder we can directly add and
+JS prototypes are dangerous
+remove things from prototypes and this is where it gets wild which is why I
+really think the JavaScript implementation of classes is very problematic granted most people are
+never going to run into these type of cases but even just the fact that it exists excuse me you can actually
+directly modify prototypes after they have been created so this is also what
+the difference is with traditional classes so if I go class bird okay and
+bird has a color which is starts as undefined and let's say it is a certain
+now I know if I look at this thing this is this is the shape of a bird this is
+what all birds are going to be if I see a bird this definition is actually what
+actual birds look like and not only that some languages are just like this is
+crazy you can set your class and that is it and you can't change it again for you know obvious reasons like you know if
+you want to look at this you want to know this is what a bird looks like um you don't want to know okay you can further modify it down here which you
+know some languages allow you to do that I think it's a bad idea but some do that and so you can also go uh Wings you know
+let's just say all birds have two wings okay so but this isn't that great but at
+the very least still there is uh actual set of rules that when you create a bird
+um let's just say you know Dove and we say new bird that when we create them here all of them are going to be created
+with the same rules you know like once that's created uh whatever these rules are that's going to be the shape of the
+In JS can change after created
+bird what makes JavaScript absolutely crazy in terms of its prototypal
+inheritance is I can actually go after this and update bird and it's
+automatically going to update all the birds that have been created already that is insane that sounds super
+powerful and it is but it's very very scary because someone can just go bird
+prototype legs nine and now all birds that have ever been created up until
+this point is automatically gonna get nine legs added to them retroactively which is crazy and this is also why I
+prefer Factory functions because you can't do this this type of crazy stuff with Factory functions when a factory function runs the thing that gets
+created is based on the conditions of that factory when it was created with prototypes because remember prototypes
+fall back they don't actually get inherited they don't actually get extended that me means that you have
+Dove and it checks does dove have legs and no it doesn't and it falls back to the next thing so at any point when you
+call it you can set the fallback condition so you can change the Prototype even after the thing has been created and because it falls back it's
+going to pick it up that might have even confused you even more so I'm going to show you a practical example and in the
+In early days of JS this was abused
+early days of JavaScript people thought like this is amazing and they went nuts with it I'm going to show you an example
+of like how you can actually would have done something useful with this but there are very very big problems uh if
+we go on mdn Prototype they actually have this big red warning over here
+telling you not to do it so if we look at for example object which is what everything is built on every single
+actual built-in prototype in JavaScript to have this warning that says do not modify the Prototype you are asking for
+Today this is considered bad practice
+trouble it says modifying the Prototype property of any built-in Constructor is considered bad practice and risks
+forward compatibility on mdn they actually tell you to avoid directly using the Prototype itself so and so
+what does this actually mean so let's let's go to the MTN home page so let's go to latest news let's get the very
+first H2 and just ignore that error up there it's mdn specific all right there
+we go and so let's get it as a dur so as the actual Dom object okay and you can
+Example of why is dangerous
+see it has all these prototypes that will fall back to when you try and access something so you can imagine even
+after this thing has been created if you update one of the prototypes that it was
+created from it's actually gonna be able to fall back to that updated version of
+the Prototype because it doesn't contain everything inside it so it's dependent on things that are completely outside of
+it that can become that can actually be updated and and without even knowing that there's something that depends on
+it at the very least it was traditional class-based languages you don't get this so let's say hey everything that is
+actually based on this HTML element let's add something to it so effectively
+every single HTML element on this page the Dom node of it the Dom object is
+going to get something new HTML element prototype let's add something called greet and let's just make that a
+function all right uh let's just say that says console logged all right so that has been added so let's find that
+document query selector so let's get a heading and on that heading let's try and run greet wow check that hello so
+how on Earth did this happen we never added anything to H2S but the reason is
+because like the Prototype keeps on falling back falling back falling back any object that is in that actual chain
+it's actually going to be able to treat it as if that is a property on the thing itself so that effectively means if we
+add anything to the object prototype it's going to be available on everything
+Has too much hidden behaviour
+not only that we can actually override how something like two string works on
+the object prototype and because everything inherits from the object prototype it's completely actually going to override how to string Works in
+JavaScript itself so as you can imagine when this was discovered people went absolutely insane so they started doing
+things like um taking the array prototype and adding something like sum
+which all the values so let's say this and I'm just going to use a higher order function here just to calculate the sum
+Why might seem useful at first
+I'm not going to you don't need to know what I'm doing right now so let's just do reduce this value and results don't
+worry too much about what I'm doing right now I'm just adding the ability to calculate the sum of values so of L plus
+result we just added that to an array that means now if we do this run sum on
+it you can actually just add your own methods and properties to JavaScript as
+you can imagine that is a really really big problem it just takes me doing this and now literally I'm changing every
+single possible line of JavaScript in a code base even code that I've never seen
+before I'm influencing how it's going to work now so some of the really very
+Early JS libraries extended prototypes
+early um JavaScript libraries actually added the the the actual extended behavior in
+this manner you had these like prototype and so forth so if we look at the documentation for Prototype if you
+install prototype now all of a sudden you've got all these extra things so you know element layout you know now you've
+got this thing called layout um On All or to CSS or whatever and
+people thought this was amazing and like people just pulled this in left right and Center until we started realizing
+hey being able to just like update make these massive changes to how things work in our code base with something as
+Community realised is bad at point
+simple as this is maybe not a good idea especially when you're several people working on the same code base and so so
+we saw dramatic change in approach with libraries from there on out I'm going to
+speak a bit about libraries a bit later but so the the main one that came after that was one called jQuery and you'll
+actually see that what jQuery does if we look at the jQuery documentation all the
+jQuery stuff is actually just in a jQuery object that you install so for
+example if we go to the documentation and yeah you can see from from the website jQuery is is a bit old school
+you shouldn't really be using jQuery anymore nowadays um so it actually create an object in
+the dollar sign that you could use because you can't technically actually use the dollar sign as a string you know
+it would do something like this so ad or whatever and it had all its behavior in
+here so it kind of moved away completely from this ideal prototypes and so forth
+um in fact you could actually even create plugins for jQuery that used
+actually a factory function so if you wanted to add something to jQuery you
+could go.fn and just say what you want to call your thing so you know yo yo yo
+and that kind of prevented you from even overriding some of the bolt in jQuery stuff prototypes have a Troublesome
+history in JavaScript classes are based on prototypes at the very least classes
+Prototypes still hidden under classes
+don't expose a way to do this directly in the class itself so it tries to Model
+class-like Behavior on top of JavaScript it's not a hundred percent the same as
+classes in other languages as mentioned you don't have implements you can't extend from more than one plus or
+abstraction and it actually doesn't even extend it actually just sets something as a fallback Target it does it in such
+a way where at the very least it it hides the dangerous stuff from you but
+kind of just to prove that it's still there if we go for example class bird and you create an instance so let's just
+actually say you know Wings two and I create an instance of that bird so I say
+new bird if I then even after the instance has been created and I extend
+that from animal and let's just add class animal up here and extends with an
+S okay and it's just unhappy and it's just unhappy because it's not a big fan if I do two classes in the same file so
+what I can still do is I can still go animal prototype legs nine and then if I
+want to check this instance of this bird that I created how many legs does it have nine despite the fact that by the
+time the bird was created there was like there's nothing in the actual things
+that it was created from it was added afterwards even after this instance was created so you can real time update
+existing instances which is very very scary at the very least two classes
+created classes actually doesn't allow you to do this it is still there so you
+need to know how to do it to actually be able to do do it any documentation you read anywhere whether it be mdn or
+whatever it's going to tell you do not do this please do not do this that's two classes as credit but be mindful that
+Luckily classes do not them directly
+this is actually what classes are built on and that it's actually not through classes in the sense that you would have
+a class in an object-orientated language which you know isn't an issue at the
+very least it gives us the exact same behavior that we get from a factory function the good news is that at the
+end of the day it just comes down to what is your personal preference a lot of people would say classes are
+inherently bad I wouldn't go that far I would just say personally I actually don't like working with classes if it's
+Yet JS Classes are not true classes
+not an interface that I enjoy it's also I find it reads a bit too differently
+from the way that you write your other JavaScript it works a bit too differently and it requires you to rely
+on this quite heavily um and pretty clear that I'm not a fan of this but yeah like subjectively I just I'm not a
+big fan of classes but if you like classes if you like working with classes
+I would encourage you go ahead use classes but in the case of something
+JS Classes closer to factory functions
+like web components because web components extend the Dom and because all these Dom elements are prototypal
+and have these prototype chains they do require us to use classes there's no
+other way so so in the next section I'm going to chat about this but effectively you would create a web component as you
+would extend an HTML element so I would go for example skulk custom and I would
+need to extend the HTML element and it would and it would set up the prototypal chain in terms of you know HTML element
+and then element and then further down element node and so forth and so forth
+and so forth all right so in the next session I'm going to introduce web components and I'm going to show you why
+web components are useful

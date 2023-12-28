@@ -1,0 +1,455 @@
+Recapping previous content
+but now for all intents and purposes you shouldn't know how to actually use a
+class instead of a factory function both of them achieve the exact same thing it is just a matter of personal preference
+for me personally I prefer Factory functions um I also find them a bit more idiomatic
+in terms of the way I write JavaScript in the end classes actually are just
+syntactic sugar on top of actual functions and so let's just quickly go to tasks and let's just look at how we
+would replace our tasks by using a class and I'm just gonna copy this just so I
+have a backup or reference so we would just say task instead of create task
+once again create is used to indicate a factory function then over here we will
+just export class task and with the syntax we can just immediately create
+the ID and that like this I wouldn't use State like this I would just put all of
+Rewriting "createTask" as a class
+this stuff directly in it and so all of this would just be in the Constructor so
+as mentioned you can still keep this outside of the class and over here we just need to say this IDE same here this
+ID here we can just go completed is this completed and these are actually going
+to be so we're going to put this on the Constructor itself okay and it's
+actually just destructure that right and so instead of making this an object that
+gets returned this would actually just be on it itself and instead of getting this from the state and also we need to
+remove the commas in classes you write it like this without the commas because
+we want to use Getters and Setters and as mentioned in classes you can't have a get and Setter with the name as that is
+the same as an actual property in the class so we let's set these to private
+Setting properties to private
+and then the Getters and Setters just mediate how we use these and return
+these and so yeah so I'm just working my way through these now and just replacing
+everywhere where I need to we also need to add title and it's going to be
+undefined and also urgency so if we want to create private
+properties we need to create them first and then in here we can assign them so
+we just extract the ones that we need to get from The Constructor and just placing them directly in there okay cool
+and then we can also once again like you don't necessarily create an interface in this manner so what you instead do do is
+you mostly set that on in the class itself um generally you don't make a separation
+between your interface and the classes themselves the class almost is the
+Adding JSDoc inside class itself
+interface so as mentioned you might actually prefer this right so this is
+all good so this would also just be this and let's continue working our way down
+here just swapping out all of these we never actually picked this up in our previous example but seems like we never
+actually set the urgency view okay and I think that is that there's our class so
+generally Airbnb es learned actually says that
+do this in here it's probably an error but in most cases it would be but in
+Overriding ESLint warning
+this case we we actually know that that is actually the behavior that we want so we can just go eslant uh eslint disable
+next line class method use this so it's
+gonna emit that it so it just assumes whenever you create a method you
+actually need to do use this in it at some point unless you specify otherwise
+right so what we can do now we actually made the change in the backup so let me
+just make this the actual real one and it's actually call a task as well like
+this from here let us just import task and import the actual class and then
+what we would do is we just say new task like that and then over here we need to
+Confirming changes in browser
+do data and new task and just pass data into it and so let's have a look and for
+all intents and purposes our Behavior should still be exactly the same we are
+just literally using a different way of creating the same thing so let's give it
+a go right save there we go exactly the same behavior we're just using a class
+instead of a factory function and and these are actually closer under the hood
+than you think I'm going to keep these as just functions up here you can even make them classes yourself if you want
+to so what classes allow us to do and and that is because the Dom itself is
+built on this prototype model that actually is underneath classes as well
+we can go plus and let's just say example extends and we go HTML element
+okay so we can actually extend an actual Dom node there's only one thing that is
+Example of extending HTMLElement
+needed in this and that is connected callback and connected callback you effectively just tell this HTML element
+"connectedCallback" method
+what that you just created now what it needs to do when it actually gets added to the Dom and we can just say this in a
+text hello clones uh base HTML element with no semantic meaning so something
+like a div or a span but even higher level than that literally just a vanilla like plain HTML element with nothing and
+we just say when we add this to the Dom just put the word hello inside it
+automatically now we need to register it so let's do custom elements Define for
+you'll be provided with a name and so with custom elements you always need to
+have a dash in them so I can't go example I need to go you know for example skulk or whatever I'm going to
+Introducing "custom elements"
+speak about that in a second why that's the case and let's just pause this in here so let's just grab that let's put
+it in our scripts file so it actually runs now we can actually do something amazing let me show you we can actually
+go in here and we can actually use example skulk as if it's an actual HTML
+element let's do three of them hello hello hello hello this is really cool so
+you can probably imagine what we can do here now is we can actually create this
+as a single task like that and actually pass values to it as if it's an HTML
+element and that is how we actually get full on encapsulation and we get that by
+means of something called The Shadow Dom I'm instead of explaining to you what the shadow Dom is let me show you what
+it is so there's already this thing in HTML called The Shadow Dom so as an
+example it's up here let's say we're embedding a video component and that has controls okay and let's have a look at
+that so we we didn't include anything but you'll see here is all of this stuff okay
+but if we inspect it it's completely encapsulated we we can see there are
+Example of the "shadow DOM"
+some things you know there's like a play button there's like all of this stuff there's some buttons only exposed to us
+as a video this is we can't go deeper into it so this is behind something called The Shadow Dom in other words it
+has its own little Dom almost like this page has but we can't access it but we
+can interface with it so you know if we remove controls it's no longer going to show the controls if we put it back you
+know it's showing the controls we can say you know things like autoplay and
+and things like that so we can pass it so this is pretty much like an interface you know as we had previously but it's
+all the HTML the CSS The Styling for this is all like in a little bundle so how do we create something like this
+this is just fully encapsulated that we can just Chuck in in this manner so
+let's do single cost okay so what I usually do is I separate just
+regular modules from actual components or components are things that have HTML and CSS and all of that in it so
+components and I usually just name the component how I would actually call it
+Separate "modules" and "components"
+in HTML so single task JS so let us just
+start out doing the basic HTML so we can create it in our class in in the way
+that we do over here the problem is that um it's not the end of the world it's
+fine but we can get a lot of performance benefits by actually creating a template
+putting it in the Dom and then just cloning that template instead of every time taking a string and turning that
+string into an actual Dom element let's grab all of this and then in here so
+Creating HTML "template" element
+before anything else if we pull in this component let's create a template so const and let's just call it template so
+and a template is actually a HTML element you can actually create your
+template like this as well in your HTML just like this and some of the Frameworks like View and so forth
+actually do this so you can do it like that as well I prefer having everything in my in my component file so I create
+my template in a HTML and I just put all of this in there okay and obviously now
+we need to express this as HTML as well so let's just get rid of this for now so
+we are just gonna have an Li okay and on that we're gonna have task let's just
+get the plain HTML without the data attributes or any of that info we can just do this as well okay and once again
+um let me just set my spaces to 2 over here uh prettier is going to have a hard
+time actually formatting this for us so we might need to do a bit of formatting
+ourselves we also want to put our CSS in here and you might be like but ours
+actually taught that we shouldn't do inline Styles and yes under normal circumstances but when you're using
+Inline styles in shadow DOM
+templates and and this type of thing the browser actually gets really good at
+actually caching this so the only caveat being that as long as you don't put
+anything dynamic in here as long as this template is just just a string and you
+don't have any interpolation or anything in here it's going to be lightning fast so we can actually move all the task
+specific stuff out of here and now we also don't even need to use Bim because this is only if we use the shadow Dom
+CSS only applied to shadow DOM
+this is only referencing this thing itself so we can actually get rid of the
+name spacing that only gets applied to what is in the template it can't style anything outside of the template just
+one thing we will need to just manually add box sizing border box because for
+all intents and purposes this is a completely new Dom it's a shadow Dom but it's a it's a new Dom so inside this
+Remember to set "box-sizing"
+component and so we also need to tell it how to do the Box sizing Behavior okay but so here we go okay so we have our
+template there so let us then create our class and let's just call our class a
+single task and I mentioned that I will I would talk about why the dash so the
+reason for the dash is you can imagine that the problem is let's say I create
+something called single task and this is fine and all and have this custom component and in three years
+w3c decides hey we actually want to add something new to HTML we want to add
+Why "custom elements" require dash "-"
+this thing called single task now we have a big problem and that problem is that now my custom thing that
+I created actually conflicts with something that is actually now native in the Dom in HTML so the way that this is
+solved is at the moment there are no HTML elements that have dashes in them
+so you can think about Dove you know you can think about Li you can think about IMG at this moment in time there's not a
+single native HTML element that has a dash in it so what the w3c decided is I
+said that they are going to commit never adding anything that has a dash in it
+that means that any words that have a dash in it is now completely reserved
+for just custom elements so we can create custom elements knowing that there's never going to be anything with
+a dash that is possibly going to conflict so because of that um customer elements do require to have
+a dash in them so we can't go uh custom elements Define because tomorrow they
+might add something called tasks so let's just call it single task what a lot of people do is they actually prefix it with the name of the project so so
+for example if this is Twitter they would go t w t preview or whatever and
+then they had something else that is you know we might even go to do um preview and then you know to do list
+um but let's just for now call it single task we also need to add a class to it and that is just the single task class
+here all we do is we do connected callback so connected callback buyers
+How to create a shadow DOM
+when it gets added to the Dom and all that we want to do is we want to do a
+couple of things so we want to create a shadow Dom so I spoke about the shadow Dom so the shadow Dom is effectively
+kind of an encapsulated Dom with its own HTML and CSS that you can't access from
+outside so it's fully encapsulated so I usually just assign it to a property and
+I just usually call it in there and then I go this attach Shadow and then you
+Assign shadow DOM to property
+just need to give it a mode I'm not going to go into this too much but we want to have the mode be closed meaning
+you can't access it from outside and also we need to extend HTML elements so
+remember that that's this is why we got that error because there is no attached Shadow unless we actually because this
+comes along with HTML element so instead of actually assigning this to the inner
+HTML now of the actual component itself we have to assign it to Inner to its
+actual Shadow Dom but we are no longer going to just pass a string into the inner HTML in fact we're just going to
+take this template and just clone it into the component meaning that it doesn't need to parse it and render it
+as Dom elements we have those Dom elements already and it is just going to
+actually clone it and pop it in here so if you remember correctly the this
+should maintain a reference to this template element so we don't need to query for it again we can just straight
+Attaching template to shadow DOM
+up pop it in here what we are doing here is we're saying this inner okay which is
+the shadow Dom that we created and we are pending something to that's a pen child and this is just template dot
+content this is going to take the content from this template and it is just going to pop it in there what we
+need to do now is we obviously need to let's get rid of this we obviously just
+need to import that component now so we're just importing the registration and all of that so we're actually just
+importing the code and so the code needs to run we're actually not using any variables or anything from it so we just
+do it like that so it just runs the registration and everything so that means we should theoretically now be
+able to go so let me also just disable all the other other code that we have in here
+and and just before we actually never updated this class so let's just let's
+update this to wrapper all right let's have a look now and here we go all right so now we need to do the exact same
+Passing attributes into component
+thing where we actually bind this to the actual values in the class so we have
+the title we have all of that but how do we also pass that from outside so theoretically we want to go title hello
+with booleans you actually don't actually in HTML say so you can think
+about something like disabled you don't say disabled you know true or false you
+just say disabled so in the same way we just say completed it's just it is there or it isn't and then the same with you
+if there's no du we can just so let's just say there's a title it's hello and
+it is completed and let's just add another one below that and let's actually just say wash clothes make bed
+thing actually you'll see that it only has one and I'll I actually missed
+something and I'll I will explain to you why now so what is actually happening
+here is we're actually just moving the same template around every time because
+as you remember this is a reference to it we're not re every time we do this
+every time I append it we're not copying it we're just moving the same one around because it's the same reference so what
+we actually need to do is we actually need to clone it duplicate and so we do template content flow node so like that
+Cloning template in shadow DOM
+and then we pass the duplicate and this is actually nothing not
+own it but this is also something we actually already need to do in the Constructor as well Constructor and here
+and we need to call something called super I will explain in a minute what super is so let's just de-structure
+content from the template and then this inner the pen child content and clone
+node true so now if we remove this there you go now so now we have three so we
+need to actually clone it otherwise we're just moving the same one around every time and another thing that people
+actually do because what happens a lot of times is you create all your stuff up here and you create your class all of
+that and then you forget specifically when this gets very long and this gets pushed all the way down you forget to
+actually set this over here so what I've seen a lot of people do which I actually prefer myself just because it makes it
+Placing class inside custom element
+harder to accidentally forget to update this is you actually wrap the class so
+you don't give it a name and you just wrap it directly like this inside the
+Define comma separated you can even put a spacer that just ensures that you remember to update this especially if
+you just copy and paste to create a new one but it doesn't matter which way you do it I've just seen people do this I
+actually prefer that a bit so what we want to do now so then we want to grab
+the attributes and put them actually on here classes don't allow you to have as
+fine tuned control over your interface as something like a factory function
+does I just start everything as private until manually actually say hey this is
+actually not private anymore and even then I'll probably just handle it and manage it through Getters and Setters so
+we have title and then we have completed we can actually in here already
+grab the attribute that gets passed okay so we can actually set it in here so we
+Handling attributes inside component
+can say this get attribute title and this get attribute completed and let's
+actually just log them here just to show that it actually grabs it from the HTML
+right so as you can see wash clothes make bed do homework so actually already grab it from the HTML in here and we
+just put it directly in there so one thing though to keep in mind that
+everything in HTML is a string so even if you go value that is a string you
+need to parse it in the component itself and so theoretically also when you do this it is completed equals empty string
+what that means is when we're passing things like this we actually just need to check is it anything except null
+because by default if you don't include it it is actually null so that means if
+it's any if it's not null then it's actually true so these it's actually null okay over here it's not null it's
+an empty string so so now that we have this when it gets rendered we actually
+want to set what's inside these things based on this okay so we have our Constructors here and so now we do
+Binding attributes to shadow DOM
+connected callback so connected callback once again runs them when this is now in the Dom so we want to set the shadow Dom
+based on so so what I actually do to make my life a bit easier is I actually
+also have an elements yeah which is just an object so I don't need to have to
+document query this stuff all the time so let's just use data check it's not
+make the same mistake here again let's do data title data delete so remove the leads actually
+delete is actually a reserved word in JavaScript so actually want to try and stay away from it so it said data remove
+instead add my elements so by this time they are not going to exist yet but I am
+going to create them so let's do checks so by this time all of them are undefined we haven't actually found them
+yet because they haven't been added yet and then over here we add them so this elements and we set them so this will
+just be this inner and we also want to make in a I didn't even think about this but obviously in there needs to be a
+private thing otherwise anyone can just grab the shadow root and do anything with it so in all these cases we want to
+query the shadow Dom and we can even bring or get HTML element in here so
+let's actually do that for that extra level of security in terms of guarantees
+outputs and so we want to say get HTML and this will be title so the data
+attribute will just be title and the target will just be this inner all right
+so let's just copy this to all of them and also an interesting thing here is
+that it actually gives us a warning um and it says that it's not a Sim
+element but it's actually shadow root so for all intents and purposes these should work the same so all that we can
+Extending "getHTML" for shadow DOM
+do is we can say it can be an HTM element or a shadow root so we can just pass any of these two it should work for
+either of them so now that we have our elements this is going to be a bit easier so all that we can do is we can
+say this elements title equals this title so whatever was set to title and
+then this elements check equals this completed and so let me just add my Js
+up here and the reason is we need to say in a HTML and also it didn't warn us
+about this even though we have TS check like automatically being applied to everything because we never we need to
+add our types here so let's just actually do that so this can be a string and only a string is a string and can
+Adding JSDoc types inside class
+only be a string this is a pool and it can only be a Bool elements so this can
+be undefined or um an HTML element and that is the case
+for all of these so now it gives us a because obviously we can't assign this to an HTML element so if we did that
+properly from the start as I told you guys you should and I I didn't follow my own advice Shadow root who would have
+gotten this warning so let's say in a text answer this would also be checked
+and so in this case we have the same problem again we can check over here if
+this element's check is not instance of input HTML input element then throw an
+error throw a new error required to be input element all right so now we get
+that because checked should be on all inputs so we know that for a fact and we
+know this is an input but why is it not setting that so let's console log and see what this completed is let's have a
+Why event listener not catch error?
+look in our console are required to be input elements so why does this not go
+all the way up here well technically because it's not part of the Dom it's its own Dom so unfortunately all events
+or errors everything it's almost like as if it's its own little web page in here so obviously it never gets picked up by
+this because this is only for the main Dom it's not for the shadow Dom in here if I'm these are the type of mistakes
+that I make if I'm talking while I'm coding because it's very hard to do both hey all right okay what's also cool is
+we can do this but we can also programmatically create these things so we can even go const task and we can say
+Creating elements programmatically
+you know document create element and we can create single task because
+theoretically it's now an actual HTML element that we can use in the same way that we can create a div or whatever
+let's just log that to actually confirm that that is the case hey and check here single task another thing is if we go on
+here you will see that if I open the browser Chrome kind of has a bit of a
+hack that allows me to actually look inside the shadow Dom and it's usually
+Shadow Dom's usually indicated by this and you'll see actually it says here Shadow root so in theory the JavaScript
+doesn't have access to the inside of this but just for debugging purposes and so forth Chrome actually allows me to go
+Devtools allows peek into Shadow DOM
+actually and look in it and I can go you know just for debugging purposes but to
+indicate this you know if I try and find class wrapper so let's just do console
+log document query selector analysis dot wrapper so look for class wrapper let me
+console log that null it doesn't exist because it doesn't it can't go into the shadow Dom but this is just to help with
+Actual JavaScript code can't access
+debugging and so forth it kind of gives us a bit of a cheat code to go in there all right so let us create our component
+for adding so copy and paste from single task just so we can reuse this again so
+let us go in adding over here let's get the HTML so so dialogue and the class
+would just be overlay and we just need to close with overlay as well oh
+dialogue not overlay sorry dialogue grab this put it in our web component instead
+Creating "task-adding" template
+of the LI let's put that in there and let me just bump it in a little bit okay
+there we go dialogue let me also grab the CSS for the overlay
+specifically oops I actually just realized we're editing the wrong file we're editing single tasked up we're
+editing single task up here that's probably not something you wanted to let me just take it back to the way it was
+and make sure we're actually editing in task adding let's grab the CSS related
+to that okay so overlay so task adding let's just replace this remember to keep
+this up here okay so now we have all our template information or HTML task adding
+and so for now let's just keep it as is we can I think especially in the next
+lesson where we're going to start creating more custom things like reusable things like building out the
+rest of the app and we can start at like breaking out things like generic modal
+elements and so forth a generic form elements and and so forth but let's for
+Configuring "task-adding" class
+now to keep everything in this specific task adding so we are not actually
+passing anything because this is once off component that we're only going to use once so we're not going to configure
+it everything is hard coded inside it which in the next lesson we're probably going to start breaking up more modular
+more reusable things in terms of elements or whatever you so the we need
+the form and is that it and the cancel those are the only two things I think we
+need yes right so we just need to grab data form and we need to crab data
+cancel all right so let's just do that in our elements here so we don't have access to it yet because it only gets
+read and rendered on connected callback and we create the shadow root and we clone the template and in elements we
+grab the form and we grab cancel right and so this should be form and this
+should should be cancel and this is unhappy because we actually mocked it up
+as this so this needs to be form and we can actually say this is form and cancel
+all right so then obviously we're not passing title we're not doing any of this stuff we actually the only thing
+that we do in here is the connected callback so actually there is one
+property that we can pause and that is whether task adding is open or not so
+let's create this in here and let's say open it starts as not open unlike our
+previous example we're not including the button that opens it as well we're going to keep that separate but you should be
+able to set this open or closed let's do our settings down here and let's say set
+open new value get open but what we can do is we can just return this so the
+Adding open "getters" and "setters"
+private The Hidden open and over here we just set this to the new value but then
+we also want to run that go modal and close modal that we have yeah while
+we're at it let's actually just make the classes a bit more reasonable we don't
+need to use the Bim name spacing anymore so we can actually just do overlay we can do title we can do field you can
+even just Target the HTML straight up and I still keep the classes though but I just make them much more generic like
+this I don't need to worry about namespace Collision I see that it has
+button in here let me just add a note here let's create that file because let's say in the next lesson we're
+probably gonna create user action which would be a button or a link or anything
+like that but for now let's just put the styling for button in there as well
+duplicate that so up here because as you might have guessed you can actually put
+web components inside web components so we can actually put a custom component in here which is what makes web
+components so cool so task adding to open false and so let's also in our
+elements grab the actual dialog itself undefined HTML elements and that starts
+out as the actual overlay itself undefined and then we just actually grab
+it when it gets connected and so when you set the value likewise as we did
+previously with the completed we can check if the new value is the same as
+what is currently the set value then just return don't do anything don't update anything don't save that
+processing power save those kind of re-rendering if not then set it to the
+new value and we also want to say if the new value is true so if new value then
+this elements overlay show model and it's going to tell us show modal doesn't
+exist and that is because let's in here first of all check we know that this
+elements overlay is an instance of HTML dialog element but we say if it's not
+then throw this error oh new error dialog element required okay so now it
+knows that it's a dialog element and it's going to give us the dialogue elements related things and so obviously
+if the new value is false then this private elements close all right so as
+we said it is automatically also just going to update it and let's add this event listener in our connected callback
+so this elements cancel add event listener and when that is clicked all
+that you need to do is set this and remember we shouldn't directly set the
+private one here because the actual public one has side effects it handles
+this HML stuff for us so we need to actually set open to false if we set it
+directly to the value then it's not going to actually trigger all of the center stuff because we're then
+Setting "public" value for side-effects
+circumventing the setter then also this elements form let's add event listener
+submit okay and let's for now just console log the values so let's get all
+of this from over here and so let's just grab the event from there we can do this
+but there is a better way than actually just passing a function to the element
+we can actually Leverage The Dom's event bubbling system and we can have this as
+an actual new element that we created actually by an event that bubbles up that we can catch at any point so we can
+Using event bubbling to replace callback
+catch a submit event so we're going to just comment this out and response and
+then we also can discuss this open and we can set it to false and event Target
+reset okay so we need to do let's just console log that response for now here is our task adding and let's just pull
+that in here so similar to this let's just pull in task adding and it would
+register it as a custom component that would mean that we can just add it to
+our HTML over here as an actual element that is called task adding and by
+default open is set to false so we don't need to but if we do that it would actually be open okay so over there it's
+not doing anything but if we set it to open it should actually be open and so
+why is it not we didn't we don't actually get this from the attribute when it gets created so over here so we
+Passing "open" attribute to component
+can go over here and we can get the attribute directly and feed it into that but what we actually want to do because
+we once again we want to trigger like all the side effects is let's get the
+attribute in the Constructor and we would set it on the public value so we would just do that when the element gets
+constructed so this get attribute open and remember we need to check if it is
+not null because if we don't pass it it will be null right so that will set this for us when the component gets mounted
+because we're setting it to the public one it triggers all the side effects as well that we get from the setter so we
+are getting this error that says it's not a dialogue element so if I look elements overlay
+undefined but in the connected callback we set this elements and so what is
+Ensure shadow DOM already exists
+actually happening here is that because we are only setting this on the
+connected callback but we're already firing this in the actual Constructor we
+need to move this to the connected callback we can only open it once the HTML has loaded so over here we're
+trying to do it but it doesn't exist yet so if we move it over here it is it
+should work theoretically let's have a look cool and there we go so obviously then if we set it in our HTML over here
+to remove the open then it's not going to be open okay so that's pretty cool so we've kind of created this custom
+element close is not this element's close I actually think it's called cancel and not close yes so that is
+interestingly enough it should have given us an error not 100 sure why it
+didn't so we actually need to close the overlay right so so this should work now
+HTML elements inside Shadow DOM
+let's have a look hey all right but then how do we open it and so let us add a
+button here like we had previously but it's no longer part of task adding so
+let's just do a button uh let's just say add task and the class is button and
+let's just get rid of this open here uh let's add an event listener to this
+button let's just call it data add button so we can search for this directly
+um and because we like it's an actual thing and it's not just HTML this is a
+bit better than just actually searching for an HTML element but regardless if
+you want you can still use data attributes on it I'm just going to search for it directly then in our
+script so obviously at this almost high level of abstraction what we can do is we can say const and let's say add
+button that's just document query selector and then the actual task adding
+Connecting custom elements in "script.js"
+we can actually query as if it's an HTML element so we can actually just task adding because it is because it's one
+that we just created right now and so we can do add button add event listener and so effectively what happens is when
+someone clicks the add button task adding open is just set to an add button
+so we just need to also do so in our modules or slash
+helpers.js let's grab get HTML and we can actually just do that and for that
+purpose we just we might want to add data a data attribute here because it uses data attributes so let's just say data adding
+and so that actually means we can get rid of all of this add button and adding
+and we also data attribute and so add button is assume and add event listener
+for what for click task adding open so what you can actually even do is you can
+export the class from task adding so we're not exporting anything but what we
+can do is we can and this is maybe where this approach isn't that great so we
+Export class to do "instanceof" check
+want to be able to still export the task and in the same way that we have HTML element and all of that stuff let's just
+call this task adding and we export that and because we need a default export
+export default task adding let's put this before the default export and now
+we can actually pull that in here so we can go task adding from and then we can
+actually check is it an instance of up here we can actually also just say if task adding is not an instance of task
+adding the revenue error um invalid task adding adding in HTML or
+whatever obviously the errors I'm adding right now isn't that great but it is what it is and so now we know that it
+has opened so this is also pretty cool because we do that now and we can also get documentation if we want so we can
+even go on here and say you know whether the overlay model is shown or not so now
+check that out so we for all intents and purposes create our own HTML elements
+and then cancel so the last thing we want to do is we want to attach a event listener to task adding itself we can
+say something like submit or whatever but let's create our own event listener
+Add event listener to custom element
+here like we would create a custom event that we listen to for and let's just come up with something custom that isn't
+used in HTML already let's just say added and when added fires we get an
+event now let's go in here and let's set up what's going to fire that event in
+our own custom task adding so let's in our connected callback actually register
+that so we have it in here so let's create in here a custom event so let's
+Creating a new custom HTML event
+do const and let's just say event and let's say new custom event so you can
+fire an existing event but let's create our own cast moving because custom events allows to send extra information
+along with it what is it going to be called and it's going to be called added and what we can't pause so we need to
+set bubbles to true so that it actually bubbles upwards because by default
+custom events don't bubble so that is something we need to enable and we can also add detail and detail is
+anything extra that we want to add and so let's just add response to detail and
+then what we need to do is we need to say this so in other words the web component dispatch event and we just
+Dispatching the custom event to DOM
+pass the event so that gets dispatched and this is unhappy let's just call it added there we go all right so now it
+dispatches that for us you will see that if we now put a console log in here to
+listen for that event it is actually going to pick it up so let's bring this in here and if we click our task and
+there save hey it actually our event listen actually picked it up and you'll see actually detail comes along in our
+event listener here it doesn't know it's a custom event we can just also do a tech event instance of custom event so
+if it's not a custom event throw new error because it needs to be a custom event required to be custom event and so
+now because we know it's a custom event if this Arrow doesn't get thrown we can
+go event detail and so let's just cancel log that and so if we do add task
+hey it adds the details so then in the next lesson I'm going to show you how we
+would then actually from that create a task and like we would also transform
+everything we have into custom elements so our entire app is just like all these customer elements that are talking to
+one another these units of encapsulation and then actually how we can use the principle of polymorphism to actually
+have a create a list component that can take any type of thing whether it's a
+Conclusion
+task or a reminder a sub task or whatever and so forth and the last thing
+I want to do is I also want to show you how we can actually create a module where we actually save this in local
+storage meaning that if you close your browser and you open it again your tasks are still going to be there so I'm going
+to do that in the next lesson um good luck with the exercise and I will see you guys over there
