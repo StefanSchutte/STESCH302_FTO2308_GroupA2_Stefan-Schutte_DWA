@@ -1,34 +1,7 @@
 //@ts-check
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
+import './bookPreview.js';
 
-/**
- * Creates a book element with the given information.
- * @method
- * @param {string} id - ID of book.
- * @param {string} image - URL of book's image.
- * @param {string} title - Title of book.
- * @param {string} author - Author of book.
- * @returns {HTMLButtonElement} - The created book element.
- */
-function createBookPreview(id, image, title, author) {
-    const element = document.createElement('button');
-    element.classList = 'preview';
-    element.setAttribute('data-preview', id);
-
-    element.innerHTML = `
-      <img
-        class="preview__image"
-        src="${image}"
-      />
-      
-      <div class="preview__info">
-        <h3 class="preview__title">${title}</h3>
-        <div class="preview__author">${author}</div>
-      </div>
-    `;
-
-    return element;
-}
 
 /**
  * The book list application
@@ -53,6 +26,9 @@ class BookList {
          * @memeber {number} booksPerPage - The number of books to display per page.
          */
         this.booksPerPage = BOOKS_PER_PAGE;
+
+
+
         this.init();
     }
 
@@ -127,6 +103,9 @@ class BookList {
         document.querySelector('[data-search-form]').addEventListener('submit', (event) => this.handleSearchFormSubmit(event));
         document.querySelector('[data-list-button]').addEventListener('click', () => this.loadMoreBooks());
         document.querySelector('[data-list-items]').addEventListener('click', (event) => this.handleBookItemClick(event));
+
+
+        //document.querySelector('[data-header-search]').addEventListener('click', () => this.searchModule.openSearchOverlay());
     }
 
     /**
@@ -137,7 +116,12 @@ class BookList {
      */
     renderBooksFragment(fragment, books) {
         for (const { author, id, image, title } of books) {
-            const bookPreview = createBookPreview(id, image, title, authors[author]);
+            const bookPreview = document.createElement('book-preview');
+            bookPreview.dataset.id = id;
+            bookPreview.dataset.author = authors[author];
+            bookPreview.dataset.image = image;
+            bookPreview.dataset.title = title;
+
             fragment.appendChild(bookPreview);
         }
     }
