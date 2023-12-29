@@ -1,0 +1,484 @@
+Introduction
+in this lesson we are going to cover something called poly morphism so last
+night my wife actually asked me like hey what are you doing tomorrow and I actually told her I'm doing a video
+um for the students on polymorphism and her immediate response was wow that
+sounds like a really scary word and you might actually be having the same
+response it does sound very scary uh polymorphism very similar to higher
+order functions which we're going to discuss later sounds a lot scarier than it actually is so as with a lot of words
+that sound really scary um it actually comes from ancient Greece and we could actually break the word
+down to get a sense of what it means so poly effectively means many so you can
+even think about something in JavaScript which shares the same name like a poly
+fill but the word polyfall in programming actually comes from an
+What are Polyfills?
+actual material that is called polyfall um I actually use it around the house quite a bit you can effectively use it
+to seal any crack in the wall or you know if you're pulling out a nail to fold that hole so effectively it's poly
+full it allows you to fill various different things it's not you know exclusively for a single purpose and so
+effectively in JavaScript or in the web when we talk about polyfill which kind of borrows from this if we look on mdn
+it says effectively a polyfill is a piece of code used to provide modern functionality in other words when we
+spoke about what exactly is Javascript we spoke about all the different versions of ecmascript so what you can
+do is if you're using newer features but you also want to support browsers that
+don't have those features you can use a polyfold so let me show you an example of a polyfold if we go on mdn and we
+look at pad start or pad end and now you should also understand what this
+prototype means if you see dot prototype on mdn that effectively means that this
+is on any string in JavaScript so all strings inherit from this prototype so
+pad start can be run on any strings so for example if you have a look here you
+can see you know so string one you can run pad start on that so the previous
+discussion that we had about prototypal chaining should also help you understand the mdn documentation a bit better as
+well but the key takeaway here is that there are some browsers that don't support bad start so let's have a look
+here it is quite widely supported but for example versions of chrome below 57
+or versions of safari below 10 and don't support it so if we go down you'll see
+actually a link to where we can get the polyfill from npm we haven't touched on
+Example of "padStart" polyfill
+npm just yet so let's just do a quick search in terms of bad start polyfill
+JavaScript let's have a look here and let's just look at this file here and here you go and you'll see that it
+actually extends the prototype to add that so is that a good thing or a bad
+thing this is a bit of a gray area because extending the prototype to add custom Behavior to a browser is a bad
+thing but this is a bit more nuanced because what happens is this code actually checks if the current browser
+supports bad start and in other words it says you know if it does support pads don't just use the actual pad start
+method if not add this actual function in the place of
+bad start and this function just emulates the behavior with normal JavaScript
+um that is supported in that browser then repolifers are considered to be a good thing but there is a bit of nuance
+Brief mention of "polyfill.io"
+to it as well and I'll maybe discuss that Nuance at a later point but now if
+you just want to plug and play way of adding polyfolds you can actually just use polyfold.io and so what polyfill IO
+does is it's just an actual package or a script that you include and so you if I
+effectively say what are the things you want to poly for and then you just pull that into your HTML but we will touch on
+this at a later Point all right so back to polymorphism not to be confused with
+Dont confuse "Poyfills" and "Polymorphism"
+polyfilling um but I thought it was just worth touching on this really just to point out that these are two different things
+but they also do share the root word of poly meaning many so this is many any
+different folds so in other words it can plug a lot of JavaScript functionality
+that might not be in the browser and here it's many morphism and so morph
+effectively means shape and ISM effectively means the nature of something directly translated
+polymorphism effectively means having multiple forms so a good example of this
+Polymorphism means "many forms"
+is this classic like optical illusion where either you see the two faces or
+you see a cup and then that is just because of the interplay between the negative space and the positive space
+but effectively this has multiple forms it can be two faces or it can be a cup
+it's effectively a single thing that can take on multiple forms depending on the
+context and the circumstances it is important to mention that polymorphism
+is a really wide and Broad concept uh specifically in the world of programming
+so if they think about polymorphism in the scope of programming itself sure it
+is going to be a really scary thing to tackle but what we're going to do is we're just going to look at polymorphism
+specifically related to what we're doing right now and also what we have done up
+until now and how we can understand what we've done through the lens of polymorphism because as you can see here
+polymorphism is actually a really important key Concept in programming but
+I also want you to understand that we're not going to cover the entire scope of polymorphism and polymorphism is
+effectively a technique to keep the complexity of your code base maintainable and so encapsulation
+Polymorphism helps manage complexity
+inheritance all these things are very Loosely based on polymorphism if we were
+to think about a code Pace as a object or a toy or something
+before we started talking about abstraction like you might have thought about your code base as a single Big
+Unit almost like this blob of code that is this big singular thing the problem
+with that is that it's very hard to debug or extend and so forth so a
+Recapping concept of "encapsulation"
+solution to that was to think about our code base as these modular encapsulated
+units that can be reasoned about on their own and can be completely
+decoupled from everything else so you can almost if you want to debug it or you want to extend it you can pull all
+the different pieces out individually instead of treating it as a big thing and you can even extend these pieces so
+effectively what we looked at is encapsulation so a code base that isn't
+Idea of "Big Ball of Mud"
+encapsulated people sometimes talk about a big ball of mud so you know something
+like this um it's kind of like everything is like this blob and it's very hard to separate
+out the independent pieces it there's another term for it which is a spaghetti
+code which you might have heard and a lot of people use the term spaghettiko just for bad code but the meaning of
+spaghetti code if we were to look at Wikipedia actually refers to code that
+What is "Spaghetti Code"?
+has complex and Tangled control structure so program flow that is like a
+bowl of spaghetti and if you remember correctly when we started talking about programming paradigms one thing that all
+these paradigms do at a minimum is they take away the direct manipulation of
+control structure so we also spoke about like go-to statements and so forth so at the very least what all these actual
+paradigms do is they actually Force us to do encapsulation but they just differ
+in terms of how you should do abstraction and encapsulation oop says
+that you should encapsulate your data and your behavior together whereas
+functional programming you should encapsulate your data and your behavior separately but the keys in terms of
+mutability the ability to actually change data so not only are you actually
+encapsulating your data and your behavior you're actually encapsulating your data itself from being changed
+entirely and and we're going to talk about that a bit later but I think it's important to note a key point of
+everything we've covered up until now since we started about managing complexity is how to get from from this
+big ball of mud code or spaghetti code to a code-based that is encapsulated and
+let me just bring in a picture of spaghetti to kind of indicate the principle to you so you can think about this you know like if this is your code
+it's very hard to figure out where does something begin where does something end what is it connected to if I change this
+value what else is it connected to what else is going to change if I delete this thing what else is going to break so
+there's no clear indication of how things are separated from one another which is what we do have here so let's
+look at the two examples of encapsulation that we have done up until now we've kind of encapsulated our
+Examples of "encapsulation"
+single task itself into a web component and we've also tasked adding so we have
+created these two encapsulated units but we can take this a step further and this
+is where polymorphism comes in so instead of creating something for a very specific once-off purpose so effectively
+you know we create this tire and it is meant to go there we create this this is meant to go there we create the engine
+and it's meant to go there and we don't and we create the seat and it is meant to go there maybe think about creating
+things in a broader abstract sense so that they can actually be reused to
+Value in having re-usable components
+compose a range of different things what would be an equivalent so let's think about Lego and this is also one of the
+keys of Lego is that and I can say this to as someone who has a daughter that is kind of approaching the age of two right
+now beauty of Lego is that you can compose a various range of different
+things with these very basic Universal units with this you can only build that
+car there's nothing else you can really build with it and when you're done building that car these things have
+served their purpose in the story if you want to build something else you need to buy another toy set and the same you
+know so we can think about the problem here while we do have encapsulation is
+that as we add more functionality we just keep on creating new web components web components web components web
+Components will grow indefinitely
+components so effectively there's an infinite ceiling to how many components we can have so let's say like this
+project has now been going for 10 years how many components are you going to have a hundred a thousand ten thousand a
+hundred thousand well I guess that depends on how much the product has grown but imagine debug plugging a
+project that has a hundred thousand different components or trying to learn
+the code base of a project that has a hundred thousand components so effectively polymorphism is a technique
+that takes this idea of encapsulation even further and says try and create
+modular reusable units of abstraction instead of something that's for a very
+Aim for few re-usable components
+specific purpose and that purpose alone so theoretically you know while you would be able to do something like this
+good abstractions by mean of polymorphism should be able to scale to
+a huge degree so a good system a good code base would theoretically allow you
+to build something of a massive scale only a handful of very reusable
+components and the reason why I say in theory because there is a balancing act here and it is definitely possible to
+over abstract and I'm going to talk about that in a second and this is also why we talk about these Concepts
+theoretically why we dive into the nature of them instead of me just
+showing you how to do it because almost all the time this is something that you are going to have to exercise your own
+Need to learn to evaluate yourself
+discretion at there is no one true answer and so by understanding these Concepts and understanding how they get
+applied that's going to equip you to make more well-informed decisions to
+understand where to draw this line for a specific instance or a specific code base or for a very specific problem but
+it's important to understand that there is a balance here and whereas you can go too far to the side in terms of creating
+things that are too specific like you can also go too far to the side where
+you over abstract but I'm going to talk about that in a second I just want to touch on what are examples of
+polymorphism that we actually have demonstrated thus far and you might not even realize that we have looked at
+examples of polymer autism thus far so when it comes to extending things there
+are generally two types of polymorphism and the one is called subtype polymorphism and that is effectively
+Example #1: Subtype Polymorphism
+what we have discussed with classes and extending classes and so forth and so this is more to do with what something
+is whereas the other one called structural polymorphism has more to do
+with not what something is but what it can do or what it has and this is
+generally called duct typing so effectively what this means is you don't
+Example #2: Structural Polymorphism
+actually care what the thing is so you don't care is it a bird you know is it a
+worm is it cold-blooded is it warm blooded you actually don't care about the nature of the thing all you care
+about is what can it do or what does it have you can have three different things you know and can I drive yes can this
+drive yes a golf club can it drive yes a cup of coffee can it drive no that is
+all that you care about and so an example of this was the example that we
+have where we had the plane and we had the duck very thematically and let's say we have something else called a stone
+all right you don't really care what these things are all you care about is can they fly and a duck in a plane can
+fly while a stone can't fly but then they also have other properties you know in terms of not what can they do but
+what do they have and I said the material you know so is a plain soft no
+it's a duck soft yes it's a stone soft no so this is what you're concerned with
+and this might seem very abstract to you and I'm going to show a bit later in this lesson how you'd actually do this
+in practice and if you also remember from the previous lesson generally you
+should aim for structural polymorphism um because as you can imagine it's a lot more flexible people then subtype
+polymorphism some languages force you to do subtype polymorphism some languages actually only allow you to do structural
+polymorphism JavaScript allows you to do both so my personal preference is always
+for composition then there
+until now and these are more related to not the nature of something but actually
+Example #3: Ad-hoc Polymorphism
+in terms of what you pass to it you get for example ad hoc polymorphism which
+you can think about you might have three four different functions that accept the same thing or you might have a single
+function that accepts all four of these and depending on what you pass in it
+does something different with it so we had an example where when I showed option optional parameters in jstock I
+think I had an example where we multiplied so we said you know if pass one value it just multiplies it by
+itself but the same function if you pass two values then multiply first by six so
+effectively we have a function that is polymorphic insofar that it accepts two
+different types of arguments and depending on what you pass it does something different and then the last
+one is polymorphism through coercion we touched on coercion in the very
+Example #4 Coercion Plymorphism
+beginning and effectively what so it's very similar to this but instead of actually using logic to change the
+behavior you actually just turn one type into another type so we can say that an
+if statement only accepts a Boolean only takes true or false so either it just
+takes the word true or false or it takes an expression that evaluates to true or false so age is bigger than or equal to
+18 or whatever but it actually accepts a couple of things that are not true or
+false it accepts null undefined an array a string hello an empty string and so
+forth and then it coerces it for us into a Boolean which means that it broadens
+the use of this and it moves it a bit closer to this than this meaning that we
+can use it in loads of different configurations there is also a danger of
+going too far and I actually think JavaScript went a bit too far when it comes to polymorphism through Persian
+which is why we have the strict equality instead of just normal equality because
+not like it went a bit too far and it resulted in a lot of bugs and weird
+Behavior so we can effectively think about coercion or as instead of saying
+hey this thing doesn't fit in there actually forcing it through so it turns
+it into a Boolean set it can be forced through and sometimes that use that's useful
+sometimes that's not useful especially if you're accidentally passing the wrong thing and JavaScript just goes yep cool
+okay I'll just try and force this through I don't know if you pass it by accident or whether you meant to there
+is also a balance um and I think JavaScript got this balance wrong it did add the strict equality to make up for
+that or to recover from over cursing but in your own code you can also get this balance wrong you can over abstract and
+What is "over-abstraction"?
+so let's talk about over abstraction this is something I have been wanting to
+talk about for a while but it's hard saying that abstraction is really important and you should do abstraction
+while at the same time saying that sometimes abstraction can be bad because that sounds like it's not very useful
+information in order to understand that we needed to have a good understanding of like what exactly abstraction entails
+so let's quickly just recap so if we think about abstraction again in the
+visual sense you can think about this comic from Scotland Cloud where you have
+something that has a lot of information but what you do each time you abstract is you remove information to get to the
+essence of the thing in other words you remove low level noise so in other words
+things that aren't related to the essence of the thing and you elevate the essence in the world of visual we
+Examples of abstraction in design
+actually see this used a ton you know by means of something called infographic so
+effectively you remove a lot of noise and it is information and you use very
+simple illustrations and so forth and visual devices to communicate or explain
+very concept ideas so let's find code space on Google Maps Okay so there's a
+lot of abstracted stuff here so you know railroads are abstracted this is a
+abstracted version of a highway ocean and so forth and so forth so it's a lot
+easier for us to understand the structure understand what we're looking
+at when we interact with it by means of abstractions compared to if we were to
+switch to the actual satellite mode it becomes a lot more noisy it becomes a
+lot harder to really actually see what you're looking at even though it does have still highlights these
+abstractions it's not just a pure satellite image but there's a lot of noise whereas the abstraction takes out
+the noise the things that are not important and it elevates the essence for us and we see the same happening
+here and that is exactly what our own abstraction should do so I have a
+abstraction called multiply and that takes a single value or two values and
+this one returns 16 it multiplies it by itself this one returns eight I don't need to care about all the low level
+things I don't need to care how it actually does this all I work with is an abstracted interface and web components
+allow us to do this very well but there is the danger of over abstraction not just in web components
+but in general so while we're talking about visuals let's look at an example of the world of art to get a better
+Abstraction in world of art
+sense of this so for a very long time the goal of painting was to create
+something that is as realistic as possible because this
+or the era of Photography so the only way in which you could see a representation of reality is through
+someone painting actual super realistic image to express an idea but obviously
+with the rise of Photography the society as a whole started rethinking what the
+purpose of painting is if this is the only goal of painting if the only goal of painting is to actually show
+something in the real world then photography completely replaces that not
+only does photography replace that but photography can actually do it way more convincing like you could with the
+painting so you got a lot of artists that really thought about what actually is the goal of painting and so if you
+look at this painting like what does it mean to convey a lot of artists started thinking about painting not necessarily
+as showing something but evoking a specific emotion communicating a
+specific emotion and so this is where you started getting a lot of guys like Pablo Picasso which you might have heard
+about so so let's say if the goal of this painting is to show the chaos of
+War he thought that is there a way in which we can show the same principle in
+a much more abstracted version can we remove all the noise that doesn't
+necessarily communicate the chaos of War you know so this little window here or
+that Tower there or the details on this guy's drum or the texture on that flag
+and we just extract the essence of that chaos and represent that as an abstraction and this is one of the most
+well-known paintings from that era I'm not even gonna try and pronounce the name of the painting but it is currently
+exhibited in Madrid in Spain so this is from 1940 and it's a depiction of the
+Spanish Civil War and you know and so this car was like surrealism and cubism and all of that and then you got this
+era of artists that try to take this idea even further so can you maybe be
+expressed this chaos and the chaos of War through an even further abstraction
+completely removing iconography completely removing pictures and just
+using the form of paint itself so for example this you know and then there we got kind of impressionism and abstract
+art and all of that kind of so we kind of got this movement in the art World from this to like almost like seeing how
+far can we abstract what a painting is meant to communicate and granted art is
+an extremely subjective experience because the girl of art is multifaceted unlike programming where the goal is to
+increase readability increase understanding increase maintenance the goal of art isn't much more open we
+can't definitively say this is what art is meant to do that depends on you as a
+person what does art do for you do you purely just enjoy boy looking at a super
+realistic painting or do you find Value in the emotions that it evokes for you
+or is the enjoyment that you get out of art being how you can express something
+really complex with as little material as possible so whether this or something
+like origami or so forth you know this is also an extreme abstraction so the
+scope of this lesson isn't big enough to really unpack this but I I just wanted to highlight that the criticism that
+people have of this type of art is that it over abstracts it abstracts so much
+Example of "over-abstraction" in art
+that it loses all meaning that there's almost nothing of the essence left and
+it's just this abstracted concept that isn't useful there's a ton of jokes on
+this you know this is almost like a punchline in itself you know this idea of like for example these little
+scribbles of this Beast symbolizes a ham and cheese sandwich or or whatever or
+you know my one year old daughter could paint this so here's an image of Jackson
+Pollock who actually he is a very famous artist who exclusively kind of did this
+type of thing and there's like kind of a joke that oh you know even like toddlers can do this or whatever but so it's
+"Over-abstraction" in visual design
+almost a punch line in itself by this point but we also get over abstraction in in the world of graphic design so you
+know if you were to look at something like this let's say you want a picture of a hamburger or a restaurant so this
+is maybe a bit too realistic this is maybe a bit too abstract so if you're looking at a menu and there are icons
+that are separating the different types of things this is maybe a bit too realistic there's too much noise it's very hard to At a Glance see what it is
+when you come when you have various types of food that are indicated in this manner and whereas this is too abstract
+this is maybe this is a good middle ground in terms of if you want to scan the menu and see the different types of
+foods and so bringing this back to the world of programming we can also say
+that sometimes things can be a bit too abstracted where you go too far in this
+Abstracting too much can be harmful
+direction and it actually makes it harder to read it actually makes it harder to understand it actually makes
+it harder to debug and that's a very fine balance that you need to actually walk yourself so what I want to do now
+is I want to talk about what are some things that I generally consider as over abstractions that you should be careful
+of but as mentioned you know there is no one true Rule and there might actually be instances where these are the right
+level of abstraction depending on what you want to do and then after all of this I want to come back all the way to
+web components and talk about how we can use this principle of polymorphism with
+web components and do it in a way where we where we avoid the dangers of over
+abstraction so there are a couple of examples that I
+can speak to when it comes to actual over abstraction in JavaScript although I want to maybe look at one specific one
+that I actually personally find a lot um when I'm looking at code bases and this is the idea of design patterns so
+I'm going to be speaking about design patterns and I think there's also a distinction to be made between design
+patterns as a general concept and design patterns as an actual proper noun okay
+design patterns as idea" vs "Design Patterns
+so let's maybe just say lowercase design patterns and design patterns the thing
+because I do think there's a ton of value in design patterns in general but let's look at design patterns as a
+proper noun effectively the goal of this design patterns was to actually solve
+this problem of design patterns and this is also where things start to get confusing but the goal was effectively
+to figure out specific solutions that tend to solve the same type of problems
+in programming so it comes from this book I have mentioned this book before design patterns elements of reusable
+object orientated software and so I kind of referenced this book when I said the
+Attempt to create abstract, general solutions
+recommended approach is to favor composition over inheritance one of the
+key takeaways from the book is it actually established a list of patterns that are very common in the world of
+programming keep in mind this is published in 1994. if you're my age that might not feel very long ago for you
+that probably sounds very long ago but in fact it is actually very long ago 1994 feels like it wasn't that long ago
+but effectively this is when South Africa became a democracy so that that's how long ago it is this is even a year
+"Design Patterns" conceived before JavaScript
+before this language that we know to today's JavaScript was ever conceived way before it was even called JavaScript
+it didn't even exist in its precursor state so keep in mind that a lot of these patterns were for problems that
+existed in programming at that point that mentioned programming has changed quite a bit and also the nature of the
+things we're building specifically with the development of the web and the concurrency in decentralization that
+Programming changed considerably since
+came with the web have kind of reorientated the world of programming a bit there are people out there that
+would tell me that I'm wrong that these principles are as true today as they
+were back in that day and they are as universal today as well as they were in
+that day which my response would be I guess this is just where we differ based
+on anecdotal experience in my experience I found design patterns in JavaScript to
+be more harmful than actual helpful so generally I tell people to try and avoid them but I think it warrants just a
+quick discussion passion on them because I do think there is value you can get from them but you should be careful in
+terms of what the actual value is that you're looking from them because I do
+think when we think about this idea of over abstraction I do think that design patterns over abstract it which was fine
+Design Patterns" possible "over-abstraction
+at that time because there were only a limited number of programming languages and types of things that we're building
+of software but I think because the world of programming has gotten so diverse having an abstraction at such a
+far level which abstracts programming principles itself as if they can be applied to any language independent of
+what that actual language is or that language is idiomatic style which I'm going to talk about as well I think is
+an over abstraction and so what I see people do a lot is they look at these design patterns and they blindly
+Implement them in JavaScript the reality is that a lot of the problems that these
+design patterns solved in other languages are not problems enjoy JavaScript or that specific solution
+doesn't make sense in JavaScript and it doesn't fit with the broader kind of usage of JavaScript so if there's only
+one thing to keep in mind here is that those design patterns were conceived even before JavaScript existed but I do
+Still valuable learning "Design Patterns"
+think there's value in just kind of reading up about them a bit the two books that I recommend you read if you
+want to learn a bit more about design patterns the thing is a phenomenal book by the name of dive into design patterns
+some of it is actually available for free if you go to
+refactoring.guru so on here so refactoring like that dot Guru some of
+the content is actually available for free on here you will also see mention of some terms you should know by now
+like solid and so forth and then the other one is by Addie Osmani he's a very well-known JavaScript developer at
+Google I also think a lot of his stuff from his book is is available for free
+online ad patterns dot Dev I think yes but you can also download the book I
+think the book is free I might be mistaken but it's important to know that in both of these they actually give a couple of warnings about patterns and
+specifically around a lot of the stuff that I spoke about so in this specific
+Some warnings about "Design Patterns"
+book there's actually a section where they talk about some well-known design
+patterns May simply not be valuable as they used to be others might have even evolved and changed significantly so
+which is why I said I think there's value in this there's value in terms of drawing inspiration from these patterns
+but what I find is a lot of developers approach these patterns as ready-made
+solutions that they can just copy and Implement in their own code without actually thinking about it so I do find
+this value in drawing inspiration from these patterns looking at ways in which you can solve problems but within the
+world of JavaScript I actually don't find Value in treating these patterns as Solutions within themselves and I'm
+going to show you an example of why even important to note that even on this refactoring Guru if you go to design
+patterns there's an entire section just on criticism of design patterns with an
+actual section on can patterns sometimes be harmful so just keep that in mind but I think it's like there's a lot of value
+in terms that we can get from design patterns I'm not necessarily going to go over
+adiosmani's book because some of these patterns require a bit of an
+understanding of Frameworks so here they actually mentioned some of the Frameworks that we're going to be covering in upcoming lessons so view
+angulus felt lit also react react as well preact and react is very similar if
+you understand react you probably understand preact so they introduce a couple of patterns that are specific to
+Frameworks so you know render props pattern which you won't find in traditional design patterns or hooks so
+it's a good read I encourage you to read it but just leave a lot of room for actually using this as inspiration
+instead of actual something you you should take as is and implement the same for a dive into design patterns I
+actually find a lot of the introductory stuff like really really useful so specifically where he talks about like
+Encouraged to read about "Design Patterns
+abstraction polymorphism encapsulation inheritance and he actually also talks
+about how things can stand in relation to one another how you can achieve polymorphism so here he has inheritance
+and composition and you'll see there's a lot more flexibility with composition than you get with inheritance and
+there's a section where he talks about you know what makes good abstractions and so forth those I find really helpful
+but where it actually has examples of specific patterns I do encourage you to
+tread a bit lightly and not just Implement these as is use them as inspiration for how specific problems
+are solved in order to solve your own problems but what I see a lot is Javascript developers taking these
+patterns in terms of the implementation of them and actually just putting them in JavaScript itself and so let me show
+Dont blindly follow "Design Patterns" solutions
+you an example of this so there's a specific pattern that I see quite a lot that to me is maybe the most blatant
+example of where you're actually writing worse JavaScript code when you're using the Singleton pattern here's the
+Singleton so effectively what the Singleton pattern very broadly speaking actually is is you create a class and
+Example of using "Singleton" pattern
+then you ensure that there can only be a single instance of that class and this makes a lot of sense in languages like
+Java and c-sharp and so forth so let me show you quickly what that would look like effectively so this is the
+Singleton pattern so how you would do this in JavaScript is as follows you
+create a class let's just call that class company so this is all the information about the company and they
+can only exist a single instance of a company so this is the company for whom the software is so let's just say name
+the name of the company is Acme Incorporated it was founded in 2007 the
+CEO is Mr Acme himself and let's maybe add a method where we have you know
+replace the uh let's just say new name and all that this does is this dot Co
+equals the new name and maybe we can just cancel log goodbye the currency of
+first before we reassign them and then usually what you would do is you would create an instance of it so let's say
+company a new company all right and there is your Singleton whenever you
+want to read something about this specific company you would go what's a company name uh what's the company CEO
+replace the current CEO but the problem is at the moment that we can create
+several of them we can create you know and then the fake company we can replace the CEO so now we have two versions of
+the company with different information this is the problem that the Singleton pattern tries to solve for us kind of
+have a single source of Truth for something uh easy way to do this would be to you just say you know constructed
+is false and then when the Constructor runs you just set constructed true but
+before that you actually check if this constructed the if it is false and you try and construct it again then you
+throw new error instance already exists now you might look at this and you might
+be like cool so like this is going to throw an error company let's just then export company and let's also make it
+the default export and let's say this is a file called company.js and you might pat yourself in
+the back and be like well done I've used design patterns I've used the Singleton pattern everyone's going to look at me
+and see I'm a really good developer I know my design patterns and design patterns are approved good Solutions and
+let's say you want to really impress people and you actually want to show that you actually know a bit about design patterns implements Singleton
+pattern of company and you're like hey people are going to look at this and they're going to see like hey I know
+Why is "Singleton" bad in JavaScript?
+something about programming I didn't just willy-nilly write code I implemented a specific well-known pattern here and so this is what I find
+a lot of times the problem with this is that this solves a problem that we don't
+have a JavaScript it's actually over Engineers it over abstracts something that doesn't need an abstraction so
+basically and you might have realized this as I was like writing this languages like Java and C shop don't
+have this concept of object literals in the sense that JavaScript has in his
+book Douglas crockford actually says in his book JavaScript the good parts he actually says like two of the really
+good things about JavaScript is object literals and composable functions and
+we're going to talk about composable functions when you talk about functional programming so we're actually checking
+something that JavaScript has a really really good solution for compared to other programming languages and we're
+actually making it worse and taking a worse solution to solve a problem that JavaScript doesn't actually even have
+because these languages because you can't create an object literal you need to create a class so this is how to
+emulate object literal-like behavior in JavaScript the problem is Javascript one already has object literals and it's
+actually much easier to read easier to understand let me show you we could do this exact thing by just straight up the
+clearing company taking this info not even worrying about whether it's constructed or not and then just
+chucking this in here and just exporting that object literal there we go we can
+even take this a step further and just treat the module itself as the abstraction without an actual extra
+level of abstraction in the module itself and we can actually just export con's name export cons founded export
+con CEO export funds replace CEO so you effectively take something that can be
+solved in this manner and you solve it in this way because you're forcing a design pattern into JavaScript this
+doesn't mean that there aren't design patents here and there that might be useful but my guess isn't so far that a
+design pattern might be useful in JavaScript you're actually going to end up with that pattern yourself almost by
+pure accident because it is the best way to solve it um the point being that when I see design patterns being used in
+JavaScript a lot of times they're being forced in for the sake of design patterns themselves without actually
+thinking whether it's a good fit or not and not only is this more code but this
+I actually would say is more idiomatic and this is less idiomatic so what do we mean by idiomatic so you can think about
+a language you know so you have idioms in a language so an example in English would be you know so this example over
+What are "idioms" and "idiomatic"
+here like something like a piece of cake or in the doghouse the point being that
+there are specific Expressions specific ways of saying or writing things that are that make only make sense if you
+understand the language itself and a lot of these idioms are aren't directly translatable from one language to
+another a couple of years ago there was actually this which also has a play on words because
+in Afrikaans percyaker means for sure but but also means insurance so like the
+Example of "idioms" in human language
+the brand itself is a play on like Afrikaans language but effectively the
+advert went along the lines of I can't remember exactly I don't think I'll be able to find it online but it went along
+the lines of I think they were at a braai or something and the guy said like steel and so when you translate that
+directly to English like it would mean I was robbed rat and naked which in
+English because in English there isn't an idiomatic expression like that saying something is red like the animal and
+naked doesn't make any sense and that was kind of like the joke of the advert there's loads of these examples in
+Afrikaans and English where if you translate something it's super confusing and this is effectively what we're
+saying here we're seeing some patterns that work really well in specific
+languages that actually are even more confusing in JavaScript so be careful of this be careful of this also when you're
+talking with other developers from other languages there are things in languages that are idiomatic to that language
+itself and the problem with this isn't that they don't work like here we have a
+Some developers aware not aware of this
+working example the problem is that they do work but it's a very inefficient solution even if it works it would have
+been much different if it just didn't work flat out then you would look for another solution which is why a lot of
+developers don't realize how problematic this is you know for example if you are using a wrench to hit in Nails it's
+going to work and it's going to suck and it's going to be painful and but you're going to get it to work eventually and
+then you might be like that's just how it is likewise you can see I went out of my way to find some great examples you
+know if your lawn if you're vacuuming your lawn to vacuum up the leaves you
+might actually think that's just how it is it just sucks it just mind the pun sucks to clean up leaves in your yard
+you know this would be if you don't know about a rake and you're not familiar with the world of gardening and the
+tools that are at your disposal and whatever and you think there's a universal tool that does the same thing
+for your inside the house but when you're in a different environment whereas that thing might give you the
+same solution it might actually just barely give you what you want whereas there is actually something that's a lot
+more idiomatic to the context and the environment that you're working in so be mindful of that so just as an aside
+before we continue I actually made an error here and I forgot to add a static
+Adding missing "static" to class
+here so this shouldn't change the actual implication and the actual point but
+just as an aside if you try and run this um I did forget to add a static here so let me just actually check if it
+actually runs as it should and I obviously just need to remove the exports here because obviously there is
+no such thing as an export in the browser and we also need to change this
+to get it from the class itself instead of the instance all right let's check it
+out okay so that works and then if we try and do it twice cool there we go so
+let me just update that so it is correct and if anything like the main takeaway here should be there are no Universal
+Careful of universal, silver-bullet answers
+always correct Silver Bullet answers in the world of JavaScript if that didn't become clear now I don't know how to
+make that more clear if anyone tells you they have a 100 bulletproof answer to
+how to write JavaScript and it can be used in any type of project any type of company any type of team or any type of
+purpose be suspicious be suspected the reason why there are so many different Frameworks out there and that reason is
+that we're building so many different things in so many different ways that there is no one true solution and you
+Important to start evaluating yourself
+need to be able to evaluate these things and figure out what is a good fit for what you're building right now which is
+also in a couple of lessons we're going to be moving into a space where you are going to be required to make a lot of
+these decisions and Advocate four specific things instead of me I show you
+what to do and you actually just indicating that you understand how to do it
