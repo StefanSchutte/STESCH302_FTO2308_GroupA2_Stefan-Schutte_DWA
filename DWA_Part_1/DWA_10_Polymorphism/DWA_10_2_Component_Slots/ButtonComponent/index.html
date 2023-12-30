@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/themes/light.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/shoelace-autoloader.js"></script>
+
+
+<!--  <script src="./user-action.js" defer type="module"></script>-->
+<!--  <link rel="stylesheet" href="./styles.css">-->
+</head>
+<body>
+
+<!--<style>-->
+
+
+<!--  user-action {-->
+<!--  &#45;&#45;color-primary: purple;-->
+<!--      &#45;&#45;color-secondary: yellow;-->
+<!--  }-->
+<!--</style>-->
+
+
+
+  <user-action>Hello</user-action>
+<user-action importance="primary">World</user-action>
+
+
+<sl-button>Click mee</sl-button>
+
+<sl-dialog data-dialog>
+  <sl-input autofocus placeholder="I will have focus when the dialog is opened"></sl-input>
+  <sl-button data-close slot="footer" variant="primary">Close</sl-button>
+</sl-dialog>
+
+<sl-button data-button >Open Dialog</sl-button>
+
+<script>
+  const dialog = document.querySelector('[data-dialog]');
+  const button = document.querySelector('[data-button]');
+  const close = document.querySelector('[data-close]');
+  // const input = dialog.querySelector('sl-input');
+  //const openButton = dialog.nextElementSibling;
+  //const closeButton = dialog.querySelector('sl-button[slot="footer"]');
+
+  button.addEventListener('click', () => dialog.show());
+  close.addEventListener('click', () => dialog.hide());
+</script>
+
+</body>
+</html>

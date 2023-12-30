@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./scripts.js" defer type="module"></script>
+  </head>
+  <body>
+
+  <style>
+  .example::part(arrow){
+    background: red;
+  }
+  </style>
+
+    <div class="app">
+      <h1 class="app__title">Todo App</h1>
+
+      <user-action class="example" data-add-button importance="primary">Add Task
+<!--        <a href="https://github.com/" slot="start">Click here</a>-->
+<!--        <img src="https://codespace-assets.global.ssl.fastly.net/wp/assets/website/codespace-primary-logo.svg">-->
+<!--&lt;!&ndash;        <span>Add Task</span>&ndash;&gt;-->
+<!--      <user-action>-->
+<!--        <ul>-->
+<!--          <li>Prof</li>-->
+<!--          <li>log</li>-->
+<!--        </ul>-->
+<!--      </user-action>-->
+      </user-action>
+
+
+
+
+
+      <task-adding data-adding></task-adding>
+
+<!--      <div data-adding></div>-->
+      <ul class="app__list" data-list>
+
+        <single-task title="Hello" completed></single-task>
+        <single-task title="bed"></single-task>
+        <single-task title="homework"></single-task>
+
+      </ul>
+    </div>
+  </body>
+</html>

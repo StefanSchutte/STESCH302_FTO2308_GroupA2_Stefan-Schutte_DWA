@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<green-button></green-button>
+<oragne-button></oragne-button>
+<blue-button></blue-button>
+<big-button></big-button>
+<big-green-button></big-green-button>
+<small-green-button></small-green-button>
+<small-green-button-disabled></small-green-button-disabled>
+
+
+<custom-button></custom-button>
+<user-action color="green"></user-action>
+<user-action color="red"></user-action>
+
+<user-action color="green" disabled ></user-action>
+<user-action color="red"></user-action>
+
+<user-action color="blue" to="google.com"></user-action>
+<user-action color="red" size="large"></user-action>
+
+<!--parametric polymorphism-->
+
+
+<user-actions size="large" color="blue" to="google.com">
+<visual-icon size="small" color="green" image="arrow" slot="overlay">
+  <text-label color="purple" size="large" slot="primary">
+<visual-icon size="large" color="orange" image="circle" slot="fallback">
+</user-actions>
+</body>
+</html>

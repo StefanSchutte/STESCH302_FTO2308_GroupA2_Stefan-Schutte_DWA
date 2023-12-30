@@ -1,0 +1,561 @@
+Recapping "Polymorphism"
+and so I quickly just want to show how this idea of polymorphism tying this all
+the way back to what we started with up here how this concept of polymorphism is
+actually going to help us in terms of how we do our web components so let's return to our original example and let
+me just copy this so we can discuss it down here as well at the very least we have this agreed idea treating your code
+base as one Big Blob is a bad idea and that we should strive for encapsulation
+and bringing this back to the world of you know kind of a model car or something the fact that if we get a flat
+tire we don't need to actually replace the entire car to fix the problem we can
+decouple the actual part that is giving the problem and look at that and figure
+out what's going on in that little scope as opposed to looking at the entire app
+going through all the lines of codes all the line of code all the logic we can extract that little independent piece
+that function on its own and just debug that or if we want to add another wheel we can just duplicate this little piece
+instead of rebuilding or changing on our entire app but then we also saw that you
+know at some point you need to make these things a bit more general purpose so that you can reuse them otherwise
+you're going to end up with thousands and thousands of these independent little pieces and that at the end of the
+day is just going to be a ton of noise I'm going to make it even worse that you build your discrete units with enough
+genericness that they can be reused in other circumstances but there is a
+danger to over abstracting these for example you know creating a factory
+function that is do anything and you can pause anything into it and it can do
+anything because the the problem there is that it's going to have an if statement that it's going to be like
+Recapping "Over-abstraction"
+thousands and thousands of lines of possible if conditions okay so be careful as well that you don't over
+abstract and a tool that helps us actually avoid over abstraction is is
+literally the first letter of solid which is single responsibility principle so think about what is the purpose of
+this thing once you get to something like do anything you're breaking the single responsibility and it can do
+loads of different things the goal isn't to have a do loads of different things the goal is to solve a specific
+responsibility that comes up in several places in your app because you will have
+elements that are once-off elements but the goal is not to treat everything as a
+once auth but when there is an opportunity to create a more General abstraction you do that I've mentioned
+this before that video by NC Dodds I will link it in the resources and the
+article by Sandy mix the wrong abstraction these provide General good
+When to create abstractions?
+guidelines in terms of how to avoid over abstraction and there's a couple of General guidelines um the one that's the
+most common I find is that the rule of three if you are doing something for a third time then it's probably worth
+looking at an abstraction given this isn't a hard rule sometimes I have enough foresight to actually know when
+something is going to be used at least three times so let's say for example a button you know I know that there's going to be various different forms of a
+button in my app I don't need to create three different buttons to know to actually see that sometimes you need to
+see that physically happen sometimes you know but be careful of what you think you know sometimes you actually create
+abstractions that you only use once and you're like and the whole point of over abstraction is like that is bad so let's
+look at a specific example and let's look at an example within the world of web components here is a real world
+example of all the buttons that Amazon currently uses on their website so if
+Example of Amazon.com buttons
+you go on amazon.com it's a massive site so here the buttons look very similar but as you go deeper into the site in
+various places they they use different buttons the point here is that even big companies get this wrong but I also
+think Amazon specifically is generally mocked how bad their UI design is and this might be a case where you might
+create one button for one purpose another one and you get to the third one and you're like hey maybe I can actually
+abstract this into something that uses the principle of polymorphism that can be reused instead of having 50 different
+buttons so how would you do this so let's say this is an act these are all different web components that you create
+here is our HTML and let's say this is what the web components would look like so we have a green button we have a
+Multiple single-use components
+orange button we have a blue button we have a big button but then we also need
+to account for all of these so we have a big green button but also a small green button but then we also need a disabled
+state so small green button disabled but then we also need a small green button
+that redirects to Google and so forth and so forth then you can imagine how
+you're going to end up at thousands and thousands of components using the principle of polymorphism what we can
+instead do we can do something like custom button but we can probably take it a step further and think about what
+is the responsibilities a single responsibility their user action so this is the web component that just controls
+a user action whether that is triggering something of a button click or redirecting and so forth and it's
+Attributes as "ad-hoc" polymorphism
+generally surfaced in this manner what can we pass to it so we use attributes so let's say we pass color as an
+independent thing so color is green or color is red we pass whether it's
+disabled or not as an independent thing by default it fires a click event but we
+can actually even have it let's say color blue tell it to go somewhere instead of actually firing a click event
+so go to google.com and then let's say we want a big or a small version of it
+so we can maybe do size and we can maybe just do s m and L or we can just write
+out large like that cool so you can see how the principle of polymorphism helps
+us actually if you think about that Lego block compared to this how this actually helps us keep our complexity more
+maintainable so we're creating the single thing that that serves a specific responsibility that just accepts
+different attributes instead of creating a new thing from scratch every time so this is also something that's a lot
+easier to reason about because you you might need to read a massive page of documentation to understand what the
+Aim for fewer modular components
+purpose of each of these are as opposed to something like this where you just map out the different permutations so
+there's three types of buttons there's a full button there's an outline button there's a ghost button and these are the
+actual states that can be passed so you can imagine how having 20 components that work in this manner as opposed to
+300 components that are all once off like this how this is going to be a lot
+easier to control the complexity but the key being you shouldn't over abstract and this is something you just learn
+Only way to learn is to get wrong
+from experience I I honestly my guess is you are going to feel the pain at some
+point you are going to over abstract that's unavoidable prepare yourself emotionally for that and that's
+unfortunately how you learn it is something that you learn from just burning your fingers and realizing oh I've over abstracted now or I didn't
+abstract enough but the problem with over abstraction is it's much harder to go back from over abstraction than it is
+to add more abstraction then and beat yourself up if you get it wrong it takes a lot of practice and practice and
+Introducing component "slots"
+practice to get it right so we highlighted four types of polymorphism that we have covered thus far but there
+is a fifth type that we haven't and now it's going to become really relevant as we talk about web components
+specifically in web components this idea of slots and this isn't something that's unique to web components we find it in
+all Frameworks as well and these operate by a principle called parametric
+polymorphism so let me show you this in principle what this looks like we've shown how we can use some of the
+What is "parametric polymorphism"?
+polymorphic principles that we've learned up until now to actually create things like this which helps us manage
+the complexity a lot better but as your app grows and grows and grows you might actually start getting more attributes
+okay so you might be getting let's say icon and let's say you know it has an arrow icon in it in other words a button
+something like this okay you know here's the text and then now there's Arrow but then you might get a situation where you
+want a button that is just an icon and no text so like that so let's say a play
+button and then you might get an example where you want it to be on the other
+side of the icon so you maybe want to see your profile so you want the picture of the profile to be at the start of the
+button whereas this makes things meaningfully better than if we didn't
+use attributes to control this at some point even with attributes themselves you're going to reach a point where your
+even your attributes are going to start getting out of control so let's say you have a left icon Arrow left icon color
+"Ad-hoc polymorphism" has limits
+green lift icon size small right icon
+Circle right icon color orange right icon size large label color purple and
+so forth and so forth so you know we're going to reach a point where this is going to be become a reality and as our app keeps growing and growing and
+growing we're just going to be adding more and more and more and more stuff to our components and effectively it's going to end up looking like this so we
+can use parametric polymorphism to actually solve this in a meaningful
+manner as follows and this is also the principle on which higher order components are based and at this point I
+I truly believe that once we start talking about higher order components similar to classes that you're going to be like this guy's been talking about
+higher order components now for what feels like years and I still don't know what this damn thing is there's a lot of
+ideas that we need to discuss before we can actually look at higher order components in a meaningful manner so
+okay so but it works on the exact same principle parametric polymorphism is how
+we actually do higher order components so effectively what we do is we pass
+abstractions into other abstractions so we say we're going to put an abstraction
+Passing abstractions into abstractions
+here this thing wraps other abstractions we don't know what those abstractions
+are there can be any abstraction and we're going to build the thing that takes those abstractions in a way that
+it can handle any abstraction but you know this is where things start getting complicated like once you start passing
+abstractions into abstractions things start getting really complicated especially in terms of how you usually
+think about things there's so generally what I find within JavaScript there's two types of things that are hard for
+people to get their head around the one is recursion and you might have encountered recursion before I think it
+What is "recursion" in programming?
+is covered in the free code Camp material recursion is tricky because there's nothing in the real world that
+is a good metaphor or recursion so oftentimes what people do is they talk about like the branches on a tree
+effectively the the example would go like what is a branch made of well a branch is made of other branches but
+what are those branches made of other branches so you kind of have the structure it's just like branching branching branching going outwards you
+know and like here's your tree with like all these branching structures why that is insufficient is because even that
+example has a stopping point it has a point where physically you can't have a
+tree that has infinite branches at some point those that branching logic needs to stop recursion as a concept can go on
+infinitely this is why it's hard for our brains to understand then the other one is like higher order abstractions so in
+"Higher-order" is a hard concept to grasp
+other words abstractions that take abstractions that can't take abstractions that can take abstractions
+that can take abstractions and so a good example is once again how this is usually explained is through a metaphor
+of these kind of Russian nested dolls so you might know about them so you have these doll and you open that doll and
+inside that doll is another doll and another doll and another doll and another all so you have these abstractions that are nested inside one
+another and you can actually put anything in there you don't need to put another doll in there you can put for
+example a golf ball or a piece of paper or a coin or whatever so not only can
+you put another doll in it but you can put anything in it so you have these levels of abstractions that can continue
+indefinitely once again like this also this example Falls flat because at some point like you physically can't put any
+more dolls in or you can't like wrap any more dolls and this is
+Frameworks I actually find the the hardest to learn are react and angular compared to like svelt and View
+and lit and so forth the reason I think why angular is harder to learn is because angular is massive in scope so
+it has all these different things and Concepts you need to learn whereas react is really small in scope um it only has
+a couple of things you can do with it which is also why people a lot of times say react as a library and not a
+framework you might hear that what's what makes react I think hard for people to learn is because react really Builds
+Some frameworks rely on "higher-order"
+on this concept so effect actively your entire app is just these nested levels
+you're just composing abstractions inside abstractions inside abstractions which is also why react has this I think
+called hoc Which is higher order components so so we spoke about higher
+order functions before but in react it even treats the components themselves as
+higher order in other words components can take components and those components can further take components and so forth
+and so forth and so forth so we can even we can do this with web components as well that sounds really complex
+sometimes it can get really complex so I'm obviously going to do a very simple example and the simple example is just
+to show how powerful the principle is but the type of complexity is different from the type of complexity that you get
+Different types of complexity
+with this this is complex in terms of it's unmanageable to work with there's
+too many things you don't have the brain capacity to consider all of this at once the notion of higher order function in
+higher order components are hard in a different way they're hard because it's a hard concept to understand but once
+you understand the concept it's easy to work with so also it's important to keep that distinction in mind so it's a type
+of complexity that is easy to manage as opposed to this complexity which is very
+hard to manage so you trade this type of complexity for a different type of complexity that's much easier to manage
+Exchanging types of complexity
+so let's say we have our user action and so at the core this is what it does okay
+and into that let's also just make a singular user action you can't pass any
+other component to get the same functionality we have a icon component and we have a label component so let's
+just say visual icon okay and then we have a text label and visual icon again
+Example of "slot" in component
+and so let's say the label purple I'm going to try and replicate the above I hope I don't miss anything size large
+and so then the right one is size large as well and the color is orange and the
+image is circle and then this one is size small and the color I think was
+green yeah and the image is Arrow I think you might be like hey this looks
+actually very familiar and you are right it is very similar to what we have in
+HTML so and this is the value of web components in terms of treating your behavior as a little bundled unit of
+HTML CSS and all of that because it actually mirrors how we think about HTML very nicely you know so you can do the
+Somewhat similar to nesting in HTML
+exact same principle but it's much more limited in actual HTML so there's like you can do a lot more advanced stuff
+with full on parametric polymorphism and it's because but this at your parametric
+polymorphism actually comes from the world of mathematics so if you have a look on the Wikipedia article of
+parametric polymorphism you'll actually see a lot of you know mathematical examples here and there are actually
+languages that go much deeper into this than JavaScript for example Haskell where your code actually starts looking
+"Parametric" based on mathematics
+a bit like this almost like mathematical Expressions JavaScript is a nice Middle
+Ground where it doesn't require you to go as deep into the concept in order to
+actually use it in a meaningful way obviously things like Haskell and so forth are much more powerful than
+JavaScript in terms of expressiveness like you can express something like this in a much more concise way but the
+trade-off is it's much more complicated to learn that to actually get to a point
+where you actually understand what you're reading and I think JavaScript is a has a very nice middle ground in terms
+of allowing you to leverage this principle without going full on category
+Theory which is what some languages like Haskell and so forth are based on and so this is also pretty straightforward
+because the order that we pass it in we can just assume that's the order in which it should be shown so you know Left Right label so this also allows us
+to do other things like even this example up here assumes that the label is always going to be in the middle and
+also that there's only a single label but but let's say what you want is you want two labels and an actual icon in
+the middle this doesn't even allow for that so it also gives us a lot more flexibility and this is a very simple
+example because the component itself has kind of a linear order in terms of where the things should be shown in more
+complex examples we we can actually designate it a specific place where it
+should be used so we can go for example slot overlay or plot primary or slot
+ball back and I think this is where it starts getting complicated is that now we're actually not only talking thinking
+about like hey these are actual things that should be shown and it should be shown in this order we can actually pass
+abstractions as things that should be used so this might not even show unless
+this for some reason doesn't show and it falls back to this and so forth so you can actually do a lot of advanced things
+in a very concise and readable manner right so but in the next video we're going to touch on this we're going to
+really cover like how can we use slots to leverage this principle when we are
+building uis make our abstractions much more generic and reusable alright so
+Revisiting our "todo" example
+let's take what we learned now about a parametric polymorphism and also slots
+to actually show you how we would actually use that knowledge to further
+build out our to-do app and so if you remember correctly because we swap these
+out to be web components last time add task no longer works instead it just
+logs it to the console for us so if I bring that in here you will see it actually logs it to the console for us
+so let us actually split out this task view into reusable
+components to kind of illustrate how we can use slots and illustrate this concept of make generic reusable
+components so I already created a user action here let's create another one
+which is a user input JS and then lastly
+let's do screen overlay.jit and maybe form wrapper all
+Creating "user-action" component
+right so let's start building out user input so we can grab everything that we
+have with buttons thus far and let's also in our actual HTML add those where
+needed so at the moment we have this button here but we want to swap that out to be user action and similar to what I
+showed last time you might be tempted to go label and that would for example be the label of the button but you can
+actually leverage composition and slots as a means to make this much more
+flexible and extendable so let's say you actually just pass in there what you want inside the button and so in this
+case we just want the text task but we can maybe but we can pause an image we can pause anything in there let's just
+create all of this again so let's just say const and let's create template and that would be document create element
+template and then the template inner HTML is as follows well now it's just a
+simple button and so how do you determine where what you put inside it goes you actually just do slot like this
+and so at the moment we only have a single slot so that means that we don't
+need to designate this whatever gets passed in here it's just going to go directly into that slot and you'll see
+here it actually gets added so let's also add some styling here as well style
+so we can grab the previous button styling and now we're encapsulating loading it in the component itself very
+simply it's just this but let's just keep it button and let's just add the
+class button we can straight up just Target the element yeah I guess we can it's much of the sameness I'll just do
+this and so let us also just create the class so user input extends HTML we only
+want connected callback for now and what we also want is we also want to create our shadow Dom and we want that to be
+private so we can say inner equals attach this attach Shadow and the mode
+is just closed and you might be seeing that I'm getting these type of recommendations again this is just
+Discussion on "Github Copilot"
+because I switched on copilot it's just going to help me write this a bit quicker I'm not necessarily going to
+interfere with me trying to explain principles but it's obviously just the quality of life thing like a bit
+expensive but it is part of my normal workflow so obviously I can move much faster if it is enabled but it shouldn't
+affect actually me showing the principle showing how I would do it it just saves
+me a bit of typing here and there you still need to have the Insight you know when it's like absolutely just giving
+Finishing "user-action" component
+you random crazy stuff and when it's actually a good estimation of what you want to type so what we want to do in
+here is we want to say this in a pain child template content clone okay and
+let's just wrap it like that okay so we take the template we take the content and we clone it we can even split this
+up into separate things write it like this for readability because I am zoomed
+in quite a ton and so let's just pass in the node okay so we create a duplicate of the template and then we just want to
+do custom elements Define user input and the user input class I actually see we
+are working the wrong thing it should actually be in the user action not user input okay so let me just copy that and
+let's just wipe this okay so now we're in the right file and all of this seems
+okay right so let's give it a go so we need to import that into our scripts let
+me just make this full screen so we're not doing anything with the class itself as we are with task adding over here
+so let's pull in user action so what we can also actually do is we can store
+whether it's a custom element or not it still extends basic HTML we can still add the data attribute here so let's
+Treating components like regular HTML
+have a look data add button and it should still work whether it is a custom element or our own one and we Define
+user input uh user action there we go all right and there's our styling now if
+we click it still opens that so you see we can even attach the event listener to this and so let's say we want a
+different style of Button as well okay so let us create a setup for that just
+create the internal value so let's say importance and importance by default is
+secondary and then we want to set down a getter so set importance value and all
+Adding "importance" dynamic styling
+that does is it overrides importance but we also want to include side effects here so what we want to do is let's add
+a second style here that is I think we actually don't even have a hover effect so that might even be worth doing so
+let's do obviously on mobile we don't get hover it's just for now do something like this okay just a very slight hover
+effect but then we also want a modifier so we can set button and here like I maybe still use Bim it's not as
+important to use Bim specifically anymore but I don't know just a habit
+so when it is primary we want to make the background black but by default and
+we want to make the text white but by default it's the other way around so the text is white and the color is black and
+we also want a border that is one pixel solid black and so while we're at it
+let's actually make our buttons blue instead and I also want to show you another thing so this is variables can
+actually pierce the actual Shadow Dom so what we can do is let us create some
+variables up here and let's just say color primary and let's just get a nice blue so I just use something like
+Accessing CSS variables from components
+hoolers and I just press until I get something nice let's go with this
+turquoise color so there we go so let's take this one let's maybe make it a bit
+darker so let's go with something like so let's also get a hex to rgba
+converter so just take this one and put it them there and here we go rgbn so the
+reason why I do this is because then I would go like 100 opacity and the last
+one indicates opacity so I'm just going to create four versions of this so a version that is 100 a version that is 75
+version that is 50 and a version that is 25. so I have at least four different
+gradations of this color so for hover effects and and all of that stuff all
+right so let's actually bring this in here also close this for now just super
+quickly just so you can see a bit better so let's say the border is VAR color
+primary but we want color primary a hundred so you can't see it there uh the
+line might be a bit too thin but and also over here you might be able to see
+it super slightly and it might even be worth pumping up the font weight a bit and the font size they just make it a
+bit more pronounced and then the primary version is just the full color and white
+so what happens when you actually toggle it let's mark this up so importance can
+Adding "importance" getters and setters
+either be primary or secondary so we can then say if let's also do a get
+importance and that is just going to return the private value the importance
+like that let me just spell return right and it should also be a method like that so we can say if value is primary so
+here we have the assignment but then after that we actually do the side effects so the side effects are that if
+it is important let's say else and we also what we also want to do maybe up there is we want to say if you're trying
+to set it to what it already is so if value equals this importance just return
+don't do anything okay stop the function right here return the function okay otherwise continue down here so if it is
+primary then let's also just make a new value for readability if it is primary
+then what we want to do is we want to add a class to this button here so just
+because this component is so small let me actually just show you how you would do it even you know without something
+Directly targeting elements in components
+like this so we just Target the button directly and we just have a primary class if your components get too big
+don't do this because even components themselves can get unwieldy but I just want to show you like if you want to
+just straight up use the element in a component because it's encapsulated you can do that without too many problems
+because that also means that we can go this so in the shadow Dom query selector button so let's also just as last time
+after we actually connect the component let's just create an element and for now
+elements just has button and it starts as null so type HTML button element or
+null and then over here we obviously just do this element and we just set button in a query selector button all
+right so that means we should have access to it over here if you try and
+set it so we can go this elements button and class list add primary otherwise we
+remove it just add and remove that class so what we then also do after this has been done we just manually set
+importance so remember not the private one the public one so we can get the side effects and we can say this get
+attribute otherwise fall back to secondary but it should already be secondary so we don't need to worry
+about that so why do we get this error because we don't have a guarantee that it is either of these what we can do is
+let's get the attribute first let's just say importance so what we can say is we can
+Narrowing "importance" type definition
+say if importance is not primary and it's not secondary but another thing we
+also need to add we need to add a fallback here that says a secondary so in other words if if it doesn't get get
+anything just fall back to secondary all right so at this point we should be confident in terms of that importance
+should be primary or secondary there we go so then you can just say this importance just the public one equals
+importance and it is automatically going to fire that side effect so let's have a
+look and let's see if we go here and we just set importance to primary there we
+go that toggles it out oh this doesn't seem right okay we can have a look at that in a second oh it's because there's
+no text in hello there we go and that's maybe an error state that you might want
+Check to confirm "slot" value passed
+to embed in your actual user action so you might even go check if nothing is
+passed in as a slot then throw an error and we can even do this in the Constructor already we don't need to
+wait for it to connect and also another thing is I say I mentioned super briefly
+What is "super" function call?
+and so effectively what super does is super just calls the Constructor on
+um the the inherited class so like the Constructor on HTML element it's not
+needed specifically for HTML element but it is a good practice to just call Super when you are extending things so you
+generally want to have a Constructor that has super in it if you create a Constructor so what we can do is we can
+actually check the inner child the inner HTML of this actual component and so let's just say you know if there is no
+inner HTML or if the inner HTML is an empty string then throw an error so
+let's just quickly see golf so these both have you know HTML so we can say if this inner HTML is a string and we also
+want to trim it so at least there needs to be a character in there or there is no inner HTML then just throw an error
+that says throw new error user action must have content so we have hello and
+we have add task and add task triggers that all right so let us just remove this hello from here so let us just set
+this maybe two important primary effectively because we have now bundled
+this little user action thing here we can actually just pull that into another
+Adding "user-action" to other codebase
+project so I want to show you something really cool so I just created a completely new blank project here and
+this is the magic of encapsulation so let me just do that for you the only thing we do is let's add two buttons so
+let's say user action and this is just secondary by default hello and the other
+one is primary user action importance primary and world all right and so let's
+pull in that little Javascript file for that so let's just have our script Source up here and we're just pulling in
+user action and if fur and type although we're not doing any Imports and it just
+just as a good habit let's just say type module and let us have a look let's open this up okay so something interesting is
+Need to re-add CSS variables
+happening here um this seems to be like some type of styling
+um and the reason is one of the problems here is that we actually
+um these are hard-coded so for example so these are the default Styles and also
+like for example the white that we didn't get from a CSS variable that we
+actually just set the word white there but you can see it brings everything else in and it's just because we don't
+have those variables so let me show you if we add the variables actually in here it should work and we also need to
+remember to bring in this into our CSS okay so there we go Styles like that and
+let's have a look now hey all right they are our Styles so there is an entire world of people just publishing web
+components that you can actually just pull into your project directly like this
+um but if we want to for example do that we might need to just give it some basic styling so that this isn't needed so not
+only do we want to do that we also want to give people a bit of control so that they can actually set it themselves so
+Passing custom CSS into components
+let's say and I'm just going to do inline style here you can actually Target user action
+itself and then actually pass CSS set the CSS on it in the same way you would
+maybe set the CSS on a div or an H1 or whatever but you can create your own custom CSS that you can set so you can
+pause your own custom actual variables in there so in the same way that we did
+you know root like that and set variables to the root of a document you
+can actually set variables for a specific element like this as well so let's maybe give these a bit more
+General names so if we go in here let's say that you actually let's do color
+primary like that and let's just replace the white with actual secondary so you can actually set anything you want and
+then the hover effect for the hover effect by default let's say what it does
+it sets the background to primary but it sets the opacity to that and then
+for if it is actual primary then it just sets the opacity let's just set the
+opacity bit lighter over there so this is not prettier styling but it gets the job done and we just need to say when it
+is primary let me just set this to primary this is actually redundant we
+don't actually need this so let's just move it over here and so let's set these
+so we can do in user action color primary is purple and color secondary is
+yellow cool check that out all right right so you can actually announce completely encapsulated if you pull in
+this file you have everything you need and you have this little component that you can do with what you want the
+question is given that you can do this can you actually publish your component for other people to use and the answer
+Sharing web components publicly
+is yes and here is where we're going to start relying on third body things we're
+going to actually start pulling in some third-party JavaScript libraries so if you go to web components so
+webcomponents.org there's a big repository of actual things you can get
+so let's say we want actual pop-up here is a list of actual pop-ups that have
+Real-world web components in the wild
+been published you can even publish your own element up here but generally what I prefer to do is to use an actual design
+system of components so my preferred one is material design so material design
+web components the material design is the design design system that Google
+Brief overview of "Stencil" tool
+uses internally YouTube and so forth actually has a lot of like web components actually running and so to
+kind of show you if we for example go to settings I'm pretty sure if we inspect
+this should be some web components here and here you see YT guide manager ytmdx
+manager YT history YT mini player so you know if I click there like if this is a
+component you know manager like this is a component and you'll see they actually
+mix this in with like regular stuff so for example they still have a div here and so forth
+um you know they have mastered but in mastered is you know this actual component so Google is using web
+components uh someone else is also using web components quite a bit as GitHub so if we have a look on GitHub
+um you'll see there are a couple of things here like turbo frame and you know they actually have a template in
+here so and they have for example notification shelf Watcher so the cool thing about web components is you can
+mix and match it with regular HTML as you go so you can pull them into the extent that you want to or you can just
+leave them entirely and just use regular HTML given that this is the case given that there are a lot of companies out
+there using web components um they've actually published some of this for people to use and say hey if
+you want kind of like this element yourself just use our actual design system and there are actually tools for
+building Design Systems with web components so for example stencil.js is a very well known one
+um used by like Amazon and so forth so it is a much more advanced tool but it allows you to build web components so
+once we get to the actual Frameworks um these do kind of their own implementation of components some of
+these components are actually built on top of web components so for example like svelt and View and so forth but
+regardless you can still use web components in actual Frameworks and one of the better benefits of web components
+"Material Design" components
+even if you're using a framework is that you can actually use them between different Frameworks so you can create a
+web component and use it in any JavaScript framework and this is kind of what something like stencil does but so
+let's look at the Google one so we can go over here so they have a lot of like
+cool things here some of it isn't 100 stable just yet so you can use it just
+keep in mind that they are still working on it they are still improving it and then here are a couple that they have
+actually planned for the future so um let's just Google a list of web component Design Systems so this
+component.gallery is amazing and like they actually have a list of things that you can use so you know let's say you
+want to Avatar and then you can actually just fold to buy Web components okay here are all the different avatars that
+you can use so one that I really enjoy working with is a shoelace
+um and it's the shoelace dot style over here and so they have some cool stuff so
+"Shoelace" components
+you know here's a button and so forth and you might prefer something else but I'm just going to continue working with
+shoelace um just as an example of how you would actually use a third-party design system
+so what you need to do is you just need to add these two files to your HTML so
+this brings in the components so if we add it to the top of our file so let's
+just delete all of this over there and let's pull that in and let's give it a
+try so let's try SL button so you'll see they're actually prefix prefixed it with
+slsl being shoelace in this case let's do an SL button down here click me and
+let us look at our site there we go there is a nicely formatted button and
+whatever and let's see what select let's look at the shoelace site and let me
+just zoom in a bit more for readability and you even even theme it yourself you can even you know change the colors and
+Adding custom "Shoelace" styling
+so forth similar to what we did with our components there's even a dark theme and so forth you can create your own theme
+and so forth there's a lot of really great documentation on here go into the
+components themselves and like apply specific styling with kind of this part
+I'll show you in a second what this part is as well but let's just maybe assemble
+a super quick dialogue so and you can have a look here and you can just open the source and see how they did it let's
+Using "Shoelance" dialog component
+just pull all of that in here okay so currently that doesn't do anything and it's because we still need to wire up
+the behavior this just gives us the components but they do have an example here of how they wire it up so let's
+just use what they have as an example so let's just put it in here I'm also just going to do an inline script here and so
+what they do is they grab the dialogue by means of dialogue Focus but we can
+even just go back to our data attribute example so we can just say data
+dialogue open and we can just select that because for all intents and purposes web components are just plain
+HTML the input let's just leave that for now let's leave all these things for now we just want to be able to open the
+dialog so we can just say on this element add an event listener let's also
+just go this SL button down here so let's just say and this should actually be the dialog itself it shouldn't be the
+so this is just data let's do dialog and down here let's do data okay so we just
+have data dialog and data button and on that button let's add an event listener
+let's also just do a quick data close here and you'll see here that actually specify the slot that it should go to so
+I'm going to talk very quickly about Parts I'm quickly going to talk about slots named slots in a second so up
+until now we've just passed it directly as slots you can actually set a named
+slot and this is where slots get really powerful but so let's do data close and that is just the close button so data
+close and let's add an event listener to that add event listener click dialog I guess it Targets this and it shows it
+and it hides it so if we look at the shoelace documentation if you read the documentation and it's full you know
+like they give some tips here's an example scrolling so they give loads of other things for you and then down here
+Overview of "Shoelace" documentation
+they actually give you what are the slots so there's a label slot there's a header action slot there's a footer slot
+they even have a section in terms of where they explain slots a bit and then attributes what are some attributes that
+you can set you can set it to open you can set the label you can set no header and these are events that fired so you
+know you can listen for when it opens you can listen for you know when it closes you can listen for these events
+and then methods that these are actually these are actually things that you can call on the element itself and then you
+can even pass CSS properties uh like the width you know let's say you want to make it wider and CSS Parts as well so
+there's a ton of stuff here and this is so flexible that you can build an entire site just using this and never creating
+your own actual CSS or HTML and all that you do is you use these ready-made
+components and Geo users write the logic you just write what should happen but you use their input you use their
+buttons you use their dialogue and so forth and that saves you a ton of time and once we're going to be talking about like Frameworks like I'm also going to
+introduce some of these so one that I use day in day out is one called mui and
+"MUI" components for React framework
+it is for react I mostly write react code and you can see this is really
+extensive in terms of the things that it gives you you know so if you look at the buttons you know like these are the
+buttons it gives you stuff like you know check boxes it gives you like a rating thing a toggle button uh chips like this
+um tooltips so for for example if I hover over this you know like that type of tool tip different types of alerts
+and so forth this really helps speed up development and a lot of these it is this exact principle of polymorphism
+Polymorphism allows extending components
+that actually allow us to extend these and actually build on top of them to the
+extent that it almost becomes completely custom but you're using these as a base to build on top on and that's generally
+how we want to be using libraries we want to be using libraries to extend our
+own code to show you an example material design actually has this part where they
+actually show you water that a couple of different sites and these are all built with material design components but if
+Components can be styled differently
+you look at them they look vastly different you can barely tell that it uses the same underlying actual
+components so they look vastly different but it's up to you how much you want to actually customize it and in our example
+I'm not going to customize it too much because I actually want you to guys to get better at JavaScript so I'm going to
+How much HTML and CSS you write?
+be spending more time here going forward talking about JavaScript and maybe less time talking about HTML and CSS if you
+feel confident with HTML and CSS or if you want to actually add a bit of your
+own styling a bit of your own design you can extend these components if you just
+read the documentation or if you want to go all out maybe create your own components and it's you know it's not
+that cut and dry maybe you can pull in a couple of third-party components maybe you can create some of your own
+components in between and so forth so it gives you a lot of space to kind of figure out how much of your own styling
+do you want to bring in but a lot of these libraries actually give us a lot of Base components to start working with
+and speed up our development time all right so just super quickly before we
+end this author I just want to quickly chat about two things so firstly I'm just going to remove these that I
+created here because in the next video um I actually want to show you how we
+can actually replace all of this even including our user action that we just created now with actual third-party uh
+components from shoelace or maybe just do a quick example where I also show how you can use Google material design
+components as well but yeah so then we can just focus on the logic and leave the presentation and the HTML and the
+CSS up to the actual design system that we're using so what I want to do now is
+if we just choose our user action here I just super quickly want to show um how we can actually use slot in a
+more specific way so at the moment we only have a single slot and whatever we
+What are "named slots" in components?
+pass goes here so this is obviously a very contrived example
+um but I just want to show the principle so we can go slot and let's just say
+name start and Slot name end and let's
+just keep this as is so this one over here let us just put
+um in Brackets you know let's just end so this is what it's going to be unless you pass something to the slot
+um this is going to show nothing unless you pass something to the slot and anything that's not named is going to be
+passed to just the unnamed slot so let me show you quickly what that looks like so if we go here so let me also just
+remove all of this while we're at it and so we have this data button importance
+and we are adding task let's just say you know that this is a span but then
+what we want to do is we want to maybe pause a link and that link goes to http
+s you know google.com you know and Target blank and let's just say click
+here obviously a really bad idea to pass a link into an actual button but it is what it is then we need to actually on
+this itself say you know slot start and then it's going to assign this element
+Setting named slot attribute on element
+to the start slot and this to the other one and let us have a look and see how
+that looks and here we go obviously styling is a nightmare but this is just to show the principle all right
+um and just to show if we then assign it to end so at the moment it just puts the
+actual placeholder one there so if we just rename this to end it's going to override the placeholder one that we
+have but it's going to leave this here and if you can't see it you know there is the click here and so you might be
+like okay cool big deal this is very similar to attributes uh but so here's the thing you can pause anything in
+Can pass any valid HTML into a slot
+there we can like if we really wanted to we can pause an image you know so let's just say let's get Lauren pick some so
+let's just grab a random lorem pick some image and let's just say that's the default and for end we can even go and
+pass like user action into user action itself so this is where it gets crazy so
+you know user let's pause user action two times into itself and then you know
+inside that let's have an unordered list but this is obviously slot all right and
+Nesting components themselves
+let's have a look look at this this is absolute crazy stuff but you know it just shows how powerful it is you can
+actually pause the thing into itself several times um you can pass entire structures entire
+abstractions into it this isn't merely just setting a specific string value and
+so by using this efficiently we can really create we can create super
+maintainable and easy to read actual coding logic and we can even intercept
+it and do things with it before we spit it back out almost like a center and a ghetto all right but we're going to dive
+much more into the power that an approach like this unlock unlocks for us
+Transforming slots inside component
+and specifically when we get to some Frameworks we're also going to look at jsx which further Builds on this and
+actually treats these things as actual functions and we can actually bind it to
+a specific function so let's just do a much more conservative one again let's just go our task and so now I'm quick
+What is CSS "::part" pseudo-element?
+just want to show how part Works part is related but it's not exactly the same so
+let's say in my user action I have something that is always there which is
+let's say you know a actual Arrow so let me just get an ASCII Arrow let's just
+say something like that okay so this is always in my component all right so we have that arrow and let's say we want to
+allow people to actually be able to style that specific arrow and all that
+we do then is we do part equals and we can call it anything and then in CSS you
+can Target that specifically so let's do some inline style here again let's say
+let's target this specific one let's just say class example okay and we're going to Target example we can do things
+like oh we want the background to be red okay so let's have a look first and foremost that doesn't do anything
+because the Dom you can't actually change the CSS from outside of it but
+what we can do is we can grab a specific part and style that so what we can do is
+we can say like that part and what part we want arrow and maybe the arrow we
+want to make the color red and there we go awesome so it allows you to like Target specific things yeah and that
+isn't about it so slot spots obviously these are very straightforward examples
+it gets very complex you can build really complex things a lot of advanced things with just these basic tools and
+we're going to be showing a bit more of that as we go ahead but in the next lesson what I'm going to do is I'm going
+to bring in some of these shoelace components and then I'm going to be talking a bit about functional
+Introduce "functional programming"
+programming and we've spoken a lot about object orientated programming up until now and I'm not going to rewrite the
+entire app in a functional style but I'm going to be showing how we can use functional programming here and there
+and functional principles to actually solve problems in our app actually make
+our app more resilient so I will see you guys in that video
