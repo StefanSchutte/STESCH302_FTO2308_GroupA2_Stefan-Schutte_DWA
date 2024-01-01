@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" class="sl-theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tally_Count</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap" rel="stylesheet">
+
+
+  <script  src="scripts.js" defer></script>
+
+  <link
+    rel="stylesheet"
+    media="(prefers-color-scheme:light)"
+    href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/themes/light.css"
+  />
+  <link
+    rel="stylesheet"
+    media="(prefers-color-scheme:dark)"
+    href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/themes/dark.css"
+    onload="document.documentElement.classList.add('sl-theme-dark');"
+  />
+
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/themes/light.css" />-->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/shoelace-autoloader.js"></script>
+
+</head>
+<body>
+
+
+<header class="header" >
+  <h1 class="header_title" >
+    Tally Count
+  </h1>
+</header>
+
+<noscript>
+  <p class="error">this app requires javascript to work</p>
+</noscript>
+
+<sl-divider></sl-divider>
+
+<aside class="controls">
+  <sl-dropdown>
+    <sl-button slot="trigger" caret>Display</sl-button>
+    <sl-menu>
+      <sl-menu-item id="dayOption">Day</sl-menu-item>
+      <sl-menu-item id="nightOption">Night</sl-menu-item>
+    </sl-menu>
+    </sl-dropdown>
+
+  <sl-dropdown>
+    <sl-button slot="trigger" caret >Counter</sl-button>
+
+      <sl-menu-item data-key="Counter 1">Counter 1</sl-menu-item>
+      <sl-menu-item data-key="Counter 2">Counter 2</sl-menu-item>
+      <sl-menu-item data-key="Counter 3">Counter 3</sl-menu-item>
+    </sl-dropdown>
+    </sl-dropdown>
+
+
+  <sl-drawer label="How does this app work?" class="drawer-overview">
+    How does this app work?
+    <sl-button slot="footer" variant="primary">Close</sl-button>
+  </sl-drawer>
+
+  <sl-button> Help! </sl-button>
+
+  <script>
+    const drawer = document.querySelector('.drawer-overview');
+    const openButton = drawer.nextElementSibling;
+    const closeButton = drawer.querySelector('sl-button[variant="primary"]');
+
+    openButton.addEventListener('click', () => drawer.show());
+    closeButton.addEventListener('click', () => drawer.hide());
+  </script>
+
+  <sl-divider></sl-divider>
+
+  <sl-button id="settingsButton" variant="default" size="large">
+    <sl-icon slot="prefix" name="gear"></sl-icon>
+    Settings
+  </sl-button>
+
+  <sl-button variant="default" size="large" id="resetButton">
+    <sl-icon slot="suffix" name="arrow-counterclockwise"></sl-icon>
+    Reset
+  </sl-button>
+
+  <sl-divider></sl-divider>
+
+</aside>
+<main class="counter">
+
+  <sl-input class="counter_value"  data-key="number" readonly value="0"></sl-input>
+  <div class="counter_actions">
+
+    <sl-button variant="success" outline size="large" data-key='add' class="counter_button" @click="${addHandler}"><sl-icon name="caret-up"></sl-icon></sl-button>
+
+    <sl-button variant="danger" outline size="large" data-key='subtract' class="counter_button counter_button_first" @click="${subtractHandler}"><sl-icon  name="caret-down"></sl-icon></sl-button>
+  </div>
+
+
+
+
+</main>
+
+<sl-divider></sl-divider>
+
+<footer class="footer">
+  Inspired by <a class="footer_link" href="https://tallycount.app/">Tally Count.</a>
+</footer>
+
+
+
+</body>
+</html>
