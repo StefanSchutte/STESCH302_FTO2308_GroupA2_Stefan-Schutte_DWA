@@ -1,0 +1,446 @@
+Procedural Programming = functions as nestable insructions
+side effect of function
+
+OOP = Objects that contain both data and behaviour
+also reley on side effects
+
+Functional Programming = functions as primary abstraction
+side effects not allowed or at least not majority - little as possible
+
+
+
+Recapping programming paradigms
+in this video I am going to start talking about functional programming in
+a previous lesson we spoke about functional programming is one of the
+three paradigms alongside object orientated programming and also procedural programming so just to Super
+quickly recap we can say effectively that procedural programming and oop if
+we compare these three the with one another they are primarily concerned
+with how you do abstractions what are your primary abstractions so we started
+off with procedural programming where our primary abstraction was functions as
+nestable instructions what does this mean this means that I might have three
+abstractions that are watch TV and buy groceries okay so these are high level
+abstraction and then Within These high level abstractions or several nested
+What is Procedural Programming?
+abstractions but all of them are treated as nested levels of instruction so watch TV what I need to do is I need to switch
+on TV and I need to sit on couch all right and then even in those
+instructions or nested instructions so this would be find remote press red
+button on remote confirm image is on TV and then sit on couch would maybe be
+something like find couch check if couch is clean and so forth and so forth and
+you know under buy groceries we might have you know get in car and so so you
+have these high level abstractions that abstract all the way down by means of
+treating everything as nestable functions and this almost entirely
+relies on something called side effects in other words you call the function and
+What are side-effects in programming?
+then it does something else in your code somewhere so it's a side effect of the function so you can think of this almost
+like a button that you press and something happens so some way oop bolds on this approach and it says instead of
+primary means of abstraction being functions as nestable instructions your primary means of abstractions are
+objects that contain both data and behavior if we were to go back here you
+Recapping OOP
+might have a couple of things here you might have t your TV and your couch and
+yourself and each of these has information and can perform actions on
+themselves and they might even be encapsulated by a bigger object which is
+you know living room so let's put yourself there outside and you know car
+obviously this is a very basic example there is a bit more Nuance to this I'm just trying to explain the high level
+principle in terms of how it thinks about abstraction so yourself has behavior and it has data so in in data
+we might have location location accepts either outside or it accepts living room
+and then there's maybe a method that is interact and through the principle of
+How does OOP do polymorphism?
+polymorphism yourself doesn't need to know in what location it is to actually
+be able to execute interact so both of these living room and outside have an
+interact and when you run into act living room maybe runs you know fine
+couch or find on couch or find on car you don't treat this as instructions
+basically you have these this mapping of objects and the way that these objects
+interact with one another either through data or behavior so let's also indicate
+this abstraction over here so they talk to one another and that is how things happen in your app but yourself for
+example doesn't know what goes on inside here or inside here yourself does doesn't even know what location it is it
+How does OOP do encapsulation?
+just knows what it can do and then when you call like a method on it it just
+runs something on the location without even knowing what the location is and
+then the location handles that so this means for all theoretical purposes you should be able to completely pull out
+put something else inside yourself so we have you know living room we have outside it's so your bathroom or
+whatever and I'm obviously not gonna well in the details here but you get the you get the
+idea you know so that outside should not know anything about what goes on here it
+shouldn't even know if there are others like it so for all intents and purposes all of these units can be reasoned about
+on their own you can almost think about those web components we created or even if you go on
+webcomponents.org so let's for example look at a carousel web component so here
+Example of carousel HTML component
+there's an action so you should be able to pop this into your code and it doesn't need to know anything about
+whether there is anything else on the page or what's next to it or above it or
+so forth let's look at the HTML so you can just pop it in like smart Carousel like that and maybe feed it some images
+and so forth but it shouldn't make decisions it shouldn't do anything based
+on anything around it or outside it it doesn't know anything about the context around it okay so now that is
+essentially oop very broadly speaking obviously there's a lot more Nuance to it and this is why I didn't just cover
+it in this way why we spent maybe four or five videos on it unpacking all the Nuance so we can say procedural
+programming treats your main abstraction as nestable instructions oop treats your primary
+Summarising difference between paradigms
+abstraction as you know so the O in object so the O in oop objects are
+objects are your primary instruction functional programming obviously no
+surprise here treats functions as your primary abstraction you might say okay
+so how is this different from procedural programming the key here being that
+Difference between Procedural and FP
+functional programming says side effects are not allowed it says the thing that
+really makes code unmanageable is side effects side effects obviously this is
+almost entirely built on side effects oop also relies on side effects so in
+other words when you call interact interact it does things outside of
+itself so you know for example here or for example here or even within itself
+it maybe changes the data functional programming says that side effects are not allowed a function cannot change
+anything outside of itself and so this sounds insane like how do you actually do anything meaningful okay so there's
+there's two things here this is a common misconception about functional programming and like I also fell into
+that trap now by saying it doesn't allow side effects functional code doesn't
+allow side effects but functional programming says you should try and make as much of your code functional as you
+In FP you limit side-effects as far as possible
+actually can so that means that you should have the bulk of your code here which has no side effects and then you
+have this little bit over here that are actually where you have your side effects so the the majority of your code
+should not have side effects why would you want to do that and so in the upcoming videos we're going to unpack a
+bit more about what are the benefits of having as little side effects as possible functional programming and oops
+Manage side-effects if unavoidable
+share a lot in common this is the one area where they differ and the one area where they are mutual exclusives because
+oop requires side effects you you can't do anything in oop if you don't have
+side effects so let me show that example with a let's just go full on and let's build our tally up with a with a class
+so let's just say class and it's a soup counter okay an encounter is value and
+Basic Tally App with OOP
+it starts as one and then this increase and decrease and then there is log so we
+did those Setters and Getters and all of that last time I'm just gonna keep all of this public just because I want to
+show the principle so we can say this dot Value Plus One this dot value minus
+one okay and log is just cancel log this dot value all right so how would we
+interact with this so we would go let's create an instance and let's say new so
+what we can do is we can do instance increase instance decrease and instance
+log all right so where are our side effects over here so increase is a side
+Side-effects in basic Tally App
+effect because it actually influences something outside of it so when we call
+it it actually changes this thing the same with decrease both of these have side effects so they change that value
+log has two side effects not only does it rely on something out like itself but
+it actually targets something outside itself so it actually like even targets the browser and this is where this
+notion that the problem with object-orientated languages is that you've got all this implicit environment
+so he jokes and he says you wanted a banana but what you got was a gorilla holding the banana and the entire jungle
+Hard to untangle behaviour in OOP
+so this is obviously a very basic example so it might not seem like a big a big problem here but let's say you
+just want one of these you need to pull in all of this logic okay that's fine you might be like okay
+um it's going to be result in a bit of a bigger file size and that should not be underestimated let me show you an
+example so um for a very long time people use this Library called moment.js to handle
+time-based information in JavaScript and it is it's a great library and like
+pretty old now very much kind of the same era as jQuery but you'll see even
+Moment.js vs Date-fns
+up here they say consider using moment they may be better Alternatives so even
+moment JS recommends that you don't don't use a moment anymore and one of
+the recommended ones date FNS this is the one that I actually use and I'll show you the difference in a second so
+effectively dead F and S is a completely functional Library so it's a it's a
+library that's written with functional programming principles and and we spoke in the previous video about libraries
+libraries or these third-party things that you can actually enter your code to
+like extend your code and to help so it allows you to give things like oh you want to take a date and you want to
+subtract three days or you want to format a date in a very specific way it even has an entire section here on using
+composition and functional programming with date FNS whereas for example with
+moment the way you use moment you'll see here's like Getters and Setters and stuff is that you instantiate this
+moment object and everything is inside that moment so let's say you just want
+to convert the date from second 30 minutes whatever you need to pull in this entire Library just to do that
+because it's so reliant on side effects you can't just pull in something out
+without everything else around it there's a couple of well-known screenshots of actual projects out there
+that use moment J is where they actually show how much of the code is actually
+moment.js let's have a look here at an actual angular project that uses
+moment.js and you can see so this is how like all the code is split up this is
+done by a webpack bundle analyzer so this is actually something you can run on your code base that actually shows
+you how it like splits up your code base to show you know what accounts for what
+oh this blue part over here is all the polyfills honestly I think they're maybe adding too many polyfolds because
+they're polyfilling all the way down to es2015 it depends on what type of
+project you're building so the in this brown tan color over here this is the actual code itself so the project itself
+and then this entire section over here is moment there is this is insane this
+is my massive it's almost it's almost the size of a third of the entire code base and for all you know they might
+just be actually converting a date from something like seconds to hours or
+whatever but now they need all this other logic along for the ride so
+there's definitely a case to be made that oop generally results in actual
+bigger file sizes and more code especially when it comes to third-party
+libraries because you need to pull in everything because you don't know what side effects are going to be required we
+can't just let's say we want the decrease functionality we can't just pull out the decreased functionality and
+only use that then another thing is testing this is very hard to test compared to functional programming so
+OOP is much harder to test than FP
+before we go ahead let me show you how you would do this in functional programming I did mention that you you
+need side effects somewhere you want to use as little side effects as possible and you also want to keep all your side
+effects together in a single place it's impossible to not have side effects because at the end of the day your code
+should change something but you don't want those side effects spread out all over your entire system
+Example of managing side-effects in FP
+so what we would do is we would maybe just do const State and State just has
+value and this is the extent of our side effects all our side effects happen here so all our side effects happen here and
+we also split out our behavior and our and our data so all our data is here as well and your side effects are usually
+where your data resides but the behavior itself doesn't have side effects we
+would create an increase function and we would create a decrease function we would create a log function so increase
+Creating "pure" (no side-effects) behaviour
+takes State and it returns a new state okay so what we would do is we would
+return the current state and we would just destructure to create a new object
+so we create a new blank object and we take everything from this state and we Destructor it into this you can even do
+if you want object assign and just an empty object and then combine it with
+state to create a new object or what you can also do is you can just Go full on
+Complete new state object on change
+you know result new object and then go result value equals State Value Plus one
+and then just return the result so the key being that every time you need to create a new object you can't modify the
+existing one because then you're creating a side effect so it takes something and it splits something new out okay but the easiest way is just to
+destructure it directly in here and then we just say so we destructured and then we override value after the D structure
+and we just say that is State Value Plus one and then we do the exact same for decrease and it just minuses it and then
+log takes the state and it also takes a callback we just pass State value to the
+Callback so none of these have side effects so what this means is we can actually pull any of these out and use
+Example of how FP helps manage data
+it on any state so that means whereas over here if we want three different counters we we need to instantiate all
+of this Behavior three times you know so we have for example temperature humidity and let's just say wind or whatever so
+you bring all this Behavior along each time over here let's just actually put those as three things in our actual
+state so we have these functions and then if we want to do something like this we can add something that is a lens
+and we would actually even use a lens for this I would actually not do it this way so I would actually let's just say
+Very basic example of a "lens" in FP
+get so get is an actual function and so you just pass State and you say what you want to get here so this is something
+called the lens so you use this instead of Getters and Setters in functional
+programming and then you just return so then what we can do is if we up here let me just move this to the side in our
+state we have wind which you know has value and we have temperature which has
+value one and we have humidity which has value one okay so then if we want to
+modify this so here's our data here is our behavior and then let's just put our
+logic down here over here we have our data and our Behavior together and then
+Seperating data, behaviour and logic
+we have a logic just a split between our data and behavior and then the logic
+down here here we actually have three splits so let's actually then put our logic down here so so before we get to
+our functional code Behavior it's also important to talk about probably one of the most common patterns that you find
+in functional programming within JavaScript is this idea of a store because as you can imagine here and the
+Example of common "Store" pattern
+benefit that we get with this separation here is that because our our state is no
+longer co-located with our actual Behavior the benefit is that we can keep all of our data together in a single
+place so you can see the entirety of the App State in a single place compared to
+here where we actually have the state of the app split across three different entities so what I'm gonna do in this
+video is I'm going to add some of those shoelace components to my to-do app and
+then I'm going to show how we can actually save the tasks in the to do app
+so if you close your browse and you open it again how you can get the same tasks again and we're going to be doing that
+through functional programming through kind of the store pattern and we're going to use something called middleware
+Saving data with "middleware" in "Store"
+to do that and then I'm going to show why it would be really really hard to do something like that and to actually save
+our data locally if we're exclusively just using an oop approach alone and
+this is one of the areas in JavaScript where something like oop and functional programming play really nicely together
+so we control our objects we control our elements through oop by creating web
+components because that is the mod model that HTML elements follow under the hood they are actually just objects a lot of
+Still keeping components as OOP
+the high level logic we can actually control through functional programming principles because I do and I find that
+functional programming is really useful when you are actually handling something
+as interactive as the entire App State specifically when changes to that state
+happens as actual side effects so by means of button clicks or you hitting a
+server and getting something back from a server and that is for these reasons that most asynchronous things in
+JavaScript are actually handled in a functional programming way I'm going to
+JavaScript uses FP to handle asynchrony
+show you super quickly once we get to promises and the fetch API at the very
+end of the JavaScript stuff that we're covering and we're really going to go into this and and this functional
+programming idea of a monad but I'm just going to show you very quickly so let's say we want to get something from
+google.com we would go fetch and we would say where https
+google.com and let's just say slash user okay so we get a user there and then we
+Basic example of asynchrony in JavaScript
+can say all right so when that comes in check if the API response is okay so
+what we can do is we can say you know response and we just check if response
+is not okay so new error invalid response and then the next step we say
+all right and then we just return the response again and then the next step that we want to do is we want to turn
+that response into actual Json data so we go response response dot Json all
+right and so when that is done let's get data and let's just get DOTA dot ID okay
+and then we'll just console log that okay so you chain your behavior with
+these higher order functions so at no point is anything being saved this is
+all just data that's getting piped through functions so it does this then it does this then it does this then it
+does this and then it cancel logs the result so nothing is getting saved nothing is getting mutated in in the way
+that if we were to have you know for example late response and you assign into that and then you pull and you
+assign back and so forth but this is some pretty high level functional programming I just want to show that
+JavaScript has functional programming built into it as well in the same way that it has you know like class built
+into it so JavaScript supports both functional programming and object or object orientated programming but for
+JavaScript supports both OOP and FP
+some things you do require to use oops so anything with a Dom you need to do
+oop anything with asynchronous functions and so forth you need to do functional
+programming so you need to understand both but as mentioned like it's possible that you can enjoy one more more than
+the other one while still realizing that both are required to write JavaScript and for me personally I really like this
+like there's something really cool to me about just passing data through these pipes and not actually saving it
+anywhere and it comes out in the form that you wanted to at the end as opposed
+to something like this where we create all these structures and whatever but so with that out of the way
+um generally you create a store and a store handles all the side effects for
+Creating "Store" to handle our side-effects
+you we can say that this is the initial state that the store starts from so
+let's just do initial okay so this is the initial state okay and let's just create a factory
+function const create store and then in that store we just pass the initial
+state to that store initial so we just pass the initial state to that store put
+it in state over here and this is the only thing that can be mutated the state
+can be replaced that is it I'll show you another example in a minute where we can go even further and never replace the
+state and how that allows us to do really cool things like undo and redo and so forth okay so then we assign our
+Create "update" method in "Store"
+state over there and then create store Returns the actual store itself let's say you can pass a specific action to
+the store so update okay and update this takes a function we can even put it up
+here and you can do all of this with the class as well um for me it's just I I enjoy I prefer
+working with Factory functions um as mentioned I find them more
+idiomatic I find them nicer to work with than classes but but this is just a personal preference that both of them do
+the same thing under the hood so you can use either this is just what I personally prefer one thing to to note
+though is remember because classes use prototypes
+um they actually create a prototype chain and all objects that you create
+from that class fall back to that prototype chain that you created there
+are some performance benefits to that because you're not creating a new object every time so it uses less memory and
+Comparing performance of classes vs. factories
+this is the exact reason why prototypes were actually added to JavaScript so I spoke quite a bit about how gross
+prototypes is and how I don't like them at all but I never actually spoke about why they were added and when they were
+added they were actually an amazing thing because they allow us to extend things by using very little memory and
+so at the time when JavaScript was created you know let's say 1995 this wasn't amazing because your primary
+Prototypes were added to solve a problem
+concern at that point was memory like the standard memory that a computer came out with at that time was about eight
+megabytes of ram let me actually see how much RAM I have on this device over here the the computer that I'm using right
+now let's have a look I had 32 gigabytes and that's not even a lot for modern day computers um some go up to 64 gigabytes
+there are some that go even higher eight megabyte is about 2.4 percent of what I
+have um if you have even more than your then you're kind of approaching the one percentage number and it's probably
+going to go bigger and bigger so this was a time when memory was when memory usage was a huge issue and you know like
+now we have a lot more memory available this doesn't necessarily mean that memory is not an issue you know memory
+is still an issue let me even in my task manager let's see how much memory my computer is using right now so if we
+have a look here and we look at my computer even with all that memory right now I'm using about fifty percent of it
+okay so memory is still an issue at the scope that we're working at now whether
+something is uses the Prototype or creates a new object the difference in
+memory is like a little blip on this radio you if you would be able to see it at all so there is something to be said
+about memory optimization I generally don't think whether you're using the
+Prototype or creating your own objects maybe in the top thousand of things you
+Avoid focusing on micro-optimisations
+need to talk about when you talk about how to use memory more efficient in your app the only caveat being when you have
+an app that is doing a million and million calculations per second so you
+are writing maybe drivers for a database or you are building something like figma
+itself which we're using over here then you really want to maybe squeeze out
+that little bit of performance you can it because you know even something that is a super small blip if you perform it
+Only important in super rare edge-cases
+a million times a second you know so let's say you're creating a million stores per second that's a different
+story but the top of apps that we generally build that's a non-issue and I've actually never encountered and
+encountered an instance where I'm working on something at that scale where I need to squeeze out that little bit of
+granular memory usage if anything the thing that slows our apps down nowadays is computational Cycles which ironically
+has more to do with the Dom and we're going to talk about when we talk about Frameworks we're going to talk about this idea of a virtual Dom and the idea
+of a virtual Dom actually says that the performance problems we have today is related to computational Cycles
+Focus on more important performance issues
+therefore we're putting more stuff in memory to save computational Cycles this
+is just to actually show like how of a non-issue this type of memory this this
+little bit of memory that you save is in the big scope of things I just wanted to bring that up in case you ever come
+across someone who's like over classes or way faster and and this is the case for any type of Micro optimization
+whether it be like the type of of Loops you use or whether you're using VAR and
+constant all of those things and you know this brings us also back that can back Axiom of make it work make
+it right and any only then make it fast because a lot of times like these are
+actually competing concerns and making it fast should always be the last
+concern it's a lot easier to make something fast once it has it is
+actually working and also once it is in a readable manner like I said a lot of
+people actually say make it pretty which talks about like how the actual code is structured so it's pretty trivial to
+convert this to a class if we do decide to do that and if it actually becomes a problem but you might just go I actually
+like classes more than this I prefer working with classes which 100 go for it I actually I actually prefer working
+with Factory functions that's at end of the day all right so update so what does update future update takes an action and
+that action is a function so we can actually just check ensure that type of
+What does "update" method do?
+action equals function so if it doesn't then throw error action is required to
+be function so let's actually create a quick interface for our store so let's do it up here and remember I write my
+types as Pascal case so let's do type Dev store
+object store okay and that store has a couple
+of props okay so the first one at the moment it just has update and update we
+Adding JSDoc interface to our "Store"
+can just specify up here and that is all it has for now so let's do callback yeah
+and the Callback is update and what does update accept it actually accepts another callback and here you'll see
+where we're using parametric polymorphism and then parametric polymorphism is a key part of functional
+programming and you will see like as I mentioned you know sometimes it gets a
+bit hard to get a grasp on what exactly is happening and and the reason for that
+is not because functional programming is complex functional programming is
+In FP pass functions (not data) around
+actually I find a lot more simpler but understanding the concepts of functional
+programming is harder because they don't reflect anything that we experience in
+the real world so I spoke about those Russian Esther dolls I spoke about the tree with the branches you know like
+those are metaphors but like they don't actually think itself fully okay so just
+be mindful that when you're like I'm not following anymore I don't know what's going on maybe stop go back a bit
+re-watch it again um the point being is it should be hard to understand it but once you understand that like it's actually going to be much
+easier to understand the code once you understand the principle okay so in here we actually pass action right and let's
+just declare action up here and that's also a callback and action and all that
+that does is it takes a param and it returns a new state so let me put all of
+this for us in vs code so we can actually get this Auto completion and and so forth so let me just spin up a
+completely new project and just to illustrate the principle before we start applying it to our to do app okay so let
+me just pull that in and let me just add my scripts.js here and let's actually just
+create a store.js I usually encapsulate it in a store file as well and then I
+kind of use the built-in export and import aspects of modules in JavaScript to actually manage this instead of
+Using JavaScript module functionality
+actually having a store Creator so let's just grab everything we have up until now and Pull It in so here is our
+initial store here is the actual functions and the actual store itself
+but you remember I'm saying that this actually shouldn't be encapsulated with
+Breaking out behaviour into "actions.js"
+the data so let's actually you just do you know actions dot JS so these are
+actual actions that you can pass okay and so let's move all this Js Js dock up
+here to the top and let's also just create the shape of our store up here as
+well we can go and because this is a pretty common pattern actually create a
+type definition for this and let's just call it and for now item just has a prop
+Continue adding JSDoc definitions
+which is value and that is a number all right so then let's just create our
+state so type def object State items on there humidity temperature and wind all
+right so this takes us this state it returns a new State uh update there we
+go and this should be prop and we're gonna need two other um props as well and this is where I
+said it's useful to actually understand design patterns even if I said you
+Looking at "Observer Design Pattern"
+shouldn't Implement them directly as is in your code because we're going to be drawing inspiration here from a specific
+design pattern which is the Observer pattern but the key here being inspiration so effectively what our
+store is going to do is things can listen to the store the store will let
+it know when the store itself changes and they can respond accordingly and you
+can effectively think about this you know almost like a newsletter so if you subscribe to your newsletter so you
+effectively subscribe to the store from somewhere in your code and when the store changes you get sent in an alert
+that the store has changed and this is the new state of the store and that is how you handle your side effects in a
+lot of JavaScript projects so most Frameworks have something that kind of provides this type of behavior the big
+Discussing "Redux" and "Pinia"
+one the original one is Redux which was created for react but you can use it in
+anything we might even pull Redux in and then there is one full view which is
+and then spelled actually has a built-in way to actually create stores and so
+you'll see here it shows how you can subscribe and so forth and it actually uses the this counter example that we
+built initially so what we then need is we need a way to to subscribe so when
+update is run we get notified and so let's quickly create that subscribe and
+Adding "subscribe" method to "Store"
+this is also why this works really nicely with functional programming is because you actually don't mutate the
+store directly so you keep a copy of the old store so that means that you can
+provide both the previous and the next store on a subscription event so
+wherever you're listening for it you can compare the actual changes okay so let's just quickly finish this also throw a
+new error what are we missing here const update run your error and we need to close that okay also what we're going to
+do is let's actually make our state States and it is actually an array so
+let's just while we're at it assign that so we can go to type and array state so
+it's an array of states and the first one that gets added is initial and then we just push on top of this every time
+and let us do cons subscribe as well let's just do that and
+so what we're going to do we're going to return update and we're going to return subscribe okay and let's just say what
+this is going to do for us we actually don't need this I actually said we can actually get rid of this because we are
+just using the export functionality of the module itself so we can actually just export const update and Export
+these as two different things so States or else update so what we're going to do
+is we're going to get the previous state so there we go effectively it just looks
+Grabbing old state on "update" call
+at the current states and it does the length and -1 so to get the last one
+that has been added what I actually prefer to do is I'll do it the other way around so I don't put them at the end of
+the array I put the latest State actually at the front so it pushes all the other ones back so we check the very
+first one and then we calculate the next one and the next state effectively we
+run the action on the next state and that's going to give us the next state and then what we do is we just take
+Run "action" on old state to create new state
+States and we unshift in other words we put it in the front moving everything else next so that it puts it at the
+front over there what we also want to do it might be worth going object freeze on
+both of these that just means that you actually can't modify it prevent accidental reassignments and so forth
+and what we can also do is let's just destructure them inside here just to
+ensure that these are two completely new arrays objects some others might be a
+Continue creating "subscribe" method
+bit Overkill but we want to make sure that you can't accidentally directly mutate the store okay and then we
+unshift that in so how is subscribe going to work so in subscribe let's also
+add subscribers okay so these are actual functions that are subscribed to the
+store so these functions are going to get called let's create what this would look like the callback for that so and
+let's just say notification so this is the notification that you get when the
+actual store changes so the first param is is next and the other one is previous
+so you can get the the actual upcoming State and you can also look at the
+previous one if you want optionally actually have any return because it is a side effect all right so you need to
+register a notification so let's actually call this notifications it does look a bit too closely to States so
+let's just mark this up this is type array State and this is array
+notification all right and there's currently nothing in notifications so notification or let's call this Handler
+so this handles the notification and Handler is actually just a notification that gets passed well it's actually the
+language is actually a bit confusing here so let's actually say no to fi to
+indicate that it's a function instead and we can just say node to buyers and
+notify okay and notify there we go just to indicate that it's a function and
+what it returns way to unsubscribe if you want to remove the subscription so
+subscribe" returns its own "unsubscribe
+this is very similar to ad event listeners and so subscribe Ram take
+notify and notify so once again you might be like losing track here maybe
+re-watch this section A couple of times maybe try playing around with it yourself to get your head around it it
+is quite hard to get your head around the concept but once you understand the concept this is actually a very
+simplified way to actually do super complex logic and this is infinitely
+scalable because you can just update your state as your app grows none of this ever needs to change like this is
+you can scale this Behavior infinitely so notifiers so the first thing that
+Complete "subscribe" method skeleton
+gets done is no dirt devise and we can maybe push that on the end so notify
+gets pushed to notifiers again and unsubscribe function is returned this is
+also very functional programming-esque so it might be a bit hard for you to
+really follow him once again because we are actually returning a function we're actually passing the functions around
+that should do the things instead of passing the data itself to the function
+to the way that you keep your data encapsulated and you and you prevent data from being mutated is you actually
+read the functions as the thing that gets moved around and changed instead of the actual data itself because at the
+end of the day when we are thinking about apps we're thinking about interactivity so what is the core thing
+in an app is actually the interactions so it makes sense that actually the thing that you use the most and the
+Functions are primary unit of meaning in FP
+actual thing that gets passed around is actual functions and not the data if you're doing data analysis or let's say
+you have a big data set and you want to find patterns and whatever then like it would make sense that the thing that you
+pass around is the data itself but due to the high interactivity and all the
+events that fire in most modern apps it actually makes sense that functions are the primary thing that you pass around
+but we can explore this in the upcoming videos in much more detail all right
