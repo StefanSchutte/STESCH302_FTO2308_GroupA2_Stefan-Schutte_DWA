@@ -12,15 +12,18 @@
 
 /**
  * @callback Notify
- * @param {State} nnext
+ * @param {State} next
  * @param {State} prev
  */
+export const Notify = {}
 
 /**
  * @callback Action
  * @param {State}
  * @returns {State}
  */
+
+export const Action = {}
 
 /**
  * @callback Update
@@ -31,6 +34,11 @@
  * @callback Subscribe
  * @param {Notify} notify
  */
+
+/**
+ * @callback EmptyFn
+ */
+
 
 /**
  * @typedef {object} Store
@@ -60,8 +68,13 @@ const initial = {
  *
  * @type {Array<Notify>}
  */
-const notifiers = []
+let notifiers = []
 
+
+/**
+ *
+ * @param {Action} action
+ */
   export const update = (action) => {
     if (typeof action !== 'function'){
       throw new Error ('action is required to be function')
@@ -70,17 +83,25 @@ const notifiers = []
     const prev = Object.freeze({ ...states[0] });
     const next = Object.freeze({ ...action(prev) });
 
+    const handler = (notify) => notify(next, prev)
+    notifiers.forEach(handler)
+
     states.unshift(next)
   }
 
 /**
  * @param {Notify} notify
- * @returns {}
+ * @returns
  */
 export const subscribe = (notify) => {
     notifiers.push(notify)
 
-  const unsubscribe = () => {}
+  const unsubscribe = () => {
+      const handler = (current) => current !== notify
+      const result = notifiers.filter(handler)
+
+      notifiers = result;
+  }
 
   return unsubscribe;
   }

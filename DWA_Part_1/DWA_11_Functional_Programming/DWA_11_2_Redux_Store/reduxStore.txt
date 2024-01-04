@@ -1,0 +1,555 @@
+subscribe" return own "unsubscribe
+what we do here is we are going to return this unsubscribe so what does
+unsubscribe do unsubscribe because remember a function this is a reference so it actually still has reference to
+this so what we can do and here I'm actually going to use a higher order function you are not necessarily going
+to understand 100 what it does right now but I am going to explain it it is part of functional programming high order
+functions are a big part of functional programming so you would think about maybe doing this with a loop and then
+looping over and removing the actual notification itself what you can actually do following the rules of
+functional programming is create a new notifiers where that actual notification
+has been removed and this is possible because remember this keeps references it's not putting the actual functions in
+it so we can just move the references to a new array so how would we do this so let's just in here say answer the result
+and notifiers filter okay so we want to create the filter creates a new let me
+".filters" higher-order function
+just switch off Copart it actually wants to write that code for me so I can't explain it dot filter so what we're doing is we're running filter on this
+array so you can think back to when we spoke about arrays and mutating arrays and splice and slice and pop and push
+and all of those things and I said you know there's a there's a lot of other higher order functions that we're going
+to talk about about like when we come back to arrays and this is one you know it's a filter so you pass a function to
+filter so let's just say Handler and so what Handler does it takes the current
+notification and it just checks is the current notification not the same as
+notify so the one that was passed up here originally if it is not the same then this is true meaning that it
+shouldn't filter it it's only going to remove it from the new array if this is
+not true in other words if it actually matches so if we then pass our Handler in there then this is going to run
+button and result is just going to be the new subscribe with the let's do
+notifications notifiers and result okay so just the new ones right so there's
+our logic and you might be like okay but why are you passing this why aren't you creating a new function that is just
+unsubscribe and and the reason for that is because we actually have the reference right in here so why not just
+give a function back that allows a with a reference built in and we don't need to find the thing again from scratch
+okay but so then obviously we're not notifying at the moment so what we want to do is in here and we're going to use
+another higher order function we want to go nodifiers four each okay so we want to run a
+".forEach" higher-order function
+function on each Notifier and once again this is to replace a loop it's just a much more elegant expressive way to
+write that logic compared to a loop it might not feel that way to you right now because you're so used to Loops but once
+you understand this concept and that is sometimes a hard concept to get your head around but once you understand this
+concept like code is going to become much more declarative what is the Handler that we pass to that so
+effectively it should just take the actual notify in our notifiers and to
+run it with previous and next like that and then we just pass that Handler so
+it's taking that function and it's looping over every single item and then once it's done running this it finally
+if there's no error from any of the side effects then it actually merges it into the new state in less than 100 lines we
+have created something really powerful and you can see how powerful that is right now and this is the beauty of
+Functional Programming very expressive
+functional programming and why I like functional programming so much if you're really clever you can express really
+powerful things in very simple manner you know so you can think again about like you know E equals m c Square to me
+functional programming is the Pinnacle of abstraction it's abstraction in its greatest form okay and this is the
+reason why I said to you guys up front that I'm a big fan of functional programming I really enjoy working a
+functional programming because from here on out I'm just going to tell you how amazing functional programming is and if
+you don't like functional programming time to buckle up like this is going to be a tough one for you but my hope is
+that you actually also develop an appreciation for like how expressive
+functional programming can be all right so let's use the store first of all let's see if it actually works so let's
+pull it into our scripts here the only things that we expose from our store is so these are all types but in terms of
+Using our created "Store"
+actual we just have update and we have subscribe and let's pull in our scripts
+over here so refer and type module so this is going to return unsubscribe so
+let's just subscribe the following so let's just say ref and next let's just also say Handler so brief and next and
+let's just console log refund next okay so let's just console log that whenever anything in the store changes and we're
+not going to unsubscribe it just yet so let's update a couple of things so let's do update so we can pull in any of these
+actions but let's write our own action in here so update should be bringing in GIS dock let's see
+what's wrong so subscribe never marked it up over here okay so action there we go and we can write a bit of a
+description here I'm not going to do that right now over here all this is this is just an empty function so we can
+just create that again it's effectively just a callback with nothing let's just call it MP FN so it should be typed up
+Passing the first "action"
+now sir hey there we go so update uh let's just do custom action and let's
+actually pull in the types for action and if you remember correctly the way
+you would do that is you would just give it a empty and the fact that it is uh
+written like that to me is clear that it's an actual type so what I can then do here is I can do and do param or type
+Creating a new state object
+actually action okay now it's going to just give me some type so we need to return something new so let's destruct a
+state in our action and let's do wind countless destruction State wind in that
+as well so we're effectively recreating the object so the reason why I'm doing this is because obviously now if you do
+this it's going to override when with just an empty object so we de-structure what's currently inside wind in this
+object as well and then we can do value State Value Plus let's go 19. if we
+Spreading into nested objects
+let's run this update three times and let's see what happens in our code and
+oh I needed to say store.js so every time we update it it actually gives us
+the previous store and the next door and it is not a number why is it not a number so value so over here so this is
+also cool so we can actually follow and see where the error happened because and this is also why you get a lot of like
+Dev tools you get like Redux Dev tools and so for for example stores and
+Debugging "Store" actions
+whatever and so it actually allows you to actually see like what changed time
+to do at this check because that would have told me ha okay that would have told me like this doesn't exist I need
+to go wind value there we go all right so let's check now so so you can see
+what changed um so let's actually after we do it once uh let's unsubscribe it
+will actually stop sharing this to us because then nothing is subscribed to
+Example of "unsubscribe"
+that um so it'll just show once and then we unsubscribe it cool and the others fire
+without anything listening to it um but so what we probably want to do is let's add another subscription and what
+we probably want to do is what we can do is let's say we want to listen for when
+the wind actually updates and then we want to like change a number on the Dom
+so let's create another Handler and generally you actually and this is also
+Listen to specific part of state
+why you kind of generally create actions and you import them instead of declare but you can write them right in here so
+let's just do another one and as with event listeners you obviously need to register them up front otherwise they're
+not going to get triggered they're only going to get triggered once they are registered let's just say let's call it HTML Handler and I can even then pull in
+notify so if I do the same here uh node to buy okay that's just going to give me
+a bit of type safety and let's just say type is notify and so what notified does
+notify so actually you can see next state and previous state oh we actually got it the other way around actually
+wondering whether we get it right in our actual app no actually got it wrong in our app so the reason why I do it this
+way around is because sometimes you just care about the next state you actually don't care about the previous state but you can do it any way you want uh so
+let's just get next and so all we want to do is we want to check is previous
+wind value not the same as next wind value in other words did a change and if
+it didn't if it didn't change so actually sorry if it is the same then just return don't do anything otherwise
+we can assume it changed and what you do is you do document body um let's just say append tiled and let's
+just create a Dev honest and let's just say Dev document create element div and
+put that in there but what we want to do is div in a text is just the new is next
+Binding side-effects to state
+wind value okay and this is unhappy because now number is not okay we just
+need to do through string so you don't even have to grab the unsubscribe you can just say I'm never going to
+unsubscribe this so I'm just going to leave that and I'm just going to pass that I don't care about the function
+that allows me to unsubscribe it and here we go there it goes 20 39 58 and
+just to show this principle let's say if we actually listen for then it's not
+going to do anything because temperature never actually changes here we go just a blank screen so you can listen for
+specific changes in your store but what's really cool is the way you update your store is completely functional
+there are no side effects and why this is really helpful is it's super easy to
+"Store" helps manage side-effects
+test and we're going to do test driven development at a later lesson but you can effectively if you want to check
+does increase actually work correctly you can actually just take these functions as just functions on their own
+and just pass a state and check if it Returns the new state so check if it adds one and so forth and stuff well
+obviously these are going to work because we actually need to go like wind and all of that when I created these
+there was only one single thing so here's where it gets really cool so I'm just going to create a super simple
+version of art to do app to show you what problems this uh Global store
+pattern solves for us and these are basically something called prop Drilling
+and the other one is related to actually serializing the state of your app okay
+so those those sound really scary I'm gonna unpack about what they mean and it's also worth saying that it is very
+Mention of "prop-drilling" and "serialization"
+possible to build an app without having a global State Management solution like a store but at some point most apps
+reach enough complexity where you need to pull something like this in and most
+JavaScript Frameworks either have an explicit store that is built into the framework so for example xfeld Alpine
+also has one and then others have implicit stores so I mentioned in react
+JS Frameworks used alongside "Store"
+you get uh Redux there's also mobx there's Zoo stand and in view there's
+view X but the the kind of new favorite is pinia and all of these have different takes on them but so what I'm gonna do
+here is I'm gonna kind of follow the Redux approach which was one of the very first libraries that provided us with
+this so I personally don't use Redux I use something called Zoo stand I did cover it a bit when I talked about
+markdown files and documentation um I personally prefer it because it is a bit lower level than Redux um it
+allows you to get a bit closer to the metal and really configure it in a way that you want allowing you to do things
+Redux" vs "Zustand
+like dependency injections and so forth we will cover this when we get to
+JavaScript Frameworks it's useful to maybe take a Redux approach right now purely because regardless of my personal
+preferences most react projects out there actually use Redux and also what's
+very nice about Redux is Redux is Redux is a very functional programming based
+approach so it's also a good intro for us into functional programming whereas some other Solutions like mob X and so
+forth tend to mix functional programming and other approaches a bit so I just wanted to kind of mention that so you'll
+see even on npm there is about almost 8 million installations so Redux is still
+immensely popular compared to something like Zoo stand which is getting there you know 1.3 million but nowhere near
+the scale of Redux let me open a fig Jam file and I let me explain how Redux
+works and also why Redux lean so heavily on a functional programming Paradigm so
+it's very similar to that little store example that we created right now so I just wanted to show you the the actual
+underlying JavaScript principles before we get bogged down in redux's specific
+Three core "Redux" concepts
+approach but I think Redux has a very nice surprise approach so there's no reason to reinvent the wheel and it is
+simple enough and it's close enough to our little store example that we built just now that we can just rebuild it
+ourselves with very little JavaScript effectively what Redux has is reduct has
+three different concepts it has the store and it has actions and it has a
+reducer and let me just copy and paste a bit about each in here just so we can
+reference it so if we go on Redux and we go on getting started so let's go Core
+Concept #1: Store
+Concepts so effectively we have our store here which is very similar to what
+we have done up until now so this is just like a big object you know and it's actually a to-do app which is helpful
+and then it has actions so this is how actions look okay so actions are
+effectively an object that has a name so this action's name is add to do this
+action's name is toggle to do and then you can send extra information with a common convention is actually to include
+Concept #2: Actions
+the extra stuff in something called payload and I actually do that as well so you would go type and you would maybe
+do add to do and then then you would create a payload object what you often
+do is then you put anything that you want to send along with the action in
+here so you would then go text go to swimming pool for example so this just
+makes it a bit more structured so that you have type and payload as your two root properties in your action and so
+then what we have is we have a reducer so what the reducer does is the reducer
+effectively takes the action and the store and combines it into a new store so this is effectively how it works you
+Concept #3: Reducers
+submit an action to a reducer then the reducer pulls in the store it then takes
+the current state and the action that was submitted and reduces it into a new
+state that gets added to the store so this might seem over convoluted and one
+of the critiques against Redux sometimes is that it requires a lot of boilerplate but there is also a case to be made 8
+"Redux" requires a lot of code
+for when you are dealing with something as critical as the the global state of
+your app you maybe want it to be more readable more clear more deliberate than
+just running something called add task or whatever and that does some magic
+behind the scenes and somehow it adds a task to the store so this is kind of the
+basic approaching as the stores reduces and actions you can read the Redux
+documentation if you want so maybe a good read as well is thinking in Redux
+What problem "Redux" solves?
+uh so let me just quickly highlight some things here so effectively what they say
+um is you know as apps have become increasingly more complicated and interactive we must manage more State
+than ever and so what it effectively says is that managing ever-changing state is hard so this is kind of the
+problem that it tries to solve and I'm going to show you now in a second where if we just take a purely oop approach
+how eventually we're going to reach a point where you no longer understand what happens in your app and you've lost
+control over the when why and how of its state so a lot of those oop principles
+are good in terms of keeping the behavior manageable and structured one
+Traditional OOP struggles asychrony
+of the drawbacks is at no point can we actually see a unified picture of what
+is going on in our app what is the current state of the app right now because that state is split between all
+these entities the car are tasks that might be shown might be in a tasks object the actual filters that applied
+might be in a filters object so there might even be pieces of state that we're not aware of that is fragmented all
+across our app so what something like Global store does it gives you a centralized place where you can see the
+entire state of your app at a glance and if you do that you also have a lot of other powerful things for example being
+able to actually serialize and save that state so we could say every time the State updates automatically save it
+locally so that the next time you open the app it just continues from where it left off last time and following a
+traditional oop approach you might need to actually make saving the state a
+deliberate a deliberate action that the user needs to perform so they might need to click a button that says save and
+they might need to manually load the state again so this allows us to auto save and auto load a serialized version
+of the state and effectively what Redux says is the reason why state is really
+hard to manage in most modern apps is because we're managing two different
+Mutations hard with asynchrony
+ideas we're managing mutation and asynchrony so mutation is effectively
+things can actually change so one of the principles of functional programming is
+that as far as possible you avoid side effects you avoid mutations and asynchrony effectively is just things
+can actually happen after the code has run so event listeners you know someone can click somewhere someone can drag
+something someone can delete something so Redux effectively says that these two ideas when combined makes managing
+modern JavaScript apps really really hard and and it uses the example of saying like almost like Mentos and Coke
+and both of them are great in separation but when you mix them like things get out of hand and so seriously you know
+like libraries like react and so forth actually manage the presentational layer
+of this so you know if we think about web components web components help us manage like the presentation of things
+"Store" is seperate from the UI
+is a task completed is it not completed how do we show that and this is also what a lot of these libraries do and for
+this reason usually Global state is actually solved by a secondary Library whether it be so stand Redux paneer and
+so forth and then some Frameworks like svelt actually build a global State solution into itself but effectively it
+sees these as two different considerations so if we spoke about separation of concerns and single
+responsibility principle so it effectively says you need a solution is actually going to control how data gets
+rendered and this is where we are at the moment using web components but then you also need a secondary solution that
+manages what is the actual State what is the data in the app at the moment and
+that's completely removed from how that data is actually presented and so what
+Redux says is functional programming actually gives us a very nice model to think about reason and do the part
+FP helps manage asynchrony
+where we're actually updating the global State and so it talks about its three principles so the global state so it
+says effectively the global States a single source of Truth what's really cool about this is because it is a
+single source of Truth it means that if you save it you can just load it again and you know everything that's required
+to render a specific state of the app is actually in your store and you don't
+Principle #1: Single data source
+need to manually save every little bit which is something that you'll have to do in a traditional oop approach and
+also it's really nice it allows us to undo and redo because if you remember what we did previously is we actually
+put our new States in an array so that means if you want to undo you just move
+back in your States if you want to redo you just move forward in that array again so this is really cool and you
+know this is often called time traveling so you can travel back and forwards in time in your state you can look at that
+entire array and actually see how the state changed across the life cycle of the current station so it's very nice
+for debugging figuring out where things are going wrong so this is the first principle single source of Truth second
+principle is a status read only so you can't directly update the state you need to emit an action so what's really cool
+about this is you can just listen for actions as a means to actually figure out when what caused the actual state to
+change and this is something that's very critical in in functional programming data is what is called unidirectional it
+can only flow in One Direction in oop we might have this object and we might have
+Principle #2: Unidirectional data
+that object and they talk to one another through an interface okay but so data
+can go both ways data can go from this object to that object or from this object to that object
+so sometimes it's very hard to reason about where data comes from and why
+something changed and how you got to the data and then if you have even more you know like then you have kind of like
+these dependencies so it's kind of like a graph so it's very hard to figure out where
+the change originate from in functional programming because data
+is unidirectional in other words it only Flows In One Direction if you want to figure out what why something changed
+why did this button turn from blue to green why did this task get removed why did the stars get added you just listen
+somewhere along that path and everything that happens like has to go through that
+you know and then obviously it goes all the way around again but like it goes in generally a circular motion but in Only
+One Direction so if you listen at a specific Place everything needs to flow through there you're not going to miss
+anything so what this means is because we can only update the store via actions we just listen what actions are
+submitted and there we can infer what action caused the store to actually change and then once an action arrives
+at the store the way the new store is calculated is through something called a
+Principle #3: Pure data updates
+pure function um so this is the first time I'm talking about this idea of a pure function but effectively appear a function is just a
+function that doesn't have side effects and we did this in our previous example where we passed the action in which was
+a function that just returned a new state it didn't have any side effects so changes are made with pure functions so
+they're predictable and they're super easy to test so these are very high level and might be a bit hard for you to
+wrap your head around it I actually encourage you to watch a couple of videos on Redux maybe read the documentation a bit as I mentioned in
+functional programming the concepts are hard to understand but once you understand the concepts the code is very
+easy to reason about you know for example here so once you understand this this interplay it's actually very easy
+to figure out what the code is doing whereas with traditional oop it's not that hard to understand because this
+kind of models how we experience things around us so we experience things as separate entities that just interact
+with one another so this is very easy to understand but it's much harder to reason about figure out why something
+happened why did this thing change what caused this to change and so forth because there are side effects all over
+the place and because there are no side effects here in functional programming you can't for example have this Branch
+off and now actually change that thing or have a change from here that changes that thing everything needs to flow
+through this little this little cycle through this pipe and you can listen anyway on this pipe and you're going to
+catch everything that flows through it so let me show what that looks like in practice so if we just quickly look at
+Redux "Store" methods
+the API for Redux as well so the store itself um has get state it has dispatch which
+is very similar to the update that we created it has subscribe which is similar to the Subscribe that we had and
+it has replaced reducer and so we're not going to do replace reducer this is a bit more advanced but effectively let's
+just create our own version of Redux with these three methods so let us
+create our model here and in in our model we have the store itself we have
+Modeling data with "Redux"
+our reducers and we have our actions so here all those three spots are split up
+and you can test them individually and separately without requiring the other stuff so let's say we're doing an
+extremely basic version of our to-do app and another thing that's really cool about Redux is it's very easy to
+actually type these things up you can actually ensure type correctness ensure
+that you don't make any spelling mistakes or whatever because this is not a function that you call it's an actual
+object that you send and you can actually not only can you cancel log that object every time for debugging
+purposes or do something with that object you can even check that object for correctness either during run time
+just doing a manual check on this or even through static typing through jsdot
+so as we did in the module we recovered documentation and writing your documentation first let's quickly do
+that over here and it's going to really fast because this is just a straightforward to do app much simpler
+Creating documentation for "Store"
+than the one that we have created up until now so let's just say each to do is literally just a string so let's
+create our store so we can just say our store effectively and state actually sorry it's a state so the state is
+what's in the store a store can have multiple States so it can have a previous state and the next state and so
+the prop on here is tasks type def object a task is an object that has ID
+there's a string as a title which is also a string and just the created date
+so we have tasks and so this is just an object so record of strings which would
+be the IDS and then the actual task itself so like that so this is tasks let's just do our filters and our
+filters at the moment is just going to have sorting and nothing else okay so filters and that's just an object
+sorting and it's just let's say A to Z and z2a that's the only two options and
+then lastly we just want a phase okay and so what are the possible phases that
+the app can be in so we're going to talk a bit more about this idea of phases when you talk about State machines but
+for now this can just be idle so doing nothing um adding okay so what does our store
+look like so type Dev and this is just the interface that our store is going to use it's just Object Store a couple of
+callbacks so add callback get state so we just emulate what Redux does over
+here so get State and all that get state is it's just a callback that Returns the
+current state okay then there is another one which is dispatch which is very similar to what we had previously with
+update so it takes a param and that param is an action okay we haven't
+specified actions just the extra action and then the last one is subscribe so
+callback subscribe and we also need to make this all caps and subscribe takes
+uh and I think like I confused myself a bit last time when I mixed these up so let's just say it starts with the
+previous so stay to the previous date and and the next one is the next state
+um okay so then our store has the following props gate state which is the
+sketch state so that is a function that you can run to get the current state if you want to check anything subscribe and
+we can do the same where we just return the actual unsubscribe so that would just be an empty function so callback if
+n this gives us the means to oops in this returns gives us the means to
+unsubscribe right so then the last part is dispatch so this is a very simplified
+version of Redux this is just to show the principle that Redux uses under the hood if we were to create our own
+simplified version of Redux if you look at actual read products that is a bit more complexity and it adds a couple of
+quality of life things that makes it easier but that does add a bit more complexity so we are just keeping it
+simple so just keep in mind this isn't a hundred percent mapping how Redux works this is just to show the principle now
+what do we want to do is let's create our actions and let's give each of these actions a unique name so add task to
+Creating documentation for "Actions"
+sort and start add cancel add now you can see everything you can literally do
+with the App State here so all of these are objects and they all have a prop called type which is just for each of
+them a string literal and the convention is to write it an upper snake case so a
+task like that change sort start add like that and cancel add
+um and I'm not going to do that payload pattern just yet just to keep it simple so all that we want over here is let's
+also create a task in our store and we actually have it if you remember
+correctly we can just go export con task like that to be able to import it so
+let's just pull that in from our store and so all that this accepts is a task
+and then change sort would be new sort but let's also break sort out into its
+own thing here is to type Dev sorting it can be one of these okay and let's also
+export that to export const sorting okay so we want to pull in tasks we want to
+pull in sorting okay there we go and start adding so we don't need to send
+any extra info this just starts the adding process this just cancels the adding process if you really want to you
+can add some documentation here so you can see how this is very self documenting like this is one of the
+benefits of something that is so deliberate like Redux so let's just say adds a task to the store so obviously
+this isn't the greatest documentation but but I just want to show the principal changes the order in which
+tasks are sorted starts the adding process of a new task cancels the adding
+process of a new task we can even combine these into a single one that
+says toggle adding so starts or can't or stops the adding process of a new task
+comma depending on what the current phase is then what we will usually do is
+Actions" vs "Action Creators
+we would do action creators so Redux makes a very big distinction between actions and action creators let's just
+action creators and I think sometimes people mix them up confuse them
+so effectively what it says is you know it's a pain to create the entire action
+every time you want to do it so what you might do is you might create a function that creates that action for you like
+this add to do as an action Creator but it tells you to not confuse the action
+creator for the action itself so the action itself is always an object the action Creator just creates that object
+for you so let's just create some action creators here for us so let's just also
+export them so add task let's just Mark that up so that should return a task for
+us like that and let's also just enable TS check across this entire project so we would go TS config and what we want
+to do is we want to say compiler options allow.js true check JS true and then
+just what version we want to Target let's go 2018 just let's just randomly
+deciding on one so I'm not going to pull in pretty earn all of this stuff I just wanted to show the principles super
+quickly but obviously if this was an actual real project I would pull in pretty uh eslint all of that stuff okay
+so it's unhappy because it doesn't return that what also what does it accept so let's just do and the browser
+is an object and the object is is called props and inside that param just a
+string for now that is the name or the title so we have to go props props dot
+title like that and so Props let's just destructure that so Props and so then
+everything else that gets Auto created we can actually automatically create in here like I said type would be add task
+and they're created we can just do straight up new date ID let's pull in
+that other function that we created that creates unique IDs for us and title we can just grab from there okay and let's
+just put this here in our actions there we go it's just a Helper but we're not using it anywhere else so let's just
+keep it in our actions and we can go create unique ID right so now this is
+nailed down we have type security we have everything we need let's do the other the next one which would be let's
+say toggle right so this one is much more straightforward we can literally just do it as follows but let's just
+creates that action for us without taking anything in so it just returns toggle I think we never updated the name
+toggle and this is literally what it does so it's as simple as that and
+change sort okay so our app can't do much at the moment and intentionally
+intentionally so um because obviously I just want to show the principle an actual Redux store
+"Redux" scales well as app grows
+would look would have many many more actions and actually have separate like action files and separate reducer files
+because this is functional programming what's really nice is the scales really well because like all of these are
+effectively just pipes so we can just connect all these pipes here if we want
+to extend that um you know or if we want to extend this part we just like connect more pipes and
+all of because all of it just flows through you can add infinite amount and it's not going to change the way it
+works it just flows through more pipes and so reduces and actions you know effectively just allow you to extend
+this but I know Point does it actually Branch out does something outside and so
+in the next video I'm going to unpack this a bit more because this might be a bit confusing at the moment but I think
+I need to implement the store first so you can actually see it in action and then we can talk about what it actually
+does so this one is just I think was a change sort right and Export const
+change sort that just takes a param and let's say sorting I think we are
+importing it yep let's just say props and that's an object so we can so only
+just pass for example you know sorting and not make it part of an object but I
+just find it's easier to extend it and add more things if you later on so let's say you want an option to reverse the
+sorting and then you can pass more things at a later Point okay and this should be props dot sorting and change
+sort so it's unhappy because it doesn't actually return that action so sorting and type and type is change sort let's
+just grab sorting over here and we actually mess this up this should be like that I think this should be full
+Create Redux "Reducer" skeleton
+toes yes okay and so we haven't created our store just yet but so the next thing we want to do is we create our actions
+we want to create our reducer and you can have multiple reducers and as mentioned because these are just pipes you can just connect them and create a
+longer pipe but we're just going to have a single reducer all right so let's create our reducer so what is our
+reducer going to do effectively all a reducer does is and you can connect multiple reducers and all the reducer
+does it takes the statement it returns a new state get our state and I think we
+need to export it as well yep can't State okay there we go and what we also
+need to do is we now can combine all our actions into a single generic action
+that can be any of these so you just go type Def and you just say action and you
+just add all your actions in here so what's an add task and sort so this is effectively a union saying that it can
+be any of these and let's just also export const action right so from a
+store we get the state from our actions we get an action so in our reducer the
+first thing a reducer usually takes is the state and then an action okay and we can just Mark these up so param one and
+I'm just writing this in the way that Redux does it Redux has it as two separate params so you have your state
+and then you have a new parameter which is action and then this should just
+return a new state okay and it is unhappy because it doesn't do any of that stuff right now here we actually we
+can use this reducer it's just always no matter what action you pass to it it's just going to return the same state it's
+not going to change anything so let's just work with this for now and then we add the actual changes to our state
+after we set up like the entire store okay so let's get going here so in our
+store over here let us create an array that has our subscribers that is just an
+Add "Store" methods as exports
+array of subscribe okay and then let's also just do all our states which is an
+array of State you can just replace the state each time but what's cool about this is
+um you can actually then do go back and so forth and we might even add an ability to go back and forwards or you
+can log the entire State and if you want to see what went wrong or debugging that's really cool so let's just say
+states which is also an array so let's actually not create a store object let's just once again use the JavaScript
+module and Export it as functions so get State return State okay and all that
+that does is it grabs the latest State and it returns it and remember I put the
+new states in the front me meaning we can just go States zero the very first
+one there we go then dispatch effectively does the following so
+Creating "dispatch" method
+dispatch takes uh action so let's import our actions in here then go forgot yes I
+forgot to put the JS here as well and in actions yes I didn't put it in any of
+these whoops all right so then our store so what we want is export const dispatch
+dispatch just takes an action and that is it so it can be any of those actions that we defined so what this effectively
+does is it gets the current store to get State here it might even be worth to
+return the state as a completely new object so that you can't mutate it and
+maybe even just freeze it if you're running in strict mode it gives you an error and if you're not running in
+strict mode it actually just doesn't change the thing and you don't even know that it didn't do that
+if you're using modules so if you're going you know deferred type module when
+you import the script it automatically uses strict mode so you don't need to worry about that okay so we get the state here so it's smart enough to know
+State and then we create the next one and we do that by actually running our reducer on that so let's import our
+reducer here okay in several reducers we only have a single reducer at the moment
+that we are not exporting and so what you do is you just pass the previous state and you pass the action and it
+gives you a new state so then just what we do is after we get the next state we take States and we unshift in other
+words put it in front just push in the new state okay so this patch is working now let's quickly do subscribe and you
+can see that I go quite fast on this because I'm already very familiar with the pattern I've used it a ton I've used
+Creating "subscribe" method
+reduxitone obviously you might not be familiar with it and you're struggling to follow along which as mentioned you
+know a functional programming it's hard to understand the concepts so you might need to re-watch this video you might
+need to pause replay certain bits get your head around exactly what I'm doing
+maybe even follow along step for step but the key being like once you understand the concept it's going to be
+very easy to reason about your code it's going to be very easy to understand what your code is doing so you're making a
+Trading different types of complexity
+trade-off in terms of the complexity of the concepts as opposed to the code itself being complex but the concepts
+being simple now we're using more complex Concepts which are going to make our code simpler and more readable if
+you understand the concepts in the same way that when we started talking about abstraction we spoke about mathematics
+and so we can think about what we've been doing up until now is that we've been actually writing that entire
+paragraph out where we say imagine you have one thing and you have another thing and if you combine those two
+things now you have two things so that is what we've been doing up until now all and it doesn't require us to
+understand any additional complex Concepts but if we say you need to
+understand mathematics and you need to understand equality and also the plus sign in mathematics and what that means
+and also numbers then you can just write it as one plus one equals two so you're
+writing it in a very simple straightforward manner but it does require you to understand some of the
+more complex ideas underlying that actual expression and it's the same here
+with functional programming and honestly even if you hate this even if you're like this sucks I'm never going to do
+this the reality is there's a ton of projects out there that are using Redux or Redux like libraries I show that you
+know it said you know every week almost 8 million downloads okay so at the very
+least this just means it's useful to understand how it works because there's a possibility you are probably going to
+encounter a Redux project at some point that uses kind of this redox model okay so subscribe so what subscribe takes is
+it takes a param that is just a subscription a subscribe should actually
+be a subscription subscription not a subscribe there's no such thing as a
+subscribe you can subscribe a subscription so it just takes that and this is called subscription all right so
+when you pass that first number was what it does is it just goes subscribers and
+we push that on there and we just return the means to unsubscribe we just create a unsubscribe function that just returns
+and all this does it Loops over so new subscribers so it Maps over the current
+subscribers and so this is also why I like Factory functions and just using the built-in modules in JavaScript
+nowhere here we're fiddling with this you know and private things and so forth
+yeah so this is just personally for me to just show you why actually like doing
+Finish remaining method logic
+Factory functions why I actually like using the built-in modules instead of creating classes but it might not be
+something that is such a pain for you but like and the less I have to work with this in JavaScript the better so
+subscribers and we do falter and we just get an item so it Maps over all of these
+and then it just determines whether it actually should include it so let's just
+create the Handler for a filter up here so const Handler you can write it directly in there as well if you want I
+like to actually keep it separate I find it to be a bit more readable and all
+that this does is it gets the current item in the array and it just Compares is that item not equal to the current
+subscription and if it's not then it keeps it so this is true so anything that resolves to true when you call
+filter it keeps um if it's false it removes it so it just runs this Handler on every single
+item in subscribers and returns new a new array so this is a higher order function it's kind of at the core of
+functional programming and we're really going to unpack what are all these higher order functions and how can you use them
+this is a lot more expressive than if I were to do a for Loop now and not only that I can actually reuse this logic if
+I want to do another filter or I want to do a map or something else and then all we do is we just replace subscribers the
+new subscribers and it needs to be a let okay and now we just need to actually in
+here trigger the subscriptions as well so so what we want to do here is we want
+to get all the subscribers and we just wanna for each on them so Loop over each one and then what handler do we want to
+do use like what do we want to run on each of them so just take the item and run it and pass previous and next so we
+can even just put it like that in there as well and it's actually smart enough to know that net previous is a state and
+next is the state so let's even just do it directly like that okay for a bit
+more type safety in other words if we do that it's going to tell us hey like this
+actually requires two arguments okay because it knows that this item is a
+actual the subscription that we created up here and I think that is it so let's
+quickly do our reduces okay you can do an if statement you can do whatever you want the common approach is to do a
+Add Redux "Reducer" logic
+switch I personally don't like switches but I would actually just do it with if
+statements myself but just to kind of keep it as close to how Redux does it as possible let's use a switch so that if
+you do see Redux code you're kind of already familiar with the way that it does it so it uses a switch statement so
+that switch looks at the action time and then based on the action type it determines what to do if none of the
+action types match any of the conditions in here we just return State okay so the
+default fallback is return state so at the very least if none if you don't have any conditions for any actions here it's
+just going to return the state as is but in most of these cases we want to update the state based on the action
+that was dispatched all right so what you would do is you would say case and it would actually say here are the
+actual actions this is the case then do the following if this is the case then do the
+following over here and if this is the case toggle add then do the following
+here and now if we go here case it actually there's nothing left you know it'll actually tell us like you know
+like there is no other cases this is all it can be and this is how you can also split up your reduces so you can have a
+reducer that specifically looks at the task things already so that looks at something else and effectively it just
+passes it through each reducer each reducer just checks if it matches all right so add task
+so we want to return a new state so let's in all these cases just return the
+state exactly as is and then let's just put our modifications in there okay so toggle ad is pretty straightforward all
+that toggle ad does is we update the phase and we look at the current state and the current phase and we say if the
+current phase is then set the new phase to idle so we use a ternary otherwise
+set it to adding okay there we go let's change sort is pretty straightforward filters and remember we now need to just
+destructure filters back into that so remember each of these create a new object each time we just want to action
+sorting and it's smart enough to actually know based on this what actually comes along with that action so
+we can even control click on it and you know it'll actually tell us and then the last one so tasks all right and we're
+just going to destructure tasks in here so State tasks so the current ask let's
+just put the new one at the top if you do it up here it's going to be at the Top If you do it down here it's going to
+add it at the bottom so let's just say the key should be action task ID and
+then just action dot task should be the task itself all right and there we go here is our entire store I think we have
+everything we need let's give it a test so scripts.js and in here let's just grab
+Example of working "Redux" store
+from our model we just want to grab the store and from the store let's just do a
+subscribe and let's just do uh dispatch and let's also pull in some actions that
+we want to pass to this patch so model also remember the JS and let's say we
+want to add a task we want to change the sort this should actually be toggle add
+not toggle task toggle ad all right so let's subscribe first so subscribe and
+we can just pass a function straight into there we can just subscribe Contour log so let's just do our function in
+there and all this function does it cancel logs the let's just say the next state we don't even care about the previous state so let's go next we just
+got our types wrong so let's just click on that so actually so the Subscribe should return an empty function not the
+subscription itself okay there we go all right so we do that so let us go so
+toggle ad so let's do toggle ad so it should then switch it to adding let's
+toggle that again let's just switch it back to idle let's switch toggle adding again and also maybe what we want to do
+is in our reducer when we also want to check if the current the add task we
+also just want to set the phase to idle so when you add a task it automatically sets the app back to the idle State list
+to add ask okay and what does it require from us just a title they say hello
+let's add another one world let's uh change the sort and why do we want to
+change it to sorting what do we want to change it to let's say Z to A and let's
+just toggle add again let's check this out so let me just bring in some HTML and there we go and let's not put
+anything in the body let's just pull in that script Source
+scripts.js deferred type equals module okay so the other thing is we obviously
+create the actions here but we need to dispatch them to the store to actually do anything otherwise we just have like
+all these objects here that we're not doing anything with so the action Creator this creates the action for us
+but we still need to send it to the store there we go and let's have a look hey look at this all right so we can see
+here phase adding okay it's that's how it starts then it switches to idle one
+thing here is we actually don't have an initial state it should have an empty the tasks so let's quickly add that in
+our store so we should actually have a starting State and we can just do it directly in here filters okay sorting so
+the Sorting is a to z and phase it starts as Idle and tasks is just an
+empty object so this is the starting State we actually didn't put a starting State all right let's have a look now of
+course a phase adding tasks no tasks so it goes to adding then it goes back to
+idle then it goes back to adding then it goes back to idle but it goes to idle because we added a task and here's the
+unique ID when it was created the ID in the title then we create another one and which should be hello so you can see
+there's two in there now so up here it's changing the Sorting from A to Z so and
+so let's say we don't want to do that we instead just want to get the actual state after we do all of this manually
+so you can even do that as well so get state so after we do all of this let's just cancel log the current state God
+there's only one that shows the final State over here so that is basically the
+store pattern specifically a very functional approach to the store pattern even more specifically like through the
+lens of what Redux does so we covered a lot of stuff this was a really dense
+video you are probably gonna have to re-watch it a couple of times I encourage that you actually play around with Redux a bit
