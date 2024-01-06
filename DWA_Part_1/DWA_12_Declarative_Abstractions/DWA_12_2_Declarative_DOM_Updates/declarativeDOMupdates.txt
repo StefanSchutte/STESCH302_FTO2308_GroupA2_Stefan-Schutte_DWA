@@ -1,0 +1,377 @@
+HTML as result of function
+what I want to do is let's just say vdom I want to show you a very basic
+abstraction that a lot of Frameworks use the reason for that abstraction is
+because we realized there's a lot of value in expressing our user interfaces
+in a functional manner so that would mean you know if we think about immutability if we think about purity
+and all those things that our data is unidirectional so let's say here's our data there's some type of transformation
+that happens then you know that is a specific HTML and so where a framework
+like react was very revolutionary it said that whenever anything changes this
+just keeps on running and that results in the new UI State okay so all you do is you just change the data so the data
+just goes from one state to another state and that just forces a re-render and it changes what gets shown this is
+much more useful than what's called two-way data binding and other some Frameworks do do two-way data binding
+but they have some type of functional expression of your HTML to make up for
+that so what two-day data two-way data binding would be you know it can go both ways it's like something in the HTML
+Unidirection is important FP concept
+changes and you need to sync it with your data something in the data changes you need to sync it so you have to keep these two states in sync all the time
+what unidirectional data flow means in terms of functional programming in other words you can't mutate things you can't
+go back and change things means that this is your source of Truth so if you think about Redux you know your single
+source of Truth and that is very easy to debug because if something's happening you can just listen in here and check
+what's happening whereas over here you don't know what direction it's flowing you don't know if this is going up the
+chain and then something else comes down the chain again and you don't know what actually corresponds with what because
+it flows in both directions it's just like a single pipe and every time it just updates
+so the HTML itself is a side effect it doesn't actually have any state within
+itself you only have state here and what gets rendered in your view is just a
+side effect of changes in your data instead of having a state here and a state here maintaining two different
+states and keeping them in sync so you might also be asking okay why don't we just do it this way around why I keep
+all our state in HTML and just completely forego having our state like in an object somewhere so the the big
+problem comes that at some point in order to do something with your app
+Separating state from HTML
+state do something with your data you're going to have to have that in an actual data structure you can't save an entire
+HTML Tree in local storage you can or if you can't send an entire HTML tree to
+the server at some point you need to be able to send something like an array of tasks okay so I just briefly that's what
+I know I'm going to go into it in a modern a lot more depth in in in the next part but I just want to show you like a very basic abstraction and how we
+would do something similar ourselves the big problem at the moment as you probably saw over here is that we can't
+express actual state in a declarative manner We call we need to manually sync
+up our HTML and make HTML changes by manually looking at the two-store states
+we can't there's no declarative way to do it so we need to do all these mutations so already this goes against
+Currently relying on DOM mutations
+functional programming in functional programming the goal would be to just treat HTML changes as the result of a
+function and that function is usually called render okay so you pass something to render and that returns you know a
+new HTML for you and every time you run this it just updates HTML and given the same input it always gives you the same
+response so before we get into this I just want to show you this principle um this isn't react specific but just
+because we're Act is so flip and popular there is a lot of related to this that is react specific so let me show you so
+Updating DOM based on state
+this is a really great um I'm going to touch on it super lightly we're going to get into it in more depth uh once we get
+to react specifically um I will include it as a link if you want to check it out but keep in mind
+the principles that I want to pull out here is related to this Frameworks in general and how we can actually do our
+HTML in a more functional programming way than a strict oop way so it kind of
+speaks a bit about the history of Frameworks as well and this is also once again something we're going to go into
+into much more depth so it talks about jQuery talks about backbone it talks about angularjs which all of this came
+before a lot of the current generation offering so effectively it says this is how we used to do it so this is what
+we've been doing up until now we actually kept our state separate from our UI but then we had to manually
+Initial approach was manual changes
+resolve the changes so you you can actually see here it shows how you kind of go through the Dom you find the
+things and you ensure that your Dom reflects what is going on in your state you'll see how it kind of traverses the
+Dom and you know and then it puts a thing over there and then you make another change and it goes through the Dom again and then we manually put it in
+there so this is what we have done up until now but then people like started realizing sure this is a lot of work
+that for example looping over all the tasks checking what has been added what hasn't been added and then manually
+updating the Dom and HTML sure this is a lot of work so then people started looking at are there actual ways in
+which you can abstract that away and actually get a library to actually
+figure out how or idea of a store or a state as a purely abstract thing
+Backbone.js focus on MVC apprach
+translates into HTML this is where we got backbone I would probably say that
+backbone is the first actual JavaScript framework that we got some people might disagree some people might say something
+like dojo and so forth um I would say backbone was the first first one I've actually worked with backbone a bit in
+retrospect now given the Frameworks you have now backbone is a pain to work with but at that time it was magical so what
+backbone did it looked at how a lot of back end languages solved some of these problems and so we spoke about the model
+and we spoke about the view so effectively the model is our Redux store it's the state of our app the view is
+kind of what gets shown to a user and then it kind of borrowed this idea of a controller from a lot of back-end
+languages it actually even says here backbone invented the model view controller pattern that's a joke that is
+a joke like this comes from the world of back-end development so languages like Python and so forth but it was the first
+popular JavaScript framework that embraced the traditional software design pattern and bought it to the web so
+let's see what that actually does so here we can look at an example so effectively these are our models so you
+can think about these as actual Redux stores and then you bind it up so you don't need to care about what happens
+here you just update your store and then it ensures that your view does what is
+supposed to do based on if you add a new task or whatever you know and if you add something here it updates it for you so
+the key is you don't need to every time you add something new go through the Dom like this and you know do every little
+thing manually check everything update every little thing manually okay but this was a lot of work if you thought
+Redux was a lot of boilerplate and a lot of extra code you know the joke here is in Just 2 000 lines of code backbone
+allowed you to decouple your application state from the Dom so we got this but it was a pain so instead of living in the
+Dom Backbone State lived inside models so whenever a model changed all views
+that cared about that model would re-render and we can do something similar in our app but there are some
+trade-offs I'm going to show you that in a second then we got angular J is an angular Sid this is just too much work
+it's over complicated and so forth and it effectively said instead of having your UI be a side effect of your data
+let's keep let's treat these as two states and use angularjs to keep those
+Angular.js focus on two-way binding
+two in sync the two-way data binding so what angularjs said and keep in mind this is angularjs is different from
+angular today a lot of people fall into that trap so effectively you've got angular 2 you know three four five
+whatever and this is kind of the modern versions of angular there's a joke that Google effectively created a completely
+new framework but they just kept the angular name so the general consensus angularjs which is effectively known as
+you know angular one is a completely different framework from angular 2. these are not the same so keep that in
+mind and you know that's classic Google for you but so effectively it said you know okay so if you change something in
+your model it automatically updates here if you change something in your view then it doesn't the updates in your
+model so try to keep both of these in sync So in theory this was nice because you didn't have to worry about doing
+manual Dom manipulation in practice this led to code that was very hard to follow
+very hard to debug so effectively this resulted in a worse abstraction in the
+long run which is also why Google actually abandoned it I think they're officially no longer supporting angularjs and it led to a ton of
+performance issues because you needed to keep both States updated at the same time and so this is where react comes
+into the picture and it would be impossible to overstate the effect that this react approach had on the way we
+think about JavaScript Frameworks and this isn't necessarily saying react is amazing react is the
+React.js focus on FP unidirection
+best I react is the most popular at this point like let's be clear about that react has the biggest amount of market
+share but react has a lot of flaws and I think we also need to be cognizant of those flaws one of it being that react
+is actually really old by this point the react team is kind of struggling to keep kind of up with new developments while
+still sticking to the core architecture of react itself so react is in an
+interesting position I'm unsure about the future of react but for now it is the by far the most popular framework
+um and this is also one of the reasons why it's important to understand the underlying Frameworks because if you just learn the react abstraction and
+something else replaces react or something else becomes widely more popular you've learned react and you and
+that's the end of your career you don't know how to switch to a new framework here's the magic of react we can say all
+of this and we can still appreciate just how phenomenal Rex take on this is so
+what react does it actually said the think about your UI as the result of a
+React treats view as function output
+function so it said your view and here you can see now we're getting into functional programming this starts
+looking a lot like mathematics so your view is the result of writing a function
+on your state let me show you that okay so your view is a result of running a function on your state what you do is
+you write this function this is the react code that you write you write the function that gets run on your state to
+create your actual view so what this means is that once again your view is
+just a result of the actual file so this is a purely functional approach we have a function that we run give them the
+same inputs it's always going to give the same outputs and this is also where it talks about kind of a component
+Example of "encapsulation" in React
+approach but we've spoken about this now a bit already like we are Beyond this point already so we spoke about you know
+traditionally you would separate your HTML your CSS in your JavaScript when you think about components instead of
+separating it between these different Technologies you separate it based on responsibility and you kind of bundle
+them all together in a single thing I like this weird here makes a pizza and a taco okay and so here it actually starts
+talking about about react I'm not going to go into that just right now here's also a really good example of how react
+does polymorphism so it just shows that you know so your component can take another component as a value and we're
+Example of "polymorphism" in React
+gonna We be talking about a lot of these things as we get to react a lot of this is maybe a bit too advanced for now but
+I think this article by illustrating how react Works actually explains a lot of the underlying principles that most
+Frameworks use once again reactors being the most popular at the moment so obviously a lot of the materials kind of
+talk about react specifically I don't know what's going on here like the spike here I don't know I think something went
+wrong with npm Trends I don't know why Vue jumped to 500
+Popularity of React at moment
+000 yeah like there's something going on here but if we look at the rest of it you can see react is steadily steadily
+arising and so we're kind of at this point now where react is hands down way
+in the lead over all the other Frameworks 2018 it maybe wasn't such a clear case but yeah there's a massive so
+for now react is you know if we even look at the stars you know here um react is immensely popular if we want
+to treat of view as the result result of a function so let's just call that
+Example of declarative UI with "render"
+function that function is usually called render okay so render text props and it
+returns a view so then if we call render multiple times
+how do we then make the changes without replacing the entire Dom because we're
+effectively creating a new Dom every time so the easiest way is obviously to
+just wipe the Dom completely and replace it with a new Dom so every time we run
+the render we get new HTML we get rid of all the HTML and we put in the new HTML
+Basic declarative UI with ".innerHTML"
+that would be a very nice way to solve this in a functional manner we get a new result we throw away the old result put
+the new result in so you never mutate anything you're just like full on get rid of the current HTML and put in the
+new HTML in the same way that the only thing we had in our state that was mutable was maybe the state so we ended
+up actually doing it in an array manner where we just push to the state but another approach would have been just
+the new state just replace the do the changes get a completely new state and replace the state do the changes get a
+completely new state replace the alt state so this would be a much more functional way way than going for
+example State um number like tasks number two the
+Replace entire view with each change
+value is now four and state task number five uh the completed is now the
+opposite of what it currently is so in this case we have data flowing in both
+directions whereas in this one we have data just flowing in One Direction and then when it's done we just check what
+the new thing that's created and we just replace entirely the existing one with the new one instead of going back and
+you know changing the existing one yeah we just have the existing and it just flat out changes to the to the new one
+so this is a a lot easier to maintain because you just check in the same way that in our Redux store you can see all
+right you can see how the store changed from one to the other one to the other every time you can just it's a full on
+transition and it's much easier to debug now you might have been like okay skull like I actually knew this you could have
+Changing example to declarative
+done it this way I don't know why you did it in the super tricky weird way um you could have actually just gone
+ul and then every time you just replace the inner HTML of UL how we would actually do it in a completely
+functional Manner and you'll see this is actually a lot easier to read and reason about than what we did down here but I'm
+going to do this now and I'm going to explain to you why we actually did it in this weird gross way because there is a
+problem with just doing this so if you take a purely functional programming approach you would say that there's a
+render function and that render function just takes some props and that creates an HTML for us okay and that also means
+we don't need either because like we're just we're just creating the HTML every time render
+happens okay so let's just say this returns this for us okay so what our
+render function does it just returns a string for us so let's I don't know what the props is right now so let's just put
+that in there but it just returns a string for us which will be our HTML who he hates new HTML based on state there
+we go label input so forth so forth UL all right we don't actually even now
+need to listen to this because this is just a result let's make our entire State uh prop so then we can just pass
+the state exactly as is so we get the state and then based off the state we
+Passing entire store as param
+just so all that we need for now is tasks tasks HTML as an array so let's
+say this is an array of strings and so what we're doing is we're getting tasks this is an object so let's do object
+value to create to turn it into array and so we just pass tasks in there okay
+and then we map over it so what map does map is very similar to like four each but the only difference is you have to
+return something and what you return is going to be that new item so for example I'm going to talk about this in the next
+video when you talk about higher order function so I'm going to go you know let's say you have an array that is that
+and you have a you pass a Handler to map and the Handler is just going to take
+".map" higher-order function
+the current item and multiply it by three okay so then what's going to happen is when you run map with Handler
+over that so in other words if you go that map dot you know Handler then what you're going to get obviously it's
+giving a lot of Errors because I'm writing it in the middle of nowhere but what you're going to get is then you're going to get three a new array that's
+three six nine okay so effectively we pass in a function that transforms each
+of these tasks and it's going to transform it to us into HTML so we can just destructure right in here let's
+write a function right in here and return and we obviously need to return a string and what can we destructure we
+can destructure created ID and title all right and then let's just return the HTML right here let's also just get some
+syntax highlighting over here so Li in that Li we're going to have a button that is just going to have the title for
+now okay and let's just put the ID let's say data ID equals the actual ID and we
+don't need to put the data created in there so here's that and then let's just so what we want to do is take that array
+put it in here and just join it the join is just going to convert it into a string using whatever so if you and
+separates the items whatever you pass in there we don't want to separate so this should render that for us and so we
+don't need this template so let's get rid of this Pawn connection grab the
+current state of the store so let's just say HTML it's a render just past the
+Replace all HTML in example
+store and then all we do is we just grab this we just get HTML and let's just in
+our template maybe just create a wrapper for it so let's say a Dev let's just say data wrapper because this is just where
+we're going to put everything inside get HTML so let's just say constant wrapper hit HTML and we just look for wrapper
+and then all we do is wrap a inner HTML is the HTML that we just created this is
+a lot more straightforward than manually moving things around manually deleting things manually creating nodes and so
+forth we just create HTML and then every time our store changes we recreate the
+HTML so I'm not going to show this right now because I otherwise this video is going to get very long so I just want to
+show you this principle and but now I want to explain the problem to you so this seems very elegant so we so we have
+Basic declarative UI principles
+a render function and so we have our state and then we actually have body in
+our HTML and so ideally what would be really cool is every time you listen to this and every time the state changes
+you run render past the new state into render it spits out HTML and you just
+put that new HTML in between here and in short this is what a lot of Frameworks
+actually do but so what I'm going to show now is why you need a framework why you can't just do this wholesale and
+let's just say you know the state changes all of this runs again and it replaces you know what's inside there so
+now we have created like a very functional approach to building apps because effectively now the HTML just
+gets recreated every time the state changes as opposed to what we've done up until now we have a logic here which
+isn't as simple as what we have here which is effectively just you know HTML equals render this is a pure function it
+returns new HTML for us this is not what we had previously is not a pure function because we just had you know logic and
+Up until now have done imperative UI
+you pass the state in but you know it does stuff it doesn't it does loads of side effects and whatever it doesn't
+actually return anything so we don't actually just pass the response in here you know it does lots of side effects
+you know checking all their new ones checking if there are old ones that are no longer present so you have you know
+all these side effects happening there's not a single all this logic that happens outside of this it reaches directly into
+the HTML and makes these changes whereas here it just spits out HTML and that HTML just gets thrown in here so this is
+feasible if you're building something basic so let me show you an example so let's say we have a very basic version
+Very basic declarative UI
+of our to-do app which is we have our input up here and this is where you
+enter new so here's you know new task and then here's a save button make it like that says button and then you know
+the tasks are shown down here and you enter in here and you save it adds it to the state all
+right so and it goes to the new state this triggers a render knows that okay what
+should happen the new HTML this is the new HTML that should be created so okay
+so this should be clean in the new HML and whatever is there should now be down
+here as actual task oh that was pretty cool okay let's do it again so you do it
+again and it recreates and it just replaces the current HTML and so forth and so forth here's the problem the
+problem is because the HTML first and foremost gets recreated from scratch all
+the time this is going to be a massive problem in terms of performance let's say you are doing something as simple as
+clicking a check box okay so something gets toggled from completed to or not
+Declarative HTML bad performance
+completed to completed you have to now rebuild all of this throw away all of
+this rebuild all of this with just that little change so this is completely it doesn't just go and change that so with
+our current approach of the side effects while it's not great and it requires a lot of work for us at the very least
+what these side effects do is they okay they're able to just actually Target the thing that needs to change at the very
+least our logic is able to see and just actually Target that specific thing and
+change this it it never throws away this is the same HTML that just gets mutated
+Directly mutating the DOM is faster
+you know so it changes that it changes that so it just mutates it from a functional world this is a bad thing you
+know so mutations bad because it makes it very hard to reason about why the
+HTML is now in the state that it is because you can't see a clear unidirectional flow from your state to
+the new UI from the state to the new UI from the new state to the UI so you
+can't ever be really sure why something changed unless you actually detangle all
+However mutations harder to debug
+these side effects and with enough time you know this is going to turn into the spaghetti mess of side effects and you're going to forget to check this
+thing you're going to forget to check that thing this is going to become unmanageable and this is the problem space where Frameworks enter so we spoke
+about like why this is maybe more perform but you might be like okay like I'm willing to suck that up you know my
+apps are going to suck they're going to be really slow but that's just that I want to do it in this way like even if
+my apps are slow even if someone needs to wait 10 minutes after they toggle completed to be able to continue this is
+going to be like a massive loading spinner every time anything changes but the other problem is every time this
+Problem with event listeners
+gets created this is no longer the same HTML so every time the save button gets
+created it's a completely new HTML element so what that means is a couple
+of things if you have attached event listeners to this thing you need to remove them and re-add them every single
+time because according to the Dom this is a completely new HTML thing it has the same text inside it but it's not the
+same button because you're recreating all the HTML if a user is focused on
+this and a re-render happens they're going to lose focus because this is a completely new thing the thing that they
+were focused on previously is deleted it's typing something in here and the re-render happens even if you put this
+Problem with losing focus on render
+back in in the re-render a user is going to lose focus where the the first thing
+that people start running into with this approach and let me show you this in practice let me just do this in codepen
+so let's say const render and all that that does it returns uh let's just say
+what we have is we have a form that has an input and outside of that is an H2
+and it just shows whatever you put in the input over there we start off by
+going document body in a HTML and we just render and it should this accepts a
+value say value and value is what's going to be passed in here and value is
+what's going to show yeah and we just started off by saying like placeholder
+or whatever and it is unhappy because this needs to be a string all right so this is cool so our HTML is the result
+of a function that we run and so obviously now if you want to change this we want to listen and re-render every
+time this gets changed so all that we can do is let's just honestly on our document body add event listener and we
+just want to listen for input so input is whenever uh the like anything changes in an input and then we want to grab the
+event and from the event we want to just get the value so we can destructure that
+of value from the event Target and let's just console log that for now so we're just going to cancel log any time we
+actually change what's in there we're just going to counter log it quickly and let me just add cool you'll see hello
+and every time we change it fires all right so let's say we want to do one of the most basic things that you do in a
+framework so we want to update our store and that should actually replace this so
+this is pretty simple all we do we just re-render with the value okay let's try
+that out okay place all that's fine a okay so check that out this is cool but
+here's the thing you'll see what happens every time you enter something it loses Focus so let's say I want to enter my
+name so s it uses Focus I need to refocus again okay click on again C loses Focus hey it loses Focus so I
+can't every time I update the Dom or enter a character it creates a
+completely new input it takes the value it still puts it in the input but according to the Dom this is a
+completely new thing so obviously it can't it loses Focus because it's not the same thing it's as if I put another
+input below it with just the same value and this is the first place where people start running into issues when they do
+Frameworks abstract away mutations
+this and the way we solve this and this is what Frameworks do for us and specifically something with the virtual
+Dom is you do it in this way but then you give the framework the current HTML
+and the next HTML and you let the framework figure out what has changed
+and it'll see okay this is what you're an it will handle that for you so you
+can write your HTML changes as a result of a render function but then the
+framework checks what are the differences and it manually does the changes for you and it abstracts that
+away from you so you can just think about your changes as the result of a function so this allows us to actually
+Declarative UI without drawbacks
+write our HTML in a functional programming manner with no side effects
+immutable data in other words the date we create new data each time this is going to keep it really easy to debug
+it's going to actually make it very easy to reason about like why is that why is HTML now in the state that it is now as
+opposed to like this kind of mess and this is where Frameworks come in and so you get Frameworks like react that is
+like full on functional programming there are some that are even a more functional programming than react so a
+good example is Elm so Elm is one that's like just full-on functional programming
+there are no side effects no impure functions and so forth react is one of the ones that tend to be
+a bit more functional programming specific but it's not as hardcore as something like Elm but but most of them
+work on this principle that your what you see you express your HTML as a
+Express HTML as result of a function
+result of a render function and then it's a Frameworks job to figure out how to ensure that what has changed between
+these two renders actually gets applied to the Dom so it completely abstracts the Dom away for us we don't even think
+about the Dom so when you're using a framework this is all you care about you
+only care about this what do you pass to your render function what happens here
+Frameworks abstract away the DOM
+is completely abstracted away from you but as mentioned you still need to understand what happens here because
+sometimes weird things will happen here and if you don't understand what goes on
+over here you're going to get stuck and you're not going to be able to actually fix the problem or likewise certain
+Frameworks might do different things here behind the abstraction and if you don't understand what they actually
+abstract away it's going be a very hard choice for you to decide between what is a good framework for your solution or
+Understanding what gets abstracted
+what is the best thing to pass to render to make this as fast as it as it can
+possibly be and so forth in the next lesson we're going to start talking about higher order functions and as you
+can imagine if we take this approach higher order functions are a really good
+fit for data transformation so you use them a lot actually in react when you
+actually want to create a list of something let me show you quickly you actually use a higher order function so in react or kind of the way it does kind
+Higher-order functions (HOF)
+of Dom diffing through something called the virtual Dom you actually Express through something called jsx so you
+would effectively have a function that is you know let's say you know View and in our view currently is just we just
+take tasks and then we return some jsx so we just return an unordered list and
+inside that we want to return let's say task is just just a string is a array of
+strings so tasks and so if we were to mark that up in JS Dock you would just do param array of strings tasks so
+HOF tend to be more declarative
+effectively what you can just do is you would just Express a piece of JavaScript logic in this way in jsx so you say
+there's going to be some JavaScript here you can think about this in the same way as interpolation so resolve this
+evaluate this first before you continue and some some Frameworks actually use interpolation and template literals let
+for example does it we're gonna we're gonna talk a bit about let HTML in the next section but effectively if you
+react you can go tasks map and let's grab the name and you return new jsx so
+Li and name and there we go this is your render passing tasks you return jsx
+inside that you map over all the tasks and you create a new array that is just
+an Li with the names in it and this is and so whatever you pass to tasks is just going to render something different
+so I can go you know A and B and let's say something happens you know there's an update and it changes from view a or
+whatever or view a b we don't have to worry about the Dom we don't have to
+worry about updating the Dom query selectors none of that you never write any query select unless it's something
+very specific that you need to do you never actually touch the Dom you just work with a function that renders the
+new HTML for you and that's the framework's job to figure out how to take this piece of new HTML and update
+your current HTML in the performant manner that actually just changes what has changed and doesn't completely throw
+everything away and add something new in so in the next module we're going to talk about this we're going to talk about virtual Doms we're going to talk
+about the ways that some of these Frameworks do it and kind of this process and specifically we're going to
+talk about how we can actually use higher order functions as a very one way
+to actually express our logic because you can theoretically do this you know
+HOF keep data unidirectional
+you can theoretically go can't result and then you know that's an array and
+for single task of tasks and and then we
+go result and you push you know this to result and then you put result in there
+so you can do this um and because you're more familiar with for Loops this might actually seem more
+straightforward to you obviously this is a very simple app like your app's going to get much more complicated so you can
+imagine having something as expressive and declarative as this where once again
+data just Flows In One Direction there is no like creating something up here
+then a for Loop then setting it back changing it after it's been created following going up and down in the
+component trying to figure out where things come from data just follows in One Direction you always just keep
+reading down so here you go here you go this happens this happens and that gives you an indication of what does this
+Will focus on frameworks soon
+render actually do how does it take the state and turn it into HTML that was a lot my things are getting intense now
+um it might seem overwhelming just be patient just maybe watch it again try
+and get a sense of the key takeaways here and when we touch on Frameworks maybe come back to this again to
+understand okay what is the point that I'm trying to make here now that you
+have a bit of an understanding in terms of how you actually use Frameworks because I think if anything the point
+that I'm trying to make in this lesson is one of the most critical points when
+working with JavaScript and if you understand this it's going to be such a
+Frameworks most important abstraction
+superpower in your career because a lot of people come into JavaScript and they
+just learn this part they just learn how to use react to give you something they
+don't understand why that happens or why do you even do that and then when this
+breaks or when this doesn't give them what they want or when this becomes really slow they don't understand the
+underlying logic and they're unable to even search for answers online or chat with their colleagues about what they
+think is actually happening I will see you in the next video
