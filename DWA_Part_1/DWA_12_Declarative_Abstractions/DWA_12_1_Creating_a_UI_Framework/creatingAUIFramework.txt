@@ -1,0 +1,567 @@
+Introduction
+all right so now that we have this um Thor set up here to model all our data
+we probably want to start looking at what we're actually going to be showing on the screen and so I'm going to be
+doing it a bit the other way around now I'm going to be building the example first and then I'm retroactively going
+to explain what I did in the example specifically with the focus on how
+immutability and Purity from a functional programming perspective actually helped keep our code more
+manageable and also how we can't get rid of oop a hundred percent there are still
+Need both FP and OOP
+some things in our app that are handled with an oop approach the primary one
+being components you might have seen in the previous videos that our components started getting very unwieldy they
+started getting very big a lot of code and also a lot of repetition we wrote
+the same things over and over again so they're doing the elements attaching the shadow Dom all of those things
+so what I want to do now is I actually want to show you how I would create an abstraction around my components to
+actually as we learned reduce some of that noise you know hide some of that stuff around the shadow Dom around
+actually attaching event listeners all of that stuff and bring forward the
+essence so let me just create a utils folder here and this is where I would just put utilities so these are things
+that aren't specific to a piece of the app but there are just tools you can
+Abstracting UI components
+think almost like a hammer or a saw and so forth that actually help us write our
+code or build our app as we go and I'm just going to say components so this is just where I'm going to put all my
+component specific utilities and let's create a specific Factory function and
+let's call it create component there are two approaches to this you might have probably guessed it the other one is to
+create a class and call it component and then just extend that and then further
+extend that so this is what some libraries like actually let do let me
+show you lit element so when we start talking about JavaScript Frameworks so the lit one which we're going to talk
+about actually has something called lit element that is actually built on top of web components that give its own kind of
+level of abstraction on top of it and then you further extend it I am just going to do a factory function
+for now because as you know that is just how I prefer to do it but at this point it's mostly just an issue of personal
+preference so I would just say class component and we need to remember to
+extend the HTML element and extend with an S okay so we create our component in
+Creating class inside closure
+the scope let us write up the interface for this utility obviously it's going to accept some props and let's say we want
+to pass the following props to it I think first and foremost the name so the element itself and let's add this as
+we're writing the documentation actually pulling in some of the logic so param Props and this needs to be object right
+so and type Dev instead right so we're pulling this in prompts element so while
+Check if hypen in element name
+we're at it let's actually check if the element has a dash in it remember custom
+components need a Dash or a hyphen in it and we can just say if it doesn't throw
+new error and let me enable copilot again it sometimes helps me write errors a bit quicker because it can look at the
+code and then actually make a recommendation in terms of what the error message should be yeah element name is include a hyphen there you go
+all right so by this point we're going to assume it has a hyphen and so we create the class what we do is we custom
+Register element inside closure
+elements Define element the name and the component and then let's just return the
+component uh if you want to use the class to kind of check whether it's an instance of this component or so forth
+so in here it's actually smart enough to start writing this for us so obviously
+we have a Constructor with a super in it as I mentioned all that super does it calls the Constructor on the thing we're
+Shadow DOM in abstraction
+extending we can even pass things to it if it accepts things so we can pause it like that it doesn't accept anything
+mode it's just closed and not open so the other thing is just I put prefer to
+put my actual Shadow Dom inner component here so let's just do it that way and
+then inner and a pen child node let's
+say the next thing that this accepts is the actual template it's a string and so let's create it up here before we
+HTML template in abstraction
+actually declare our components a template document create element template templates in a HTML props
+template and let me just call this template string and then over here when
+we destructure it we just rename it to template string all right so we assign that and then over here we just create
+the node template content clone node yes this is correct all right but so now we
+probably want to pass some other things as well and let's say we probably want to pass events so what events do we want
+Event listeners in abstraction
+to listen for and let's say this is a record of string which would be the names of the events so these will attach
+event listeners for us let's just create something called the Handler and that would be a callback and let's create it
+up here so callback and Handler and all that that does it just has a param event
+so it can be an event or a custom event one of these two we won't know which it
+is and then the last thing we want to do is maybe actually do something called
+connect and so I'm just using the Redux terminology here so you can look for
+Store subscription in abstraction
+Redux connect a way to connect components to your store so that is just
+the word they use I'm just going to stick with that and what connect does it effectively is just creates a subscriber
+for a store and attaches it to the component so let us pull that in so if
+we go model store JS we're going to pull And subscribe all right so but what we
+also want is State because connect is a callback and it just has two params
+previous and next and both of these are just instances of the of the state
+state and so connect and I think that is it we might need to add some other
+things but I think for now this is good enough abstraction to get working effectively it's also worth noting that
+Creating a JavaScript Framework
+what we're doing here is we are actually creating our own JavaScript framework now from the ground up what we are doing
+here is we're actually we're actually hiding the noise of the low low level noise associated with updating the UI
+keeping the UI in sync with our state and so forth and we're elevating the essence and you know so the essence is
+you know what is the template what how should the stand in relation to the store and then we're getting rid of all
+this you know attached to cloning the node all of that stuff and
+so forth so we are effectively creating our own JavaScript framework here I would actually encourage you guys to try
+and create your own libraries your own Frameworks let's see up front no one's going to use it I mean like if you look
+at react and like all those big Frameworks have really smart people behind them they have the entire
+Good exercise to re-create tools
+Facebook team behind them um angular has the entire Google team behind it and what reactors now like I
+think older than 10 years already so you know you obviously won't be able to compete with that life cycle in terms of
+maturity that that framework has and also just like I don't really care how smart you are you are not as smart as
+the entire Facebook in engineering team combined and the reality is whatever you're going to come up with is going to
+be worse than any of the existing Frameworks I would always just like use those Frameworks they're much more
+stable there is a lot of value in creating your own framework and playing around with it yourself
+um just as an experiment I think it helps you understand kind of what these
+Frameworks do much better and how to make sense of Frameworks and also it's it's just a phenomenal exercise in terms
+of practicing JavaScript getting better at JavaScript and also abstraction it's a phenomenal exercise in terms of
+getting better at creating abstractions because a JavaScript framework is like one of the Cornerstone abstractions
+Framework most important abstraction
+because at the end of the day you are rendering things on the screen and you're changing what gets shown on the
+screen based on certain things that is like the most important abstraction that any app can have which is also one of
+the reasons why people have so many fights around Frameworks and this framework is the best that framework's
+the best you should use frame actually shouldn't have used Frameworks because that is such an important thing but for now let's just continue with our own
+little framework here and it actually does very little but like it kind of first and foremost it's going to make
+our life just a bit easier not having to do all of this stuff um only being able to kind of set the
+important stuff and it's also just a really good exercise in terms of as a stepping stone towards Frameworks
+um and we're going to start talking about Frameworks pretty soon all right so let's continue with this so there's
+two things that can be passed here events and connect so effectively what
+we want to do whoa where did all this stuff come from okay sometimes you need to sometimes you need to watch out for
+Be careful when using AI tools
+co-pilot it sometimes stuff like that and you're like wait wait this code come from sometimes it tries to be a bit too
+helpful it's not actually what you want it's actually adding code that doesn't make sense so I'll keep it on now for a while
+and let's see if it gets annoying I'll turn it off obviously co-pilot is also much better if it's a big project that
+has a lot of code in it because it can look at all the code in the project and based on all the other code in the
+project get a sense for how you structure things and there isn't really much in here so it just takes these wild
+guesses at the moment so if it gets annoying I I will turn it off in here what we want to do is and it's also
+saying that let's say both of these are optional you don't need to listen for
+events and you don't need to connect to the store but what we can say is that if you have events what we're going to do
+is let's see here's actually pretty smart so object so we create entries
+from those events we map over each of those so this is a higher order function
+I'm gonna unpack these and list all the different types of higher order functions
+Adding listeners in "connectedCallback"
+um in the next lesson you grab the key we grab the Handler and this add event yeah the power is actually pretty smart
+here in terms of figuring out what we want to do then we want to say but we just need to create
+unsubscribe like that and then we just unsubscribe in there when we're done
+connect okay and so we subscribe and see this is actually not right which is
+pause connect straight into it and that's if connect exists so here's the other thing so one thing we haven't
+talked about as of yet is with web components or any event listeners you
+Removing in "disconnectedCallback"
+should remove all the listeners whether it's listening to a subscription for a store or it's actually listening to user
+events because that's how you create memory leaks if you remove the component
+that listener is still going to be there and it's going to keep on listening for something that doesn't exist anymore so
+that means like if you add a couple of components remove them add some more after a while you can have all these
+listeners happening in the background that are actually listening for things that don't even exist anymore and that'll give you a pretty big
+performance hit with web components there are specific cases where you don't need to remove event listeners where
+it's smart enough to know that it should remove it um this is mostly for ones that you put
+directly on the component uh but there are cases with like the shadow Dom and so forth where you need
+to manually do it the implications of actually removing something that doesn't
+Remove even if not needed
+need to be removed um is pretty trivial it's just more code if it would have done it automatically
+uh the implications of not removing something that actually isn't going to get removed automatically is not that
+great so I just as a lot of thumb just remove everything even if it is overkill but it's pretty easy to actually do so
+what we can just say if there are events so exactly the same code again we do the exact same thing but it's smart enough
+to actually know that remove event listeners instead of adding the event listeners and here it actually checks if
+there is an unsubscribe and if it is unsubscribe then just run unsubscribe as
+well so we're as connected callback runs when the component gets mounted in the
+Dom so when you create an instance of it disconnected callback runs when it gets removed from the Dom that might be
+because you're going to a different page that might be because for some reason you're actually removing it with JavaScript so you're deleting a task or
+whatever it's also important to note that this is also something that's kind of a common Redux pattern is Redux makes
+a distinction between containers and components containers are effectively
+just components that connect to the store regular components don't connect
+to the store regular components just take attributes or Properties or whatever in that Addie Osmani book that
+I mentioned he actually talks about it he actually lists uh um so I mentioned you know like kind of
+he mentioned some of the traditional patterns like a Singleton and so forth and observer which we kind of now looked
+at for the store that we built keep in mind once again you know the the key here is we look at them for inspiration
+we don't just Implement them blindly but he actually includes this as one of the
+patterns yeah and effectively so what this effectively just says is that you
+effectively you have your containers that are components that have data that connect to the store and the components
+these are actually just the ones that actually render so the containers are what connect your components to your
+actual model so let's just do and I'm just going to do TD for to do JS let's
+just create a component that's going to wrap the entire app for now and we can just then break it up as it gets bigger
+Working example of our framework
+so let's pull in our create component so utils components JS let's
+bring that in create component and let's try something really basic to just start
+off with so let's do create component props so element TD app template okay so
+let's try let's just do Dev world and let's just add this here for some syntax
+highlighting and and let's not add any events any anything let's see if it
+actually renders so if we then pull it in here pull our actual container components in here and let's get rid of
+all of this we don't need this so that is the actual container and there is and
+let's give it a go let's see and we also need to remember to just so let's do TD
+app over here and let's see maybe I'm surprised maybe it just works hey and there we go huh I'm actually impressed
+with myself that I was able to create that entire abstraction without any typos or any bugs or so forth so let's
+give this a test with um some buttons or something so let's go no button and let's say Tata key one
+Adding interactivity to our example
+okay and two okay and so we have that in our template so then let's put some
+event listeners up here so let's listen for click let's just cancel log the
+event Target data set so it's gonna just register it for all Clicks in this
+component so you know if we click there if we click there if I click there and if we click there let's just create a
+form we just get a very basic one where I show you how the store works and also
+show you how we would actually just so I can super quickly show you how we can
+actually store and retrieve our store and our data for our app from local
+memory from the local machine even if we res turn off our computer turn it back
+on close the browser to persist it and then we just have a submit button and on
+this form data key let's just call it form or ADD and then let's just down
+here have an unordered list which you can call data key list and I'm already seeing something else here so what we
+Add means to get HTML elements
+might maybe put in not abstraction as well is to check all the data keys and compile elements for us automatically so
+what we can actually do in our actual event let's wrap it in another function
+that passes something along as well Ram event and let's pause a second thing
+that is a function that just gets us a specific so this needs to be a callback
+as well so let's just say let's call this callback and let's say get elements
+and a param that is just a string and that is a key and it returns a array of
+HTML elements so it depends on how many there are let's say a second param HTML
+element and the second param is just and let's just make an optional Boolean is
+let's just call it strict by default strict mode is true the that means that
+if strict mode is true let's make it something shorter let's say just get
+HTML yeah let's let's keep it that like we had it previously at HTML and so
+let's just add a quick note here that the others are pretty self-explanatory uh if true throws an error if not a
+single match is found okay and here we can just say the data key attribute
+value okay let's just also say here is through by default so you need to
+explicitly set it to false all right and so we want to make this available
+um both our events callback and our connect callback let's maybe pass it as
+the third one so let's maybe pass the get HTML and here maybe after the event
+Passing "getHTML" into callbacks
+cool so that's if we want to do anything with anything here so how would we pass
+this through to any of these so it's actually not that hard it's the issue
+comes in when we want to unregister it because we need to have access to it in
+here so unsubscribe is actually easy because we can actually just create a
+wrapper for that so in here let's just say wrapper and that is previous next
+yes this is just the current behavior so if we were to do it in that way then we
+want to pass another thing automatically to connect that will be get HTML so
+Wrapper around event handler
+let's create get HTML and let's just create it in our connected callback actually because we're registering both
+of them here okay so key strict okay so we can say that let's say const results
+is document this in a query selector and just looking for the data key that was
+specified so the only conditions when strict shouldn't run is if it is false
+so we effectively say if it's not false then do the following we want to say a result well let's say smaller or equal
+to zero it is strict mode and this condition is made in throw error and
+that is throw a new era no elements found work okay and let's close that off so that means that we can ask it in here
+and it is unhappy because expect two arguments connect and we need to update
+connect here and say param is get HTML and handlers so we already have it there
+so here we are passing it and it's unhappy because oh we never actually return results so let us just create a
+quick helper function to coerce that into HTML elements up here what we can
+just do is let's just say const node list to array okay so node list array
+from node list but we want to say that it should take Ram any return an array
+NodeList coercion helper function
+of HTML elements once the result is all right and then we return the result into
+that where is R so here we go so let's just return cool so now it should return
+an HTML element all right this is Happy the only thing that is still missing is
+our event listeners we might need to do this in another way so we might need to just say you know
+listeners and then instead create the wrapper here and then instead do it this
+Array to remove event listeners
+way so a Handler event yeah and then unfortunately a sign listeners so push
+the key and the and the wrapper and then we'll need to use this then instead to
+remove it instead so we won't be able to Loop over the actual object itself we'll need to Loop over this because there's a
+functional one level up so it's not the actual Handler itself that we're registering we're wrapping the handling
+another function and that function is actually the one that we should remove okay all right and that is all what are
+we missing okay cool here we go and so you you might have lost me somewhere
+Relax if not understood all
+here that is okay like don't worry too much about it if you were able to
+understand most of this congratulations like you actually know enough to be able
+to create your own JavaScript framework which is not something a lot of even Junior developers can say if you
+understood everything even better but my guess is you probably understood some of it it's not the end of the world I just
+want to show you kind of broadly how we would actually go about abstracting a lot of this low-level stuff so that we
+don't need to all the time rewrite all of this and we can Elevate the essence of what it means to create a component
+with without all of this low-level noise of assigning things making things
+private Setters Getters all of that stuff so here is effectively our
+JavaScript framework that we created and obviously pretty soon we're going to be looking at actual real JavaScript
+Frameworks that you would probably use in production in your work day in day out as a JavaScript developer all right
+so let's just see at the very least of these things do not break reload okay
+awesome so what we want to do is we so we have this form we want to listen for
+Handling form submission
+submit event instead so what we want to do is we want to go event first and
+foremost we want to do event prevent default okay so to prevent the default submission Behavior here just to make
+our lives easier we are going to tell he is check that hey let us take control here we know what we're doing so what I
+would usually do is I would go event as any and then just pass event and I will
+just set the type to any so any effectively says leave this alone this can be anything we are going to handle
+Overriding ts-check for a few lines
+this what I then would do is I would try and grab the key event has any Target
+and I would go data set and key so if at any of these so we use a chain of
+optional dot notations like this so if any of these are not true this is going to be undefined so here we can bring the
+typing back in and tell it like okay cool you can take control here again so we can say type string or undefined so
+effective fatality hey give us control then we write this and we say it like cool okay here you can continue again
+and then we can do our logic here so let's just say E equals add so if
+there's an ad let's just console log for now one two three so this should theoretically trigger so hey one two
+three and if we click anywhere else or whatever here we want to check what's in the form convert it into Data so we can
+Convert form response to object
+do let's just say response so new form data and we just do event Target and we
+should just check that event Target is an instance of HTML form element so you
+might be feeling that sure this is a lot of work like marking these things up and that is the reality of static typing and
+Type checking requires more work
+then this is something you need to figure out whether it is worth it for you um do you want the guarantees that you
+get and like the you know if I were to do that like those little things
+um are you willing to do a bit of extra typing to get those warnings for me I do so I'm happy with it but you might be
+like listen I don't want to use TS check but my guess is you'll probably actually spend more time fixing errors but it is
+for you for you to actually decide to be a form because vs code can only tell you
+if something is wrong if it is able to figure out what it is so you might need to help it figure out and so data then
+just is we just have a name there oh crap so we can do object from entries
+and response is it from entries well I think we're also maybe just using a
+version that is too old let's go up to 19 yes okay what we also need to do
+after we do that event Target reset we
+might even create an abstraction for us to handle form submissions that is probably what I will do for now let's
+check this out hey check this out all right so what we
+Add submission to the "store"
+want to do now is we want to push these up into our store let's also just while we're at it and let's actually just
+every time after we do a submission let's actually just cancel log the state of the store the store so it does
+doesn't obviously added to the task so up to the store let's add some logic so
+let's bring in the action that would do that so from a store we need to get
+dispatch and we also need to get actions so one thing that you will see is you'll
+see as your code gets more structured as it gets more complex you are going to
+have to do more typing and that is just the reality in the same way that if you
+Structured approach takes longer
+are building a skyscraper you are going to have to do a lot of extra things compared to if you are just building a
+Wendy house at the back of your house and you're gonna have to take a much more structured approach you're going to
+have a lot more things in place one of them you can go very fast the other one you actually go slowly and a little bit
+and deliberately because you understand the complexity is going to grow why do
+we want so from we don't want our store we want actions and uh task action
+Creator all right so all that we do over here is then dispatch and why do we
+dispatch we dispatch we create an action here and we use the what was it create
+Dispatch action to "store"
+task let's just rename that to title here all right and that is a string and
+it's not happy because file is not assigned let's call that title instead of name we might also need to turn it
+into a string just to make this check happy let's just say to string just to
+ensure it's a string because at this point it doesn't know what it is it doesn't know where it comes from cool and there are three tasks so now we
+obviously want to listen to our store and actually when a new task gets added
+Update HTML imperatively
+put it in our unordered list here so this is where the get HTML is going to be helpful so let's say
+UL let's say get HTML and what we want is we want list and it is strict and we
+can assume that there's going to be be at least one so we can de-structure and then that should be an HTML element
+otherwise it's going to give us an error then child to that and we obviously need
+to create so let's say Li and create document create element so Li and then
+we want to assign in a text again so before all of this we need to compare
+the previous and the current state all right but before we do any of this we
+need to figure out when we need to add something we want to create two arrays we want to create a array of all the
+Find tasks created in change
+let's say next tasks so object value so we get all the values of next task and
+we turn that into an array we want all the keys of the previous task the previous task IDs and so instead we do
+object keys so what we then want to do is we want to Loop over the next tasks the for each item and then in that we
+want to say const is new so we want to take all the previous task IDs and check
+Check which not in previous state
+if the one that we're currently mapping over is in that so if it's not in it we
+can say it's new let's just say if is new then we want to attach it so this
+would be item title UL a bin child l i so theoretically this should work let's
+have a look hey check this out and let me also just have the condition for should delete const should delete so
+Check which not in next state
+let's just move this in here and so we're gonna also map over it but the
+other way around we're gonna map over the previous ones and see if there are
+any of the previous ones that are not in the new one so let's also just create a
+const next tasks desktos ID object Keys Next tasks okay so we're mapping over
+all the previous keys and what we want to check is we want to check if a key
+that was previously in the store is now no longer in the store so we want to say
+if next task IDs does not include the ID
+that we're mapping over so if it does then just return don't do anything and
+actually let's do the same here let's just because now we can get rid of the level of nesting just to keep our code
+from getting like heavily nested and the same here so if it does that's fine don't do anything so let's also add the
+ID when we add it l i data set ID we can
+just get item.id and that way we'll be able to find it in here as well let's
+actually just grab ul and we would then let's just get the node so UL query
+selector data ID equals and then we can
+just check if node instance of HTML elements if it's not then new error
+required to be HTML element what we can then do is just node remove as simple as
+that right so now we map over it we check what has been added we map over it we check what has been removed and this
+should still work okay so we are listening for things that if anything gets removed but currently with the
+store there is no way to remove something so what I want to show you now is why do we go through all of this you
+might look at what we've done up until now and and you might actually start questioning what I'm doing and why I'm
+doing it and I think that's why I started this video by saying that I'm going to do the example first and then
+I'm going to explain it and the reason for that is from here on out we're going
+Is there better way?
+to start using third-party abstractions so whether these are libraries there are
+Frameworks and so forth we need to understand what problem these libraries
+solve for us before we start using them I very strongly believe that because if
+you just learn the library or the framework for its own sake and you never understand what it actually does you
+just learn it because people told you you need to learn Redux you need to learn react you need to learn view first
+Understand the problem first
+and foremost you're not going to have the insight to actually make a decision in terms of what framework is best for
+what type of project because I do believe certain Frameworks are better suited for certain projects and we'll
+talk about that a bit more when we start introducing these Frameworks and the other thing is if you don't know what
+these Frameworks extract you're going to have a very hard time actually debugging
+it when they start falling apart so let's take first example a car so you don't need to understand how a Car Works
+in order to drive the car you just need to know you can turn the steering wheel you can press the gas pedal and change
+the gears that's all you need to know and generally that is the sign of a good abstraction any good abstraction should
+hide all the low-level things that are not important and knowing how combustion Works knowing how the tires are attached
+to the car knowing what a spark plug does or a compressor or a fuel injector
+knowing what those things do is irrelevant in terms of using the abstraction but here is the trick and
+there's a very famous article by someone called Joel spielenski and this is an
+old article it was written in 2002 but it still has a very big impact on the
+software industry and how we think about abstractions and you might in your career hear this article referenced a
+lot and I'm just going to highlight some key things from it and it's called The Law of leaking abstractions and what
+Learn mechanics under abstractions
+this effectively says is that there is no such thing as an abstraction that doesn't leak at some point and what we
+mean when we say an abstraction leaks is that sometimes it can hide all the
+underlying stuff from you in some circumstances some abstractions do that better than others but at some point
+some of that is going to leak you can't always under all circumstances hide the
+thing that is getting abstracted purely just through your interface so he uses
+the example of TCP we're not going to touch on TCP specifically I'm just going to talk to talk about the general idea
+TCP is a very Advanced concept so let's look at his example instead of getting
+down into the the weeds around like what exactly TCP is so he uses the example
+and he says imagine action allows you to send actors from one place to another
+Low-level TCP mechanics with metaphor
+and it involves putting them in cars and driving them across the country some of the cars crash killing the poor actors
+so you know that some of them don't reach the destination that like you lose them some get drunk on the way go
+authorells and you know they can no longer work as an actor he also says sometimes actors you know come in a
+different order than you actually sent them so let's say you send one person but someone else arrives before them and
+so what he effectively just did here is he described PCP for us okay so you
+might think this is a very weird example but he's just describing the realities of TCP and so he says like imagine there's a new service called Hollywood
+Explain the TCP abstraction itself
+Express he's much more reliable and it guarantees that they first and foremost
+they arrive in the order that you sent them and they arrive in perfect condition so they don't get caught up in
+a car crash they don't get lost along the way you don't lose them and they don't come out at the side completely
+erect I don't know why he chose this example but it is what it is so let's
+just run with it so he says the magic part about Hollywood Express is that it actually abstracts the first super messy
+version that we spoke about it checks that the actors arrive in good condition
+and if they don't arrive in good condition it fixes it for you so it effectively says hey let's get someone
+who looks like this actor and let's send them instead so you don't know what's happening behind the scenes it solves
+that problem for you all you know is you you put an actor in a car and they arrive in the same order at the new place you don't know how that happened
+so his example gets a bit weird in some places but he says you know let's say
+something weird happens and they don't arrive in the order that you sent them underneath the hood what Hollywood
+Express does is it actually waits for all of them to arrive and then it rearranges them it takes longer than it
+would have been but they do arrive in the order that you sent them it just from your side using the abstraction it
+just looks like the actors are arriving more slowly than usual and so he said you know that is approximately the magic
+Abstractions aim to hide details
+of tcpe it is what computers call an abstraction in other words a simplification of something much more
+complicated that is going on under the covers this is what we've been doing up until now with our own abstractions this
+is what Frameworks do this is what libraries do this is even what JavaScript itself does if you remember
+JavaScript there's actually several lower levels below JavaScript that JavaScript actually abstracts he said
+you know like so in his example he says that his example abstracts away the lower level logic and in most cases it
+does but there are age cases where it doesn't there are edge cases where you actually need to understand what is happening under the hood to fix problems
+All abstractions sometimes "leak"
+you said you know in his example he said that TCP guarantees your messages will arrive and if you want to be technically
+correct that's not the case things can happen you know your cable might break you might be at a workplace where they
+actually block specific type of traffic and so he effectively says you know this is what's called a leaky abstraction and
+in these cases the abstraction can't hide all of that from us and this is where he coins the law of leaky
+abstractions he says all non-trivial abstractions are non-trivial being important abstractions all important
+abstractions to some degree early so he says abstractions fail sometimes a little sometimes a lot things go wrong
+it happens all over the place when you have abstraction so he lists a couple of like really complex things um the
+closest one to what we are doing is so he talks about learning asp b.net which
+Example of ASP.NET as leaky abstraction
+is a kind of a different language but it's also a way to build websites and stuff so he says it would be nice if you
+could just teach them to double click on things and then write code that runs on the server when the user clicks on those
+things and honestly this is what a lot of tutorials do this is a lot what a lot of coding schools do so you might come
+across as coding schools where they they are going to teach you JavaScript in two weeks and I'll maybe even link a video
+where someone kind of talks about this concept but the thing is what they do is they teach you the abstraction okay
+Learn mechanisms under abstractions
+that's cool you know like so you just follow along step by step you use the abstraction in the same way that someone
+teaches you about cars they just show you how to turn the steering wheel they just show you how to press the gas pedal
+and how to actually use the gears and they might tell you I've taught you how
+to use a car go ahead use a car and your friend might also be at a place where they're teaching them about cars before
+they get to that part they teach them about like Wheels what are wheels how are the wheels attached to the car what do you do if you get a flat tire player
+when you turn the steering wheel what is actually happening what is moving in the car when you press the gas pedal what is
+actually happening why do you need petrol in your car why is the gas pedal not working if you don't have petrol and
+so forth that teach the underlying Concepts that are getting abstracted away and you might tell that person
+listen you're getting ripped off I went to this amazing place they taught me how to use a car in two weeks and I am
+driving and living my best life I'm driving all over the world and he might take four months to reach that same
+place but here's where the problem comes and I'm going to continue with the article to show this he uses the example
+what asp.net does it extracts away the HTML so you don't need to know the
+Reason #1: Required to debug
+difference between hyperlinks and a tag and a button tag because it actually says you know it's going to abstract
+that away you just want something that performs an action you don't want to know what are all the ways that that
+action can be performed why the abstraction does it in this way instead of that way what even isn't a tag or a
+button and as you should probably know by now from the examples we've shown he says the problem is what is getting
+abstracted away is the fact that only a button can submit a form a link an ATAC
+can't actually submit a form so what they then do in asp.net is they actually
+abstract that away and they do a bit of magic to make sure that whether it's a a
+tag or a button it can still submit the form it doesn't matter so keep in mind this is 2002 this is quite some time ago
+this is 21 years ago so obviously the examples that he's using is a bit data people don't do these things with
+asp.net anymore.net is used in a completely different way nowadays you mostly just still find asp.net on like
+Old Government websites and so forth and he also talks about you know um they'd say someone's JavaScript is
+not working properly which was a much bigger problem 20 years ago than nowadays but the point being let's say
+someone visits a website and the JavaScript doesn't run and if you don't understand that the way in which asp.net
+make sure that you can use either an a tag or a button is by means of
+JavaScript and what how it actually does that when you use the abstraction and
+something goes wrong with the JavaScript let's say you add a bug in the JavaScript and it fails also well then
+the forms are not going to work and you're not gonna know why the forms don't work because you don't understand in the abstraction somewhere it actually
+does that but magic with JavaScript so you might try and solve the issue of the forms first before you get to the
+JavaScript because you're not being able to submit a form is maybe much more important than like some JavaScript
+animation not working or whatever but because you don't understand that there's a part of the JavaScript under
+the abstraction you might be banging your head against the wall not able to solve this you don't know why it's not
+working anymore in the same way you know if you've just been taught that you
+press the pedal to drive the car you turn the steering wheel and you change the gears you might not understand why
+if the petrol Runs Out you press the pedal the thing that you've always done and it the car doesn't want to drive you
+don't know it's been abstracted away from you you're just like this usually works I don't know why it's not working now or you might get a flat tire and you
+might struggle to turn the steering wheel and you don't know why is the stroke usually this is fine what's going
+on now whereas the person that actually learned those underlying abstractions learned what those actual tools abstract
+way is able to actually just efficiently use the pedal use the steering wheel use
+the gears as someone who only knows the abstraction knowing what goes on under the abstraction isn't going to make it
+harder to use abstraction you're going to still use it in the same way but when things go wrong you know enough about
+Reason #2: Discuss your code
+what's under the abstraction to actually talk about it even if you can't fix it
+yourself at the very least you know you can talk about it somewhat so even if
+you like you would know then the car needs to go to a mechanic or at the very least you need to know you need to go to
+a petrol station to get some more petrol where someone who just learns abstraction they have no idea all they
+can say is this usually works I don't know why it's not working now and I've seen a lot of developers specifically
+Junior developers get themselves in a lot of trouble that way because they just learned abstraction so they just
+know how to use abstractions they just know how to create a component and react they know how to submit a form in react
+they know how to call data binary act but when something goes wrong and
+something in the abstraction doesn't 100 line up then they have no idea where to
+even start talking with their team about what's going on all they can say is I usually do this and now for some reason
+it's not working and that's not helpful to anyone and it's definitely not going to be useful for you in terms of your
+career and also you are not gonna be able to have meaning discussions over why you use this framework instead of
+Reason #3: Compare abstractions
+that framework because you don't even know what these Frameworks do under the hood so I might have a discussion
+whether I'm buying like a small fuel efficient car so in the same way if you're shopping for cars you might look
+at like a massive four by four Hummer or like a small let's say like Polo or
+something and if you don't know anything about cars or how engines work very bare
+minimum level you might buy the the massive like four by four and then a couple of months later you might realize
+why am I spending so much money on petrol my previous car all cost me like
+a thousand Rands two thousand three thousand rounds of petrol every month this one is costing me like twenty
+thousand what is going on and it's because you don't understand the Dynamics of why certain cars consume
+more petrol and why and you might leave that experience going okay next time I'm
+just gonna buy like a small little Polo or whatever I'm I'm never gonna buy a car that I'm gonna pay so much on petrol
+again and so you do that but then for some holiday trip you join friends and you kind of go to some rural place out
+in South Africa somewhere and all of a sudden your little Polo is getting stuck in the mud it's struggling with the dirt
+roads and maybe even breaks down somewhere and now you kind of flip to the other side again you're like I'm
+never buying a car again that can't handle like rough terrain and so forth and you can see how if you don't
+Reason #4: Learn from incorrect choices
+understand the things that get abstracted again you're just gonna keep on ending in these positions over and
+over and over again where you're making bad decisions and you don't have enough information to even learn from those
+decisions you don't even understand why the framework you used wasn't a good fit and then you end up in that position
+again for another reason so what I'm trying to do in this entire section
+where we're talking about things like encapsulation polymorphism even like
+functional programming oop is these are the parts that Frameworks are made of and by understanding these parts you can
+make a much more informed decision in terms of what framework is a good fit for what project and not only that but
+you are also cognizant of what are the trade-offs so you need to be aware of
+All abstractions have trade-offs
+those so let's say I do buy a polo then I'm going to be like I don't think I
+this holiday trip is a good idea my car is going to struggle or let's say you buy a 4x4 massive 4x4 that's just like
+chugs petrol you might be like what I know about this car and like a bit about
+what happens underneath the abstraction of the steering wheel and the pedal and so forth I know that I probably
+shouldn't use this car for daily commute in and out of the office every day why
+am I saying all of this and the reason is that this video and maybe this little bit that's come gonna come after this as
+well is going to be really frustrating but that frustration is important because it shows you what problem
+Frameworks are solving for us and being able to have a bit of an understanding of what goes on below the abstraction of
+Frameworks is also going to help you really make good decisions in terms of Frameworks and also understand what are
+good ways to use a specific framework what type of things should you not try and do with a framework even if you are
+forced to use a specific framework so let's say you join a team that is using angular and you might not even like
+angular at the very least you know a bit about what goes on under the abstraction to understand what are the type of
+things that are idiomatic to this framework what are the type of things that you should avoid and is this going
+to actually make it perform worse make it less maintainable and so forth and so
+forth so just to end this article let me just highlight the following so what he effectively says the law of leaky
+abstractions means that whenever somebody comes up with a new code generation tool that is supposed to make
+all of us more efficient you hear a lot of people saying the following learn how to do it manually first then use the new
+tool to save you time and he says the reason is like all abstractions these
+Understand mechanics to better use abstraction
+tools lead and the only way to deal with these leaks is to learn about how the
+abstractions work and what they are abstract the abstractions save us time working but they don't save us time
+learning and he says that irony being because our abstractions are getting better becoming a proficient programming
+is actually getting harder and harder and I definitely find this to be the case because it is so easy to just jump
+in with react and start using react and not understand anything about what reactors under the hood it's actually
+Better abstractions make learning harder
+becoming harder to become a good programmer because you're running into so many problems that are so far
+abstracted from what you've learned that you have no way of even knowing where to start understanding those problems
+interestingly enough he said to a certain degree the law of leaky abstractions is dragging us down and
+this was like 21 years ago and I would definitely say this is not only still the case today but it is even more the
+case now and this is why it is so hard becoming a software developer because on
+the surface it seems easy and the surface it seems like you only need to learn the abstraction you can watch a
+five minute video that shows you how to create a to-do list in react and you
+might be all right I know react let's go I'm gonna apply for a job and that's because you just learned the abstraction
+the problem is when you want to extend that a bit further or you want to debug
+a problem that came up now there's this massive amount of knowledge that is so far removed from this little basic
+A lot of developers stuck in junior positions
+abstraction that you learned don't even know how to tackle and this is also why the industry at the moment is so Junior
+heavy I always tell people your main job as a junior entering the industry is to
+get out of the junior pool as quickly as possible there's a big demand for intermediate developers there's a
+massive mod for senior developers the reason why the junior pool is so heavy and why there are so many Juniors that
+really struggle to get into that intermediate level it's because they just learned abstractions and the jump
+from actually following instructions and building something without understanding what you're doing to a jump where you
+understand what goes on below those abstractions is a massive jump and they don't understand why this next step in
+their journey is so hard compared to how easy the first step was and what you actually find is a lot of people
+actually drop out of the industry and they're like there's something wrong with me like I could get a job very
+easily I could start as a junior very easily but 10 years has passed and I'm still a junior what is going on I'm not
+growing in my career so it's very important that we have these discussions and it's very important that you are
+patient when we talk through these complex topics even though you might have a friend that's like hey check how
+easy it is to use react see how easy it is to use view or you might see a YouTube video where it is like hey
+here's how to learn react in five minutes here's how to create an app in view in an hour it might very well be
+that you don't believe me at this point I was first and foremost say look for similar opinion against there's a lot of
+Find similar opinions and keep this in mind
+people out there saying the same thing including Joel 21 years ago and then eventually you're going to find this out
+yourself the hard way if you just learn the abstractions and at the very least then you might think back about this
+discussion you might be like okay I at the very least know now what to do even though it took me very long to realize
+there's a lot of developers out there that don't realize this and I think they are the problem they think they're just not smart enough or they can't just
+progress in their career quickly enough what I'm gonna do is I'm gonna just query how the last bit of abstraction
+something that allows us to declaratively update our Dom and all JavaScript Frameworks are based on this
+principle of declaratively updating the Dom which is a very functional programming Principle as well so I'm
+going to show you how we would build that ourselves I'm going to tell you why that is useful why that relates to
+functional programming and why it's a much more reasonable approach than not doing it and then I'm going to actually
+pull in a third-party tool that makes that a lot easier for us my hope is that at that point you had know everything
+Next video declarative DOM abstractions
+you need to understand what all these Frameworks abstract away for us and we
+can start gradually moving into the space where we pull in the Frameworks to show you how it saves us a lot of work
+out saves us a lot of typing and code but still understanding what it's doing under the hood so that if it breaks we
+know enough about what it abstracts to attempt to solve the problem and get it working again
