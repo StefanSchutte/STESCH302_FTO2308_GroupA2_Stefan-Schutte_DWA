@@ -1,0 +1,613 @@
+Introduction
+so for the remainder of this um lesson
+what I want to do is I want to look at
+three things so first and foremost um I
+want to kind of talk about this idea of
+having a utils folder and generally you
+have a utilities folder where you have
+all these composable functions that you
+can combine into bigger things so I'm
+going to just show like how higher order
+functions are a really great fit for
+this idea of composing functions
+together then I just want to quickly
+show
+um how you can take this idea of
+composable functions even further which
+might be a bit too far for you and I'm
+not going to do that
+um in the code that I write but I want
+to show it to you and it's up to you to
+decide whether something you want to
+explore with yourself
+so I specifically also want to look at
+third-party libraries that give us
+utility functions and that we can also
+compose so things like low Dash then I
+quickly just want to refer to mdn to go
+over the builds in higher order
+functions specifically the ones that are
+associated with arrays and so forth but
+I think before we go deep into this
+let's maybe just have a look at
+Wikipedia let's actually look at what
+does Wikipedia say a higher order
+Defining Higher-order Function (HOF)
+function is and let's work our way
+backwards from there it effectively says
+also we shouldn't confuse higher order
+functions for Funk tours
+um I will speak a bit about Funk tours
+the most obvious Funk tour in JavaScript
+would be an array that has like map on
+it and so forth but this is a very
+theoretical you don't need to worry
+about this but just be mindful that when
+you see the term functor and higher
+order function or even just function
+these are three different things so a
+high order functions actually come from
+the world of mathematics so as a lot of
+things in functional programming so a
+high order function is a function that
+does at least one of the following it
+can do all of them but it does at least
+one of them it actually takes a function
+as an argument so this is where I spoke
+about that thing about abstractions
+inside abstractions inside abstractions
+so it effectively says you know a
+procedural parameter so which is a
+parameter of a procedure that is itself
+a procedure okay so this is that kind of
+never-ending nested thing that I spoke
+about and also you know so parameter
+this is also where we get parametric so
+parametric polymorphism or it's a
+function that returns another function
+as the actual return so it can be both
+or it can be either of these and so here
+you can actually see a mathematical
+function which obviously programming
+functions are based on so you can
+actually see this looks a lot like The
+Arrow function in JavaScript and so here
+are some things that are generally
+higher order functions and not only in
+Common uses for HOF
+programming but in mathematics as well
+so map which we spoke about quite
+extensively now I'm going to dive into
+map show you in a bit more detail
+actually what exactly map does sorting
+which we can also talk about one of the
+problems with sorting in JavaScript
+though is that sorting is actually not a
+pure function in the specification there
+is a new way of sorting so while the
+comparator that we actually passed to
+the function itself so the function we
+pass to the higher order function and
+needs to be pure sort itself is not pure
+so this is where two sorted comes in so
+two sorted is actually a pure version in
+other words it doesn't modify the actual
+array itself that gets passed to it it
+returns a new array and you'll remember
+I mentioned with spliced and reversed
+when we were talking about arrays and
+things that you can do on arrays and
+those two mutate the thing that gets
+passed to it which means you can
+accidentally change the actual parameter
+that gets passed you know retro actively
+outside of the function so there are new
+methods so two sorted two reversed and
+two spliced are actually pure versions
+of this and just be mindful that it's
+not yet supported in all browsers so
+you'll see it's not supported in Firefox
+um but in some of the other ones like
+Chrome it's recently been added but you
+can see this is literally February 2023
+so very very new so you'll have to do
+two sword if you want a pure version I'm
+going to use that version but just be
+mindful that depending on how much
+browsers you need to support that might
+be something to consider falter which
+JavaScript also has so then we have
+fault so fold effectively and this is
+effectively flat map so you'll see up
+here it refers to a higher order
+function that analyzes a recursive data
+structure apply we can't do this in
+JavaScript but the way that JavaScript
+works we actually do don't need to and
+because we actually want to stay away
+from this I don't really use apply there
+is apply in JavaScript as a function
+composition is we'll speak about that in
+a second and then there's some other
+things here the only other one that you
+should also know is callback so callback
+is effectively so there's two reasons
+why you might want to pass a function
+into another function the one is as a
+means to resolve something so there's
+some calculation or something that
+happens in the function itself and you
+provide it with logic that it used to
+resolve that calculation or as a
+callback so callback is something that's
+meant to be called at a time in the
+future call box callbacks are very
+related to asynchronous programming and
+as we get into things like promises and
+so forth we'll speak about them and much
+more but for now we've mostly been using
+callbacks in the context of event
+listeners because effectively ventless
+listeners are asynchronous the way of
+asynchrony that's built into JavaScript
+from the beginning in other words you
+don't know when it's going to run so you
+give it a function that it should run
+that can have side effects whenever the
+conditions are met so the next thing I
+want to look at is function composition
+that's similar to the array that we just
+created instead of taking strings and
+Example without using HOF composition
+combining them in some way let's say you
+pass two two numbers to something and
+then you want to perform something on
+those numbers so one way to write this
+would be let's just call it calculate
+and it takes it takes num1 and num2 okay
+and then it takes an operation and let's
+say if operation equals plus then return
+num1 Plus num2
+if operation is minus then return
+num1 minus num2 and then if operation is
+multiply return num1 multiplied by num2
+so obviously this is a very contrived
+example and the reason why I started
+with that spacing component first is
+because I wanted to show you an actual
+real example where you would use this
+because usually when I start with like a
+contrived example like this like the
+general response would be like okay I
+guess this is nice but I I don't really
+see why you would want to do this so I
+started with the Y and now I'm just
+doing a much more basic example to show
+you actually the actual Concepts
+underpinning that so operation equals
+divide so this is a very very very basic
+function and then you know at the end we
+can just if it reaches this point we can
+throw a new error that is just invalid
+operation passed so we can assume at
+this point that something was passed
+that's not not one of these things so
+let's do calculate at 10 20 and let's
+say plus so that should be 30 there we
+go okay let's do the same for multiply
+and then obviously if we do something
+like that throws an error but
+doesn't really give us much room to do
+anything else unless it's specifically
+built in so let's say you want to do
+modulus so if you remember modulus is
+this so if you do the percentage and it
+shows how much is left over after the
+calculation so if we do you know modulus
+and let's do five and we divide it by
+two so one should be left yeah and so
+forth and so forth and so forth and you
+Recapping "Single Responsibility" principle
+might look at this and through the lens
+of single responsibility principle you
+might be like yeah this has a single
+responsibility it's just it just takes
+two numbers and it performs a
+calculation on them that's a single
+responsibility but you can actually take
+a step back and actually see that
+there's two responsibilities here
+there's the responsibility of actually
+doing something on two numbers and then
+a second responsibility is figuring out
+what should actually be done on those
+numbers so if we use a higher order
+function we actually split those up into
+two different responsible abilities
+which actually provide us much more
+flexibility and reuse in other words
+like it's a much resilient and solid
+abstraction so how would we do this
+using higher order functions so we would
+do calculator very similar
+and num1 and num2 but operation would
+Example using HOF composition
+actually be a higher order function that
+we pass through we can literally just do
+it as follows check if operation is
+actually a function so we can say type
+of operation is not a function then
+throw an error throw new error so
+otherwise we can assume it's a function
+and what we can do is we can return
+running operation on num1 and num2 so
+that just means we pass this as a
+function and so num1 num2 and what do we
+do with that let's say we multiply it
+give us a bit of flexibility in terms of
+if we maybe want to do num1 plus num1
+and then multiply it so these are two
+different concerns and not only that it
+maybe allows us we can even split this
+up into two functions so we can create a
+Handler up here so let's just create the
+process of adding as an actual function
+in itself let's just make this an actual
+function and you know let's further
+extend it so here's another concept from
+functional programming and that is and
+that's carrying or partial application
+Partial Application" vs "Currying
+so sometimes people get confused with
+carrying and partial application partial
+application is the general term or the
+concept carrying effectively is a
+specific implementation of partial
+application that effectively is just
+means you only pass a single parameter
+argument at a time whereas a partial
+application you can do come every many
+you want so it's just a very specific
+implementation of it people sometimes
+use them interchangeably but so what
+that means is we can wrap this we can
+use this to actually create specific
+calculation functions for us so let's
+just say create calc and it just takes
+the operation and it returns a new
+function that takes numbers and let's
+actually say it takes an array of
+numbers okay so let's do numbers so we
+can still keep this over here what we
+can also check for is if numbers length
+is less than two throw new error numbers
+needs so what this now actually does for
+us is it actually partially creates the
+function for us so it's effectively so
+this let me write it like this so it's
+maybe easier to read if you're not used
+to this so you have a return in there
+that when you run this function it
+returns another function we can even
+let's just call it like you know inner
+Functions can create other functions
+function so that we created in the
+closure and then we return it obviously
+it's just way easier to write it like
+this each step you partially applying
+something so this is this is effectively
+carrying because we're applying one
+argument at a time so what this allows
+us to do so let's first so operation and
+this is where reduce also comes in so
+what we're going to do is let's just do
+result here and let me just just to
+".reduce" higher-order function
+reduce reduce is kind of like the
+multi-tool of higher order functions you
+can do anything of reduce and after this
+example I'm going to talk about the
+different higher order functions and
+also reduce and reduces usually the one
+that people struggle with the most
+because it is the most powerful and so
+it gives you a lot of flexibility but
+because of that people really struggle
+with it so what we do is we do numbers
+and reduce so the accumulator okay but
+this reduce is going to seem really
+scary and we're going to tackle it at
+the end so I can explain it but also be
+a bit patient with yourself it might
+take a while to understand exactly what
+a reduce does but I use reduces all the
+time all over the place in the same way
+that I spoke about you know one plus one
+equals two if you understand what reduce
+does it is so expressive it allows you
+to do such complex behavior in a single
+line okay but it takes a while to figure
+out exactly how reduce works kind of get
+in that frame of mind in terms of when
+you see or reduce being able to read it
+and actually understand what it does so
+we have the accumulator and then we have
+the current and basically what we do is
+we perform the current operation
+on the accumulator and the current which
+means you might have noticed that this
+means we can actually just pass that
+directly as is so we run that we reduce
+we take the numbers we reduce it and we
+reduce it with the operation return
+result so what this means is let us
+create some calculations so let's say
+add okay so create calc and let's pass
+our operation num1 and num2 num1 plus
+num two then we created this function
+that just accepts array an array of
+numbers and it add and it performs this
+on all of them let's go three four five
+and also this should be numbers once
+again the fact that we don't have static
+typing here is letting me down 21. so
+would that actually be so 3 6 10 yeah
+21. and let's change this to just that
+so not only were we able to express like
+really complex logic in what is this one
+two three four four five six seven eight
+nine ten eleven lines we can actually
+use that to create like functions that
+have a lot of like bold and complex
+Behavior themselves as well let's create
+another one and let's say divide a
+Dynamically create a new function
+create calc and num1 and num2 and num1
+and num2 and let's run divide instead of
+add and let's just make this a hundred
+instead and also that should be divide
+not comma all right so divide that by
+half and then it divides so 50 by three
+but this is where it gets really great
+and now we're getting to composition you
+can even combine those two into
+themselves add and divide and so that
+creates a new calculation for us that
+Further composing created functions
+takes effectively num1 it adds them
+first so let's just say in a result to
+add num1 num2 and then it turns divide
+in a result num1 and num2 it adds them
+and then it divides by both with it and
+we return that and so I think let me
+have a check add and divide pass 50 30
+20 and 2. and let's just make this this
+for readability let's make this const
+result uh let's return result hey okay
+so obviously like this is extremely
+contrived I have no idea why you would
+want to do this ever but this is just to
+show the principle you know and then you
+can build further on this and further on
+this so this is what higher order
+functions really allow us to do there is
+a library called Low Dash just open low
+Introducting "Lodash" library.
+Dash and then go documentation it has an
+absolute ton of actual like these little
+composable functions that you can use
+yeah so chunks so what does chunk do so
+chunk creates an array of elements
+splited into groups the length of size
+okay so here it shows an example so you
+pass this and then it splits it into
+groups of two and so forth and so forth
+compact compact removes everything that
+isn't true or true thing right so this
+looks at you know what is different
+between these two so obviously one A
+Difference by uses higher order
+functions to actually allow you to do
+much more complicated things
+so exactly what we did in our previous
+version so it actually passes math floor
+so the bolt in function in JavaScript to
+actually calculate the difference and
+you can go down here and you know so
+there are a couple of things that are
+actually built into JavaScript uh so
+don't pull in a low dash for those
+things so for example flatten which does
+what flat gives us by default and the
+Always prefer native behaviour
+reason for this is obviously low Dash is
+already at version four so it's been
+along around for a very long time and
+low Dash was obviously created before
+before flat itself in JavaScript existed
+so this was added to low Dash before
+that but obviously it needs to keep it
+in here because it can't just go like
+okay this is in JavaScript now so we
+should remove it because then obviously
+existing projects are going to break and
+so some of these you can actually now do
+a JavaScript itself but there's a ton
+that you can't so for example
+intersection so what intersection does
+is you know you pass two arrays and then
+it actually gives you then it returns a
+new array that is what is actually in
+Categories of utilities in "Lodash"
+both these so these are all that take
+arrays collection takes arrays or
+objects dates so yeah I I don't know
+like this I don't really use dates
+there's only one
+um functions this allows you to do
+things like here's one for carrying
+um memorization so these some of these
+are very Advanced and then these are
+like just general Expressions so equal
+there's a ton of stuff there's specific
+math stuff once again add so as we as we
+had here okay so why like this seems
+excessive like why do you have that so
+also keep in mind the way that low Dash
+gives it to us is that it's very easy to
+use as higher order in the higher order
+Wrapping behaviour in function
+functions so while in JavaScript
+obviously it's very easy to do ad you
+don't need low dash for that because you
+can just do 10 plus two who needs low
+Dash but let's say you want to do a
+higher order function so as has
+mentioned that reduce so let's say we
+have all these things two three four
+whatever and we want to add all of them
+together having add as an actual
+function is really cool because you can
+just pass it to that and it's going to
+add all of them for you together exactly
+in the way that we did so this is very
+expressive but like in this case I
+wouldn't pull in low Dash I would just
+go create my own one because this is
+simple enough you know I can just do
+num1 num2 num1 plus num2 and just do
+that and it's just unhappy because we're
+not doing anything with it so let's
+actually just run that so this is what
+lodash would give us and this is just to
+explain like why it's sometimes useful
+to have like things like this as actual
+functions that you can pass around even
+if you do have the ability to go you
+know 10 plus 2 in JavaScript some kit
+but in most cases where it's just
+something as simple as this I would just
+create this myself I wouldn't pull in
+low Dash but there are more complex
+things like intersection and so forth
+that's a bit harder to do in JavaScript
+so let's just counter log that there we
+go so it added all of these together and
+then there's some other things some
+stuff you can do with numbers you can
+check if it's in the range of specific
+numbers uh stuff you can do specifically
+with objects and then down here some
+really cool stuff you can do with
+strings and I actually use these a ton
+so you can convert something to camel
+case convert it to Kebab case so the
+first thing to lowercase pad start and
+so forth this was before JavaScript had
+a bad start in it but even though now
+it's actually maybe useful to just have
+this as an actual function that you can
+pass instead of a method that you can
+perform on a string okay so there's a
+ton of stuff here you can check it out
+and there is also I just I'm not going
+to show it because I think then we're
+getting too deep into the world of
+actual functional programming and you
+can definitely check these things out
+yourself if you want I do a ton of I do
+a lot of functional programming but I
+don't think it's necessary to learn some
+of these things if they don't really
+How deep do you want to explore FP?
+interest you or if it's not the type of
+style programming style that you want to
+develop for yourself there is specific
+methods that you can use that really
+help with functional programming allows
+you to actually compose things so let's
+search for flow so these you'll see
+they're also utilities themselves so
+they just allow you to combine functions
+so you can combine add and square so
+that part in the end where we actually
+went and we combined add and divide to
+create and and divide so it just allows
+you to do it like in this manner I don't
+know like unless I'm using like a full
+on functional programming I often find
+that in JavaScript this maybe confuses
+Careful to overdo FP in general code
+people more than if I just do it in the
+way I did it previously there's a really
+great book that I recommend you guys
+maybe check out if you're interested in
+some of these functional programming
+principles by James Sinclair so he does
+a lot of really great writing he has a
+book called um functional a Skeptics
+Guide to functional programming
+um and it's a really great book I like
+the subtitle that says how to level up
+your code without alienating your team
+so you know like there is a balance here
+there's a balance between the deeper you
+go into functional programming you're
+going to learn a lot of these
+superpowers that allow you to write a
+really concise really dense and
+expressive code but obviously as someone
+if someone doesn't understand some of
+the underlying principles it's going to
+be even more confusing so that's always
+a balance to strike if you write your
+code in that manner but the rest of your
+team doesn't understand that way of
+writing code it's actually going to make
+your code worse that's something just to
+be mindful of I really enjoy functional
+programming I really enjoy like going
+deep into functional programming in the
+realm where you start doing these type
+of things but if you don't have
+experience in it it can actually make
+the code harder to read so a better
+functional programming here and there is
+really great I would always strive to
+keep code AS functional as possible as
+little side effects as little mutation
+so pure functions and so forth but once
+you get into kind of the world of
+academic academic functional programming
+in other words where you're treating
+your code like mathematics I think you
+need to be mindful like how readable is
+the code still okay so that's just like
+something to be mindful of but similar
+to object orientated programming I find
+that bringing a bit of it in is really
+helpful the same functional programming
+bringing a bit of it into your code is
+really helpful and I'm going to talk in
+the next lesson about State machines
+that I find it to be the exact same
+thing bringing a bit of State machine
+logic into your code is really helpful
+but I think if you pursue any three of
+these in full and just try and write
+everything as a state machine try and
+write everything as functional code try
+and write everything as oop
+unless you have a team that also
+subscribes to that almost dogmatic
+approach it's really going to alienate
+people and it's going to make your code
+very hard to read for the general person
+unless they are in that wall world of
+like extreme oop or extreme functional
+programming or extreme State machines
+themselves so let's go back to that fake
+gem that I did way back when we spoke
+about arrays and let's return to the
+actual higher order functions there and
+now we can start talking about them

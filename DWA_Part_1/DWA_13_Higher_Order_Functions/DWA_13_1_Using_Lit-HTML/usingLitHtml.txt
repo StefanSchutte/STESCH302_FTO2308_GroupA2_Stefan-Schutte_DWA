@@ -1,0 +1,723 @@
+Recapping key concepts
+so now we have spoken about a ton of
+stuff we we've spoken about like this
+idea of a global State and we kind of
+looked how functional programming and
+kind of the Redux like pattern
+um can help us manage Global state in
+our app and you'll actually find that
+kind of Redux pattern while there are
+some stores that kind of completely go
+for a different approach more in terms
+of Getters and Setters there's also kind
+of a new idea around how do you manage
+these type of things that are related to
+Concept #1: Global State Store
+something called signals which Builds on
+something else called observables
+um so you might come across a range of
+different ways to actually manage Global
+state in your app but it's impossible to
+overstate how big of a role Redux and
+the specific Redux approach played in
+terms most of the popular tooling around
+Global state that we see and once we
+touch on Frameworks I'm also going to be
+touching on what are some common Global
+State solutions that you can use use
+with them I'm also going to be talking
+about like when don't you need a global
+State solution and there are actually
+cases
+um but you'll see most of them are
+influenced by this kind of a Redux
+approach because for something as big
+and as important as the global state of
+your app it is really helpful to have
+that be handled in a very systematic way
+and specifically in a way that is as
+easy to debug and reason about an update
+as a unidirectional Flow by means of for
+example functional programming I also
+spoke about custom elements web
+components and and then kind of also how
+Concept #2: Components
+these use classes in the prototypal
+chain how this actually gives you the
+means by means of encapsulation and
+polymorphism to actually publish generic
+components and not only publish your own
+generic components and share them
+between projects but also giving us the
+means to actually pull in other people's
+component evidence so web components is
+kind of the Native low level version of
+this there are framework specific ones
+which we'll also touch on when we get to
+Frameworks but the one I highlighted
+here was kind of shoelace which is one
+that I really enjoy working with and
+then lastly we spoke about writing your
+view in a declarative fashion so there's
+Concept #3: Declarative UI
+a range of approaches in terms of how do
+you convert state to a view and even how
+do you update the state based on what
+happened in the view on the one hand we
+get a completely functional approach
+through something like Elm which doesn't
+even allow side effects it's physically
+not possible to write side effects then
+we get things like react which is very
+much on the functional programming side
+but it's not as strict for something
+like Elm and then we maybe get something
+like lit which also similar to react
+reads your view as the output of an
+actual render function we see this
+somewhat in other libraries like view as
+well but view does allow for a bit of
+two-way data binding and then angular as
+well which also allows for data binding
+so data binding being instead of
+treating your view as an actual
+expression you actually decide what
+parts of your state correspond with what
+parts of your and then you only listen
+for changes in those parts very similar
+to what we did initially here with all
+these if statements and so forth but in
+a much more abstracted Manner and while
+some of these allow you to do two-way
+data binding meaning that data can flow
+in both ways generally it's encouraged
+that you do one-way data binding meaning
+that generally it flows from the state
+to The View and data doesn't directly
+flow back from the view to the state you
+don't directly modify the state or
+mutate the state based on for example
+inputting some something into an input
+or so forth there's usually a kind of
+mediated manner in which that is done
+either through like Redux actions and
+reduces or so forth you don't full on go
+state DOT tasks and you override that or
+change that or mutate that this is
+usually abstracted somewhat okay but we
+will unpack these when we get to
+Frameworks I think the key is what I'm
+trying to say here is that we've covered
+a lot of very broad principles in this
+module that are realities of modern day
+Realities of modern software
+development these are considerations in
+modern day software development when you
+are working on some type of interface
+whether that is an actual web page
+whether it's a web app whether it's a
+mobile app that you install from an app
+store or whether it's actual software
+that you install on your machine you'd
+actually be surprised how many of these
+are actually running JavaScript under
+the hood so what I want to do is I want
+to tie all those elements together now I
+want to show you how we can act actually
+use a third-party tool to treat or view
+as a result of a specific function that
+we run on our state and then very
+briefly kind of explain what it actually
+does for us how it actually is able to
+do that and then lastly I've been
+talking now a long time about actually
+saving this to local storage so that
+when we open the page again our tasks
+are still there unfortunately
+unfortunately there's a lot of other
+things we had to chat about before I
+could actually show you guys how to do
+that so now I'm going to show you how
+everything we've covered is going to
+really help us do that and how that
+would have been harder if we haven't
+covered everything we have up until this
+point and then lastly I just want to
+chat about some higher order functions
+what are the built-in higher order
+Higher-order functions are declarative
+functions in JavaScript what are higher
+order functions and how they fit really
+nicely in this idea of a declarative UI
+or declarative View and all the
+Frameworks to sum The Retreat how you
+make changes to HTML or to what a user
+sees in a declarative way the type of
+software that we're building in various
+places but also on the web has got an
+increasingly complex when you're
+building a basic read-only website that
+has just information on it that's like a
+digital brochure that's not that big of
+a problem maybe you just want to update
+a color here with JavaScript maybe you
+just want to change that little thing
+when we are building full unstable apps
+the general convention across the board
+is some means of declarative UI where
+you just indicate what the view should
+be without manually doing it yourself is
+the way to go in terms of keeping your
+software maintainable all right so let
+me first show you the tool that I want
+to introduce and it is important to note
+Introducing "lit-html"
+that this is part of lit so obviously if
+you search for lip you'll get a ton of
+things from slang to rock bands to I
+guess Long Island Iced Tea
+um but you can just search for live let
+Dev or lit JS or whatever and you're
+gonna find this one this is something
+that is maintained by Google and I think
+it's important to note that the specific
+part of lit that I'm going to be
+touching on now was actually created
+first and then lit the library or the
+lit-html" vs "Lit Framework
+framework was actually created around
+that it took that and it actually built
+an entire framework around it but the
+specific thing we are interested in is
+lit HTML so lit being the actual
+framework and let HTML being the tool
+that the framework is built on top that
+actually preceded the framework so we
+can go to documentation and then here's
+a lot of documentation in terms of how
+to use lit the framework what we want to
+do is let me just zoom in we want to go
+down here and then two related libraries
+and look at Standalone lit Standalone
+lit HTML this is what we want to use so
+it does show you how to install
+Standalone HTML with any p.m for the
+sake of Simplicity we are not gonna do
+that right now I did show you guys how
+to use node how to use npm but I want to
+do a much deeper dive into those things
+before we use them again so we can just
+use the CDN so what you can search for
+is just type up here type DN CDN stands
+Using "lit-html" via CDN
+for Content delivery Network so
+effectively what that means is you get a
+URL where you can pull that JavaScript
+from and lit Dash HTML so we can just
+then click on this one and you'll see it
+does take us to an older version of lit
+so this is lit version one as mentioned
+all that the current version of letters
+it's a full-on framework that was built
+around this but this is for all intents
+and purposes the same um but if you just
+want to grab this specific piece so you
+can go you'll see here is an option to
+grab it from the URL so you can just go
+unpkg.com forward slash lit HTML and
+module like that so let's just hit it
+directly and see what we get and so
+you'll see it actually gives us version
+two but the new documentation doesn't
+have a link to this because I guess it
+assumes you know how to do this yourself
+if you want to do it this way and I wish
+you actually don't want to encourage
+people to do it because there are some
+performance uh drawbacks but because
+we're still learning effectively and I
+don't want you to start using npm
+full-on before I cover it let's just use
+this version for now but you'll see it
+is 2 0.73 so it is a pretty recent
+version and even if we go on go on npm
+you'll see that Lit HTML itself is
+actually pretty popular it's pretty
+commonly updated
+um it was updated seven days ago and
+there's more than a million downloads
+every week alright so we can just use
+this unpackage link I will actually put
+it in the resources as well for you to
+grab and we want to pull that into our
+app let us just actually comment out our
+existing scripts all of this
+and let's just pull it in here let me
+just grab that okay Pull It in here and
+let's just quickly console log HTML and
+render and see if it actually pulled it
+in cool we'll see it actually I'll put
+it there so let's do a basic example so
+let us actually let's create a basic
+verb with data app and this is where our
+app is gonna go then let us render our
+HTML this is an actual mapping of our
+HTML so what we do is we use this HTML
+Creating AST via "html" function
+tag that we get from lit and use back
+text and we pass the HTML in as a string
+so you need to put HTML first so the
+function and you pass the template
+literal into the string I'm not going to
+go into too much detail in terms of what
+this actually does
+um you will actually find this in other
+places as well like styled components
+and so forth but let's do div one two
+three div so here we actually let's call
+it tree so this creates an HTML tree for
+us so you can think about this let's
+console log what that looks like it's
+almost like objects behind the scene so
+it converts the string for us into an
+like an actual representation of that
+HTML in programming you kind of talk
+about these things as asts and meaning
+an abstract syntax tree so for example
+we can think you know if we for example
+have this and then we have something in
+there that it creates an abstract tree
+for us under the hood so then it would
+be for example you have Dove you know an
+inside Dev there is one two three and
+inside that is span and inside that is
+also one two three so it creates so you
+can think about these as objects you
+know almost like the Dom tree itself so
+it creates an ASD or abstract syntax
+tree for us there and this is very
+similar to to the actual virtual domain
+react and we'll talk about that a bit so
+but let's counter log this and see what
+it actually looks like so this is also
+what it'll kind of look like usually
+when you log an actual react
+um component as well you know it's just
+like a lot of internal information you
+don't need to worry about what it
+actually does here so what we can do to
+make the AST so the the tree that we
+derive from that a result of the output
+of a function let's just say create view
+okay create view takes a name okay and
+Wrapping "html" inside a function
+let's just add some js doc string name
+okay so it takes a string let's just
+write it like this for readability it
+Returns the ASD with the back decks I
+mean just interpolate this in here so
+let's just Dove and let's say hello your
+name is okay so let's create that view
+okay and we pass in sculpt so you see
+now there's a couple of other things
+that keeps track of these are the static
+Parts these are the parts of the HTML
+that never change and then in here it
+"lit-html" uses string interpolation
+keeps track of the skulk value once
+again you don't need to understand what
+it does internally it does a bit of
+magic under the hood to be able to
+actually figure out then if we do a
+different one so if we do you know
+example one and example two and this is
+robisa and let's log both of them and
+you can see actually it has some
+internal things so this is the same this
+is the same but then like the values it
+actually keeps track of okay what has
+changed so what is static what never
+changes and what are the dynamic things
+that change
+um and then you'll see it has its own
+prototypes and stuff but this is just a
+representation of it then we actually
+still need then we still need to turn
+that AST into something real and this is
+where render comes so render is what
+performs the side effect for us the
+"render" converts AST into HTML
+first thing you do is you say what AST
+do you want to render or what tree you
+know we can just call this tree one or
+three two okay so let's say we want to
+render that one and we want to render it
+at query selector and I think we had
+data app let's take if it works awesome
+hello your name is skulk then let's say
+we want to replace that so let's do a
+set timeout so after three seconds
+posted an anonymous function and let's
+say after three seconds so 3 000
+Compares AST before update DOM
+milliseconds we want to render again and
+we want to render in that same place
+tree two so what it does is it actually
+take these and it compares the current
+one that's in there versus the new one
+and it figures out what needs to change
+so in that example where we had we
+recreate our entire to do app every time
+and the only thing that updates is
+whether something is toggled completed
+or not in this case it would scan both
+those trees and it would actually figure
+out what's the difference and only
+update that in the HTML so this is not
+100 what the virtual Dom does and but
+it's very similar to what the react
+virtual Dom does I think the react
+virtual Dom is kind of the first way to
+figure out how to do this type of thing
+how to give us a declarative UI that can
+figure out what needs to change and and
+therefore it's the most straightforward
+implementation since then people have
+come up with a lot more complex
+implementations but the virtual Dom is
+usually sometimes people use the term
+virtual Dom also interchangeably for
+like what this does this isn't 100
+exactly the same as a virtual Dom but
+generally sometimes people talk about
+virtual Dom and they effectively mean
+that you have an inmate two things in
+memory and those things are compared to
+figure out what to do you're not
+actually replacing the Dom itself you're
+almost keeping an in-memory version of
+the Dom so let's check that out so after
+three seconds it should create the new
+"lit-html" only updates differences
+viewforce and DC one two three there we
+go awesome okay and that only changed
+everything else was kept in place so
+that HTML is one way to do it it's
+actually the most like straightforward
+simplest way to do it which is why it
+was actually initially published as a
+specific library on its own and then the
+lit framework was built out around it
+something similar is
+um by Geico called Jason Miller not not
+Jason Miller associate with Trump Jason
+Miller
+um so if you're going to search for
+Jason Valley you're going to find the
+Trump guy so just search Jason Miller
+JavaScript so he's a very big name in
+the world of JavaScript he also built
+"htm" and "hyperscript" are similar
+preact and he also created something
+called HDM which is very similar it's
+not as popular as uh lit um but it's
+also it's very similar it kind of takes
+the exact same approach users template
+literals and so forth so so this is an
+actual virtual Dom implementation of the
+same thing so it actually allows you to
+use it with react and so forth this is
+also very similar to something called
+hyperscript and and so forth we're going
+to go into detail around these um at a
+later point so another thing as well
+this is cool we maybe don't want to pull
+in something from the internet every
+single time so let's actually put that
+in our code base itself so generally the
+"libs" folder for third-party code
+convention is to create a full all the
+cold Labs the libs are for libraries so
+let HTML you might see this in some
+older code bases mostly nowadays npm
+packages has kind of replaced this and
+you generally just npm install it
+instead of doing it this way but this is
+how we used to do it and so you might
+see some projects in like somewhere out
+there in the wild that actually have
+this so just know that is what this is
+and so let's just go directly to that
+URL cool and here's the code and let's
+copy all of it and put that in our lit
+HTML file over here one thing you will
+note is that when I try and save it it
+tries to format it with prettier it's
+intentionally this way it's just to make
+Preventing "Prettier" from formatting
+the file size smaller but oh and
+obviously we are not going to make any
+direct changes to it so it doesn't need
+to be readable for us you can leave it
+so the prettier tries to clean it up I I
+don't like it when it tries to do that
+so what I would just do is I just
+control shift p or it would be command
+shift B if you're using a Mac and then
+just say save without formatting cool
+then it saves the file without
+formatting it for us and then we can
+just do this so back back and Libs HTML
+like that all right all right so let us
+Removing our custom abstraction
+get rid of this custom component
+abstraction that we created we are now
+just going to full on use uh the so you
+can get rid of this and we're just gonna
+use lit HTML so let's import from a Libs
+let html.js so we want to import HTML
+and render and then we can break those
+up into components if we want to but
+what's really nice about this the
+clarity of UI approach is we can treat
+this effectively just as normal
+functions which is effectively what
+react does but there's a range this
+opens up a range of options for us so
+let's get rid of all of this that we had
+here and let's start building out a
+super the basic version of our app and
+then we can connect to the store and
+circle we just get rid of this file and
+get rid of components let's keep our
+entire apical so let's get rid of this
+as well and let's so let us create a
+view dot a view file a folder let me
+zoom in and effectively here you can
+Treating our app "view" as a function
+treat our view as an actual function so
+let us hover app.js and effectively this
+is just going to be the function that's
+going to render the entire app for us
+check for updates and so forth it is
+straightforward but let's give it a try
+let's see if it works and we can always
+Branch it out into different things you
+might at some point need to split it up
+into custom web components but for now
+let's keep it like this let's keep it
+simple let's keep it straightforward we
+can always add more complexity as we go
+let's see how far we get so first thing
+we need to do is this needs to return an
+actual lit AST so what we then do with
+it is we can can figure out but the
+views job itself is just to provide the
+view as a result of the function so we
+pass the state to that view and it gives
+Our "view" will return a "lit-html" AST
+us a function back obviously this is
+very simplified you'd probably want to
+do code splitting and loads of different
+things which Frameworks actually give us
+but I'm trying to show the principles
+here so let's grab that so Labs let HTML
+at JS we just want HTML we don't even
+want render we can handle render in our
+scripts and then let's just have a const
+and for now app doesn't take anything it
+just returns for us HTML let's wrap all
+of this in the dev and let's have a
+header which has inside it and H1 to do
+app and below that we're going to have a
+form with an input that is wrapped in a
+label with a span that says new task and
+then it's just a submit button to send
+it to add the new task we can always but
+let's get a basic work conversion for
+now below that we can have the main and
+all that we can put in main is the
+actual items themselves so let's do main
+UL that is going to have but the first
+thing you'll see there's no data
+attributes no nothing we're not pulling
+anything from the HTML we're actually
+just returning some HTML as the state of
+our view So currently there's no changes
+here there's nothing this is all it does
+okay so we export that in our scripts
+let's pull that in so the first thing we
+want to pull in is we want to pull in
+the thing that creates our view for us
+and then we want to pull in some
+listeners for our store and this is
+where we connect our store to our view
+and for now let's just say you know get
+State get the state create a view by
+passing date 2 or app and then taking
+that view and using that ASD from the
+view to render it somewhere so in our
+case I think we still have that data up
+so let's put it in there and we need to
+pull pull that in from lit I don't think
+we have it yet and this is unhappy
+because oh it doesn't take any arguments
+yet okay that's fine we can do that in a
+second and then we check the view and we
+render it to document query selector and
+this is the only place where we ever
+"lit-html" vs. previous approach
+interact with the Dom and as usual I
+should just remember this hey here we go
+here's our app that went really fast now
+I want to show you a great part and I
+hope this is going to give you an
+appreciation for how amazing declarative
+uis are because for a very long time
+remember this is not the way we used to
+do it we had to manually go and update
+things so being able to express
+something like this for as a function
+that takes stuff and spits out HTML like
+is amazing let's say we want to be able
+to add a task there we go our task we
+Still need register own event listeners
+still need our event listeners and this
+is where something like uh the full on
+lift framework comes in it helps us
+manage that and so forth but for now
+we're just going to do it manually here
+in our Scripts so we can just listen on
+the body and remember all events bubble
+upwards so we can do document body and
+let's just add event listeners there add
+event listener and let's just listen for
+a submap event okay and let's just
+counter log that event for now okay
+let's see if it picks it up we don't
+need to do this but I just say type
+submit just generally for explicitness
+or behavior is to reload the page so
+what we need to do here is we need to
+say first and foremost event to prevent
+default and also we are not actually
+even passing the event through so we
+will need to so it does register so what
+we want to do is let us actually grab
+that so if you remember one way that we
+can do it is we can go let's just say
+DOTA and we go new form data and we pass
+event Target and then and it's unhappy
+here so we can just say if event Target
+is not instance of HTML form element so
+like this then throw an error throw new
+error right so now we know that this is
+a form saying it so it says it's not
+under happy and let's just destruct the
+so we need to put a name on that so
+let's just say the name is title and
+then we can destructure it so if we go
+object from entries Delta then we should
+be able to grab title from that and
+let's cancel log title that is the case
+hey check that out okay so what we also
+want to do is we want to reset this so
+one thing that Frameworks do is that
+Full JS Frameworks also handle events
+even allow us to add our event listeners
+in a declarative manner but for now
+we're just rendering our HTML
+declaratively without introducing too
+many new Frameworks and libraries and
+abstractions to our store we want to
+dispatch and we want to get a specific
+action that we want to dispatch I think
+what's called add task right so then we
+want to dispatch add task and add task
+just takes the title I think maybe like
+this let me see it's like that title and
+Add task to "Store" on submit
+it is unhappy so what we can do to
+ensure that it's a string is we can just
+coerce it to a string before we pass it
+because at this point it's not sure what
+it is it just knows it's a entry from a
+fee from a form right it's a console log
+title so then we can just do event
+Target and reset and because it's a form
+it knows it has reset so now we have
+this event listener that's updating that
+but we want to tell of you to re-render
+when it gets added let us actually wire
+this up to our actual let's subscribe
+this to our actual store so let's just
+get subscribed we're probably never
+going to unsubscribe this because this
+Pass "Store" state directly to "View"
+is the main logic that renders our app
+for us so we just get previous and next
+we actually don't even need the previous
+one here because we just passed the next
+one to that and so what we can even do
+here we can say you know param you can
+say return any I'm not going to type
+that up
+um the actual lead stuff but the param
+you can say just the state from the
+store pull that in to get like Auto
+completion and all that stuff so model
+store and state there we go now it knows
+a bit about what that is and it expects
+actually State here so the first render
+we can just pass the state directly like
+that and it should be happy Okay cool so
+that is our first very first render if
+we really want to we can even just throw
+it like that directly in there and then
+let's also extract this as the actual
+HTML so we can reuse it this might be a
+bit like too hard to read for you so you
+can always go initial render and then
+just pass the initial render right so
+then in the subscription we're not going
+Subscribing "View" to store changes
+to use previous uh maybe there are some
+edge cases where we want to but all that
+we want to do is we want to just run
+that again say new render and then just
+pass it to this with the same HTML with
+everything and Miranda and it should
+also take next and not okay let's give
+that a try and it is not showing at the
+moment because we need to in order
+Clarity of this function we need to
+actually do something with that so for
+now let's say tasks and then in Brackets
+to really show you guys the power of
+Dynamic values in "View" output
+this without any kind of data attributes
+or whatever you can just go regular
+interpolation let's do and we can even
+destructure our state up here for each
+render so remember this is a function
+that re runs every time a change have
+happens so State and then what we want
+to do is tasks and let's just see the
+amount of tasks so we can set tasks
+length right so if there's no then just
+zero but one thing you should remember
+is that tasks by default is actually an
+object so we need to turn it into an
+array first so what I usually just do I
+do tasks as array and I just do object
+values let's try that okay so zero and
+hey check it actually every time we add
+a task it increases okay but it doesn't
+show those tasks yet and we're not doing
+any checking we're literally it's
+updating the parts that it should update
+it can it goes through all of this and
+it sees the only thing that changed is
+this little number so it's not
+re-rendering any of this stuff it's just
+doing that little pod

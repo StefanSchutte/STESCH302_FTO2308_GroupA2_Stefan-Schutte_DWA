@@ -1,0 +1,333 @@
+ntroduction
+okay so we have done a lot of really great things um so let's get really into the meat of
+this and really flesh this out bring in the shoelace stuff as well and let's build some basic semblance of a to-do
+app and then you can start talking about higher order functions and you'll be able to see how high order functions fit
+very nicely into this approach all right so let us go to shoelace and pull that
+in so we're just going to use the CDN um as mentioned you know there are some performance implications to using the
+CDN which is why generally you want to install it via node so you'll see down here as mentioned let's just keep it to
+see the end now up until we kind of really unpack node and npm and dive into the details so I'm just going to use a
+traditional loader so let's just copy that and let us just pull it in here in
+Add "Shoelace" library
+our HTML as last time you can just defer the JavaScript the only reason why it's
+not deferred by default is because it isn't sure whether you are deferring yours and the problem is if you are not
+deferring yours and this is the third this is only going to run after your code runs and so it's just trying to be
+safe but obviously since we are deferring both they should actually learn in the correct order to do app
+let's just start with a button and so this form itself um I want to put this in a dialogue but
+for now let's just add a button that's going to trigger that dialogue up here so that would be SL button so variant
+primary and that would just be add task and that would open the modal so let's
+spin this up oh and there is our add task let's also just add some basic
+Add "sl-button" component
+um styling to this from shoelace so Styles dot ESS we can if we do decide to
+create some web components which I I think we are going to then we can actually split up the styling but let's
+start simple and then we can always make making more complex break out some components as we go think shoelace
+already includes this but let us just include it just to be double sure and just and also maybe just out of
+Creating basic CSS styles
+advertising to do this at the start of any CSS file and then let's do our body and also I think shoelace does this for
+us as well but it can never be too sure so let's say font family and this will be VAR and let's put in SL font science
+there and we need to pull in the Styles file so let's pull that in after
+shoelace because remember like the variables are declared in shoelace so we need to pull in shoelace first and then
+our own custom style there we go right that's looking really nice and what you now want to do is let's put this new
+task behind the model so you need to click that to open the task SL dialog okay so let's do SL dialog and SL
+Add "sl-dialog" component
+dialog and we can even move this out of the header and let's put it at the top
+of the site up here I need to close that that's why it's unhappy and you'll also
+see a really cool thing and we didn't get this privilege and I forgot to mention it so up until now we've mostly
+been working with strings so we would do for example you know example and then
+HTM like a template literal like that and Dove you know one two three Dev and
+"lit-html" VS Code plugin
+we would use this extension that we have to actually add syntax highlighting but
+we wouldn't it wouldn't actually treat this as HTML so you know we would do any and prettier wouldn't work on it so we
+would also get no Auto completion so if we do control space um you know it doesn't give us it's just
+a string so even if I save it doesn't format it correctly whereas here we do so you'll see even if I make it like
+that and I save it actually formats it as if it's HTML so there's a specific plugin that I use called just simply
+called let HTML and you'll see it has like 30 300 000 downloads um and what this effectively does it
+actually treats what you put inside this HTML HTML with a back deck it treats
+that as if it is actual HTML so as if you are inside an HTML file so that is
+amazing so you once again you know you get order so if I do control space it actually gives me like the same Auto
+completion I would get in actual HTML if I do style it actually gives me CSS Auto
+completion which we didn't get before so you know I can go back around you know I can go body and you know background and
+whatever okay so this is really cool it treats it as if it is HTML which helps a ton and I'm going to show you how this
+also is really cool in terms of giving us Auto completion on our own components so we put this in here and it's
+currently closed so if we do open then it should show and so let's just keep it open for now and so we can work on it
+Using "Shoelace" with HTML forms
+um one thing that we need to have a look at is in shoelace it it talks about form
+controls and there's just a couple of things we need to be mindful of when we're working with forms and that is
+because every shoelace component uses the shadow Dom one of the problems with this is keep in mind remember that the
+shadow Dom is almost a Dom in itself and it's completely hidden from the actual real Dom this means that if there's a
+form outside it or next to it it actually doesn't have access to the
+input elements inside it so you need to use a special sholay specific method to
+actually get that so the way it does this is by using the form data event so
+what the shoelace components do is they automatically append their values to the
+form data object when the form is actually submitted this doesn't change anything because we have been doing it
+in this way so it actually just provides the means for that to still work but it
+is important to keep in mind it has built-in ways to actually actually give you this by default if you create your
+own web components you need to also allow for this because by default it's not going to be able to do it but yeah
+so here it actually shows you know exactly how we've done it so you take the actual element the form element
+itself and you put it in form data form and we're already listening for form submissions so let's add some shoelace
+Embed buttons inside the dialog
+things in here so let's say SL button and variant primary and let's close that
+and let's say save let's add another button that is cancel that is not primary okay so there's our two buttons
+it is going nuts because we're not closing this properly there we go let's add a SL I think it's input over here
+let's have a look at the documentation it says copy that and we can actually say Okay so let's just say the name is
+Add "sl-input" component
+title and let's just make the label task name and we can set it to a required
+remember that web components need to be closed manually you can't just like in a
+regular HTML just keep it open like that okay so there we go task name so let's just see what else we can do with the
+inputs so let's do SL input and so I actually like this fold version as well
+like that so let's actually add fold as well just to give it a bit more depth like that let's just add some spacing
+here so let's I would actually create my own web component to help with spacing
+like these type of things so let's actually go components and let's just
+create TD spacing the TD being to do app and so this can be a very simple one
+Create custom "td-spacing"
+let's go class spacing extends HTML element and I sometimes do these in
+Frameworks as well I create these type of things and effectively this is just the Constructor we run super onode let's
+create a template up here just for performance reasons document create
+element template and all that we have in there template in a HTML it literally
+just wraps what we have in a depth and so let's put slot there and let's also put some styling here so and I'm just
+I'm not even going to use the render from lit HTML I'm just going to do this myself it is simple enough and let's
+just add a couple of styles and we can map these to actual spacing from
+shoelace so it goes from 3x to XX small medium large x okay okay so let's grab
+them and map them out and what I also want to show you now is I want to show you how we can actually get Auto completion on our own components so let
+me first do a type div up here so as I said these are but in 10 so let's just
+Component HTML auto-completion
+cut xss m l and XL all right so then and
+what we can say is we can say you know so this is an element this is where that I let HTML really becomes cool so we can
+say element and the element is just Ed spacing and we can actually Define attributes on it so we can go like that
+and measurement and you won't get uh like the actual highlighting that you
+usually get of charge docs because this is not an official J stock thing this is an extra that let HTML adds on top and
+top bottom so we can set spacing on any of these Left Right top bottom just
+comment that out for now and let's just register this and Export const spacing
+export default spacing and let's export spacing itself as well all right and
+then obviously just before that we register it so custom elements Define
+and we do TD spacing and spacing pull that in to our scripts meaning that we
+have it available everywhere so it says keep our thing separate so here's all our store more stuff he has all our
+rendering stuff let's do it in this order so store stuff rendering stuff and
+then just components at the top import components and TD spacing JS okay so
+check this out now so if I go here now and I go TD spacing one thing that's
+really cool that you'll see now is that if we go on that and we do control space it'll actually give us some
+autocompletion it'll say you know bottom left right top so these are the actual attributes that we can Define but one
+thing is that you'll see if you do this it doesn't actually tell you what are the actual selections so let me show you
+how you would do that so one thing that I forgot about is that unfortunately you
+need to manually put it in here and that is just the way lit HTML works but otherwise it kind of works in a similar
+fashion let me just keep this up there just for reference if I want but we need to go like this and see Nadal actually
+warn us so that he is check itself as saying that we're trying to actually pass something that isn't valid and so
+"lit-plugin" VS Code plugin
+this is great so then you'll see I actually have another plugin here that actually gives me warnings if I'm trying
+to pass something that's not correct and I'll say what plugin this isn't I will mention what plugin this is in a second
+but you can also do control space and you will actually get photo completion and then it goes away and then if we try
+and do that so this is really cool just in terms of type safety in our actual HTML itself but let me just show you the
+plugin that I used to give me that so that is so you can just search I think it's just called lit plugin yes so this
+one it has a bit less downloads and and all it does is it actually gives you like type checking on
+your HTML so on your lit HTML which is amazing um so yeah um install that one if this is something
+you like as well but the only caveat being that the just the way it works you
+just need to declare it directly in here instead of a typedef and then reusing it
+so now obviously we need to do something with that so let's actually just create the styles for this as you remember
+Create "td-spacing" CSS styling
+um the actual variables actually Pierce The Shadow Dom so this means that all of
+these are actually going to be available in our CSS so let me just do HTML
+remember we're not using lit HTML here I'm just doing it straight up as a string with like plain web components
+meaning this project can also be used like this component itself can actually be used in any JavaScript framework I
+might even share this with you guys um this Javascript file in the resources if you just want to pull it into yours
+so one thing that's really cool that we can do is we can actually map the Styles
+based on what is set on the parent component so in other words what is actually set here so that's actually
+really neat so let me show you how to do that so you do that by making use of host so you can just search for host CSS
+so over here so you'll see this is only for the shadow Dom it has no effect outside of actual Shadow Doms and what
+you can say is if the host has the following then apply the following style so what we can actually do is we can say
+if the host has a left equals XS then
+apply the following to the dev inside what we can actually do is we can create this diamond so we can type all of these
+out by hand or we can create it dynamically and this is a good opportunity for me to show you actually
+a higher order functions so let's just say template string and so what we want
+to do is we want to create an array of all measurements and let's put it here
+at the top of our file and let's just say it is type measurement and array of
+measurements okay and I'm writing it like this effectively indicating that it's kind of a configuration it's not an
+What is ":host" pseudo-selector?
+actual value that's getting passed so it's instructions for the code itself not part of the code and so then we
+should also get Auto completion so let's do XS s m l x and I missed a comma over
+there and I think that's all of them so then what we want to do is then let's do template string we map over these and we
+create four new arrays so we duplicate it four times creating four new arrays
+Define different values to combine
+so let's also just create the direction so we can put this in this type Dev up
+here as well so let's just say Direction so Left Right top and bottom okay there
+we go it's a Direction so let's also create type Direction and I broke my own
+rule where I usually write these in uppercase like that all right so const
+directions Left Right top bottom okay so now what we can do is say template
+string so we start with directions okay then we say map over directions get the
+".map" higher-order function
+actual Direction abbreviation and return a new array and that array should be
+return the actual measurements array and let's just close that function all right
+so now we're using a higher order function we're mapping over it and let me actually just do this in the browser
+so you can see the result of it each of these have xss m l XL and what I also
+realized is we actually don't want the abbreviations we want the full name because that's actually how we're
+writing the attribute so this should be left right top and bottom and it's
+obviously unhappy because these don't correspond to any of that so to Left Right top and bottom so let's give it a
+try again so what we want to do is we want to map over measurements again before we return it and so that would be
+a single measurement let's call the single Direction so we map over this
+Compose ".map" inside ".map"
+again if it's easier for you to reason about you can write it like this result and then it has a function in it and
+then what we want to do is each time we map over that inner array we just want
+to return the single Direction with the single measurement inside okay so this
+should give us the attribute and then just return the result so there's two higher order functions inside one
+another cool left Excel left s left M left L left XL so but this is a nested
+arrays so what we can do if we want to actually make it a single level so just
+Using the ".flat" method
+not have it and like I said our arrays inside arrays we can do another thing on
+it so after we do that we can actually just do flat okay let's check now so now it's a big array with all this stuff
+um this has just escaped don't worry about this however it's not actually going to be in the thing itself so it
+just escapes that you'll see here it doesn't have the Escape but we can actually combine these we can combine
+them into something called flat map which is actually something that's a very big a functional programming
+".flatMap" higher-order function
+principle so mapping over something and then to make and flattening it afterwards so if we want to go more full
+on functional programming we can also make this more what is called Point free which means like we don't actually at
+any time save anything in the variable so we can full undo this but if you're not used to this this might get a bit
+hard to read but I'm just going to that style to kind of show you how expressive functional programming can be okay there
+we go exact same result week another thing we can do is we can break this out into what's called a carried function so
+in other words a function that takes one parameter and returns a new function so
+What is "currying" in programming?
+let's just say inner Handler and inner Handler takes single Direction and it
+just returns it does The Following on it so then you can even pass it like that but let's keep it like this for now and
+just to make it a bit more readable to you um if you're not used to this style of programming let's just return like if
+you're used to this this is very expressive you know it's almost like once again that mathematical one plus
+one is two so if you understand uh addition if you understand equation and if you understand mathematics then this
+is really very expressive but if you don't if you have no idea what these me things mean it's very confusing and it's
+okay if you're used to this type of style then it's actually very expressive and so what we want to do then is we
+want to map over it again and I'm just going to get rid of the flat map because once again if you're not used to this
+this might be a bit hard for you to follow so I'm just gonna do these as two separate steps and then run flat
+afterwards and then once we flatten it so let me just bring flat in there and then the next thing we want to do on it
+is we want to map over it again at that point we can just say it is an attribute so you can even use your naming of your
+Self-documenting parameter names
+arguments in functional programming to indicate also a bit of like what is the
+thing at that point what are you expecting and so forth and so then we want to maybe turn it into a selector
+so that would mean we would go host and just put the attribute in there and let
+me maybe break this up so what I sometimes do if I have files that support other files is I actually go for
+Moving into seperate "helpers" file
+example like this and then I do dot for example helpers okay that is clear the
+relationship so let's break all of this out into a complete separate thing and we can just export the template string
+so that means that from here we can just import it from helpers and just apply it
+directly you can just Chuck it in there like this and let's just grab this for reference if we want to really lean into
+functional programming let's actually write this as an actual function that we
+Creating a generic abstraction
+can reuse if we want to do something like this again so let's go merge arrays
+and then we can just write our description up here and so effectively what this does is we can just say you
+know array one and array two let's say both of them need to be an array of
+strings and let's also accept a callback that we can just call join that
+determines how they should be combined and let's just call it join and so all that that does param it just takes
+string and let's say value One String value two and that just determines how
+they get merged together we can even make this optional and say that if you don't specify anything then it actually
+just merges them directly as is and so this we can say array string and array
+string like that and let's just do join as always let's maybe even write this as
+props I that needs to be param and it's as easy as going props props okay and
+then we can just destructure here our actual custom function that we create we're actually creating our own custom
+Custom "join" function parameter
+higher order function which is effectively it takes a function itself so you can see how we can now start
+actually combining these function is almost as Lego blocks to create more and more advanced behavior and let's just do
+props over here array one and array 2 and then also join oh we need to say
+props join let's just add a note here um if no callback is provided then we'll
+simply combine as is let's just take this logic so let's just say Advanced
+result so result so it takes array one with flat Maps over array one let's just
+say array one value inside that closure what it does it let's just do inner and
+we say array 2 and we map over that let's just say array 2 value and it
+simply returns join so what we want to do is Let's do an interpolation see if
+join exists if join exists then we simply pass value array value one and
+array True Value otherwise we just combine them as is cool so this is very
+expressive as well there's no for Loops or whatever you can follow the logic all the way step one step two step three
+step four and so forth you don't need to go back up again down up back follow
+like the logic all the time and so now we added our own reusable functional higher
+order function and so we can actually then do template string and we do merge
+arrays and then obviously we need to return okay so let's do template string
+over here and we do merge arrays I also need to return that so obviously it's
+unhappy because it expects the following so array one directions and array two is
+measurements and then we have our join function which can just declare straight in here and let's say Direction and
+measurement um here I let go my general rule because it's very clear to me that these are
+different things and Direction measurement all right so let's also add
+the host stuff over here as well okay cool and then you can also maybe even
+split out join here and we can say handle join and just pull pause that and
+so what we want is we want padding and the direction and let's just write it
+like this so it looks a bit more like CSS ish and now we just want to map the
+measurement to one of the actual values is let's actually create an object and
+"Mapping" as general concept
+let's just say measurements map so as you can see here so this is very similar
+to the actual method map so map means you actually connect two things to one another the one is just like by means of
+a method the other one like so I just write map but the idea of map is you have this connection like there's one
+thing that connects to another thing and let me just get those from two less quickly facing all right here they are
+and let's just map them and we can map them in whatever way we want and this is also why it's useful to kind of have
+this type of thing because it allows you to actually configure how the code
+Defining what CSS variables to use
+should actually run without actually changing the logic itself so we can just say record and measurement at maps to a
+string value that string value will just be the name of the array and because we did that we can just
+autocomplete so these don't even need to perfectly line up with what we are using
+we can do it whatever way we want so we can say large is let's just organize
+them in a reasonable increasing fashion so all right so let's see so medium
+let's keep that at 16 that's what I make my own medium usually as well uh small
+let's go the extra small or XS like that and usually let's go with extra large
+for their large we don't necessarily want and then 3XL and we can always toggle these let's just go with that and
+this is unhappy because oops I actually wrote it as typescript we are going to touch on typescript at some point don't
+worry you you might have been let's go what are you doing okay so there we go so now we can just
+use that as a reference and let's also move this all the way to the top let's
+just say bar let's say measurements map and then we just pass measurement
+so obviously this is still an array and at the end we need to actually join all
+of them and how do we want to join them we just want to join them as is and let's actually put like empty space
+Using native ".join" method
+below them so just take a single empty space like this and let's run it in our browser so Ctrl a Ctrl C and here we go
+so this is what it produces for us yes okay and then we just so what we then
+lastly want to do is we obviously so we can just do CSS and then the actual temperature that we export is as follows
+and we can even put this on there for syntax highlighting so that would be in a style and then we just put CSS in
+Create actual string for "template"
+there and just a dub with a slot one thing that I did miss here we actually
+need something to apply to and that is just the dev so remember if you have a space it's like okay that is a child of
+that so the the only div in the component that is a child of this and we can even if we want do this to get cssr
+lighting which actually shows me the error so I'm actually glad we did this because it actually showed me a typo
+that I made and while we're at it obviously dollar Sunday as well right so let's Chuck this in the browser and we
+just need to get rid of export because it obviously doesn't like export all right so all right so let's give it a
+try let's see so we can just import that and any other handlers we can put in
+here as well this should be good and so before we do this we also just need to
+actually attach the template so we can create a private here again so we can go
+Connect template to Shadow DOM
+inner and this attach Shadow and mode is closed and all that we do is we grab
+that so we go template content flow node true and then we just
+go this in a band child cool so let me go to the browser let's see and let me
+also just remove these let's see so let's just add three of these underneath one another and actually see if it adds
+Example of "td-spacing" component
+some spacing and check it out it actually adds some spacing let's add some spacing on the one side of it so
+let's go left let's also just go XL cool check it out okay so now we have a pretty cool utility that we can actually
+just use like that to move things around so let's create our utils folder again
+and let's actually put this as a generic utility in there that we can use any
+place and let's just call it arrays so this is maybe all my utilities that have
+to do with arrays actually I shouldn't all handle join in here merge arrays you
+just pull it in here okay so let's just say import so it's useful to start
+building out kind of utilities folder with kind of common utilities that you
+Concept of "utilities" in programming
+use throughout your project these are kind of not necessarily the code itself but these are actual functions and
+things that you actually use on your code itself there are maybe tools so they're not related to the code base
+itself so this is uh you know like Hammers and Saws and so forth It's not
+the actual material itself a specifically if if it's something that you kind of might possibly do on a
+regular basis that's generic enough like this let's also I think we can actually let's make this a raise and just pass it
+in like that is a bit nicer so we can just say it's an array of array of
+strings and then we can just go first second and so here's where things get
+crazy and I I want to show you you know like this is the this is what's so great about composition let's say we want to
+merge three so let me just copy that and let's actually just do it right in our console window and once again now we're
+getting back into like polymorphism and specifically where I mentioned you know this idea of passing abstractions into
+abstractions into abstractions into abstractions so let's bring in the code that actually uses that so this is in
+our spacing Helper and this is maybe actually now short enough that we can
+even we no longer need to put it in here and we can actually maybe just put it straight in here because it's extracted
+the generic part of it into actual utility so if I just grab this the
+handle join and the merge so just to kind of illustrate this so let's say we
+just have two arrays and I'm just going to do them straight up in here so let's say we have a b c e e f okay so those
+Composing higher-order functions
+are our two arrays well let's just write something directly in here we don't need something as fancy as this uh let's just
+say val1 and Val 2 and what we do with them is just separate them with a dash
+so Val one dash Val two okay there we go this should work and let's just also
+result instead of CSS and console log result oh obviously it's not happy it
+doesn't like export just to get rid of this join so we can actually see it as an emerged array and not as a big string
+okay ad cool so let's say we want to add another thing into the mix you can
+Calling "mergeArrays" inside itself00:00 - Introduction
+actually call this itself in the join so you can pass the function into itself or
+pause the abstraction into itself with its own join so let's just say in a result and let's do inner result and
+let's add another array so let's do merge arrays and let's also not give
+this one a join so it can just do the default behavior in fact let's have it do the default Behavior here but we just
+manually do it c h i and a single array just with the near string return that in
+a result and I just need to go erase close that one okay forgot about that
+one and we need another extra one out here you don't necessarily want to turn it into a string but let's flatten the
+results at the end flat actually not flatten now we've kind of extended this
+um to actually do another loop and if we really want to we can do even here another one and another one and another
+one so you can pause the merge array into merger Ray itself and then this is what's amazing about thinking about
+functional composition
