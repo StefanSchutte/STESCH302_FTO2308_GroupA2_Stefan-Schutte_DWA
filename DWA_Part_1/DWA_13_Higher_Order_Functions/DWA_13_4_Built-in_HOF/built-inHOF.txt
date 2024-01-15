@@ -1,0 +1,348 @@
+Recapping array concepts
+all right so if we go all the way back here to some of the higher order functions so just to recap so we spoke
+about all of this we spoke about you know length versus item index versus key how to check items in an array so we
+looked at some methods check um we looked at some methods to add or remove things from arrays how to change
+the structure of arrays and we spoke about about mutating a new arrays and so
+forth and so forth translating between objects and arrays and then higher order
+functions and you'll see I actually marked up here talk later and now is
+talk later and so let us start talking about these high order functions that come with arrays and also now with the
+new knowledge that you have you should also understand what that dot prototype means in mdn that effectively means that
+this comes along on the array prototypes if you do one two three Dot you're going
+to have this as part of the Prototype that comes along and you're going to be able to do any of this on any array
+because remember it's going to look for that method and fall back all the way to the parameter type okay so let us start
+working our way through this with the example of actual tasks so let's create
+some tasks here in an array and then I will show you how we can use higher order functions to transform that data
+and let's just say tasks and that is an array of actual tasks and we let's just
+Creating example data
+put a uuid here title is you know wash the dog
+urgency let's say hi dog is really smelly then we have another one let's
+say celebrate New Year's and the due date for stopping at January
+0101 my urgency is low and let's just add one more learn JavaScript well let's
+say that you date is at the very least before 2025 and that is for title and
+let's just say clean room and it has no due date and urgency say the urgency is
+low first and foremost fine so this returns a value of the first element that matches the specific function that
+What is ".find" method?
+we passed to it is let's say we want to find the first thing that is urgency low
+cost result equals tasks fine and then we just pass a function into that so the
+item so it Maps over each item it Loops over each item and then whenever the
+function returns true we call this a predicate in programming function that
+runs and that can resolve to true or false you actually get a lot of higher order functions that use the predicate
+to determine when it should stop looping or when it should do something or so forth all that we want to say is we can
+say item dot urgency is low and so then that is going to return this one so it's
+going to stop once it finds it it's not going to continue to the other one but let's say we want to make we want to
+specify the condition so let's just say so we can say return item urgency is low
+and there is no due date so then it's going to skip this one because it has a
+due date so it's going to check is this true no is this true no is this true no is this true yes okay so it's going to
+return that object for us and so obviously if we pass true then obviously
+the very first one is going to result in true uh if we pass false it's not going
+to find any um because it's just gonna the predicate is just going to return to false on each Loop then so for each we already spoke
+What is ".forEach" method?
+about so these are mostly if you want to do side effects because they don't return anything so if we you know for
+example do 4 4 each on this results is going to be nothing it's not going to return anything so this is usually for
+side effects so let's say for example you want a console log the ID each time okay and so you can even write it like
+this you know you can pause it directly like that and then it's just gonna so this is once again this is the beauty of
+a functional programming is you can express that like tasks so it actually reads like natural language so tasks for
+each Contour log so each task console log if we were to do this with a for Loop it would be as follows you know
+we'd have to go four and we'd do cons a single task of tasks and then we have to
+say console log single task so this reads a lot more naturally as well so
+the next one is map and so map is effectively the same as four each but
+What is ".map" method?
+the big difference is it expects something in response let's say we want
+to add onto each array so bring this back where we do this more explicitly so
+map goes over each item performs a function on it and returns a new array with the result of the function so we
+would do const result equals or each so instead of four each we would do tasks
+map again we can get each item let's say we want to return the item itself or
+let's say we want to return we want to add something onto it let's say we want to add two more properties on it so we
+can destruction the current one and let's actually add is Task and that is
+going to be true on all of these because all of them are tasks and let's maybe also add you know has Dash and so what
+we can do is we can actually just go the current item Does it include a dash okay
+so it'll create a new object so for example this one it has a dash and this one had doesn't in the new like array it
+will effectively be as task is going to be true and as Dash is going to be false
+and here it's going to be true a map is the one you actually use
+the most uh especially with HTML and so forth and let me quickly show you why so
+let's just do basic HTML we're not even talking about um you know lit or whatever so let's
+just say we have a document body uh inner HTML this is plain HTML like no
+Example of ".map" with HTML
+lit no nothing and we have an unordered list and we want to put something inside that unordered list so all that we can
+do is up here let's just create the list we can just interpolate it in there and
+so let's paste that all four tasks so let's say tasks and what do we return we just return template literal that has Li
+and item dot title and and let's maybe
+just put urgency in there so then this is going to create this for us and the only thing we need to do is here because this is an
+array we need to just join it to be a string but in let and so forth you don't
+need to it actually accepts arrays as actual expressions of HTML so this is
+quite common and you can even if you want you can destructure it up here and go you know title
+urgency and then just do this and so another thing as well is all of these
+Using "index" inside method
+almost all of these the first argument is the item and the second argument is
+the index we can maybe even so it passes the index as well so this would be zero two and three and let's say either this
+let's do an if statement here let's say if index is bigger than one return
+remember this is a predicate so we just say false or true so that means it's
+going to be 0 1 and then this one is going to get returned before it can even get to this one so all of these are the
+same here you know we can even add index let's say we even just want to add the actual index onto the thing itself and
+and so there we go this is the shorthand assignment so effectively what some does
+some so this is very similar to includes over here you know so we check does the
+some" vs ".includes
+string have that so let's say we want to check you know has
+urgent whether there is a task that like whether a list of tasks has a task that
+is urgent so you can't do tasks include because include only looks at the values
+it can only look at primitive values so unless we actually have a reference to this one so the only case where we can
+actually do something like this as you know if we have you know example and then we put example and then we put
+example in the array and then we just want to check does the array include example because remember this is a
+reference we can't go you know does it have like does it look like this it
+needs to be a reference so we can't go like that so but the way you do that is by means of uh higher order function so
+What is ".some" method?
+we can go item and it's also a predicate all that we do is we do if item and also
+this does not include sum so if sum in other words at least one item meets this
+condition urgency equals I so if there's at least one that meets this condition and we
+actually don't need to say if we can actually just write it directly like that and if we want to go really like
+expressive we can go we can use actually carrying and partial application to say
+you know has urgency and we pass a value
+and then we actually just create a new function that takes the item and checks if that item urgency equals the value
+that we passed so check this this is really cool so we can actually you know console log let's create a object which
+is called the log and let's just say you know has I has normal has low very good
+Example of "Partial Application"
+tasks sum and then we use partial application or carry in this case to
+actually create the predicate in there so then we go you know has urgency once
+again if we did this with the loop it would have been much less expressive and this is also reusable so if we add
+another urgency we can probably even abstract this if you want and just passing has urgency you don't go like uh
+check items or let's just say operation arrays and then we can just map over the
+arrays and then we just pass the operation directly to that we can even write it actually as this oh no sorry I
+should actually do it the other way around so the operations and we map over the operation and that gives us a
+function and then we run that function with the single array so like that so
+console log items the tasks and then we just pass an array of operations okay
+and we can do it like that there's lots of different ways in which you can actually compose things and you'll see
+this starts looking a bit that example that we had where we had employees and
+we had the government inspectors and you know we had that code space inspection events and so forth and we
+pass uh employee into an event and so forth so once again you know we're we're
+looking at encapsulation and polymorphism here but since we're not doing oop and in oop you're passing
+OOP composition vs FP composition
+objects around so you're passing objects into objects so you know we're passing employees into events here we're passing
+functions into other functions so a passing has urgency into some and then
+we're passing that custom operation into check items and that gives us the results so you compose all these
+functions together we're not assigning a variable any place and it just spits out the result for you so you know like it's
+also by this means by which something like react works or react has your state and you literally just you know have
+your logic and UI you compose components and you know so if you treat your
+components as functions then effectively this is just one big function that runs
+on your state each time and every time the State updates it just creates a new UI so there's just one object here so
+this is why react you would say react follows a functional programming
+Paradigm because effectively everything you write is just one big function and
+in react that function is usually just called app okay and that some other functions that get composed into it and
+so forth so your app itself is like like this you know it's just all these composed components all the way up and
+down so there's also different ways of thinking about components so in angular you think about components as classes in
+Need a mix of OOP and FP
+react a component is a function angular tends to be a bit more oop and react
+tends to be a bit more functional programming but as I mentioned you know be careful like none of these are too
+dogmatic angular has a bit of functional programming react has a bit of oop you
+can never really write JavaScript by neglecting one completely so let's look at some more so sort so every so every
+is exactly the same as sum the only difference is that instead of checking if some if a single one has an urgency
+What is ".every" method?
+of high at least it checks does all of them have an urgency of high so this is
+going to be false but what we can maybe do is we can maybe check is Task and this is going to be true because all of
+them if we map over them so that example we had in that example all of them has
+tasks so let's also change this to every okay what filter does is we have I think
+What is ".filter" method?
+we have used filter before you can do tasks and you know filter and item and
+let's filter out all the tasks that don't have dates so effectively just
+item dot do we can just say the opposite so in other words it mapped over each
+item this condition needs to be true for it to keep the item in the results so in
+other words it shouldn't have a do so we're looking with dates that don't we're looking at tasks that don't have a
+due date so it'll create a new array for us where it just removes this one and
+that one and just has the two that don't have dates likewise if we do the opposite so the predicate if it's yes it
+keeps it if the predicate is false then it actually removes it and so sort is a
+bit trickier and also as mentioned keep in mind that I did mention that sort by
+sort" vs ".toSorted
+default is like does mutate so in our case what we want to do is to sort which
+is the new one that was added this just reorders things for you in the array it's not a true predicate in the sense
+that it doesn't take true or false it actually takes zero one or minus one so
+let us look at the actual documentation for sort on mdn so for sort and both
+".sort" MDN documentation
+reduce um I will just like look at the documentation here because
+um both of these are a bit harder to explain so yeah let's dive into them just a bit deeper so effectively sort
+sorts elements in place so this effectively means what I mentioned about
+mutating and so forth so it actually changes the elements in the actual array
+itself I mentioned that two sorted has been added as a actual pure way to do
+that so a way that returns a new array instead of actually updating the current one that you run it on which is what you
+should avoid so here is an example so I did mention sort works with zero minus
+one and one so it's not a true pretty good answer for that it returns true or
+false so so here is an example and and just keep in mind as mentioned here it
+performs it on the array itself but we will probably be using to sort it to
+return a new array well that's what I prefer to do so over here when you
+arrange this March Jan Feb and December it arranges it alphabetically so if you
+run sort on it so obviously d j m and so here's the important thing it arranges
+Default "alphabetical" sorting
+numbers also based on the characters so this is something to keep in mind so if
+you just run sort without any passing anything into it it's going to treat
+these as characters this number comes before this because it starts with the
+one character in the same way that it looks at the characters the starting characters of of the words over here but
+it's very rare that you just run sort like this unless you just want something to be alphabetical more often than not
+you pass a compare function into it which is you know makes it a higher order function and that function defines
+the sort order sort is a bit different than some of the other higher order functions in so far that it gives you
+Setting custom sorting
+two arguments and those arguments are of the actual items in the array it doesn't
+need to be one or minus one it actually needs to be any value above zero or any
+value below zero but for obvious reasons almost everyone just uses minus one and one and zero effectively you take these
+two things if you return zero then it keeps the order that they are in if you
+return less than zero puts the first one before the second one if you return more
+than zero it Returns the second one before the first one so this is usually what you would write it as the reason
+why it uses this kind of weird way instead of true a false or something is
+because that allows you a means to actually do to actually do numbers let's
+just start with a basic example first so let me just do John skulk Alice Alice
+SQL and George and so let's do two
+sorted okay so if we just run that as is without passing anything it will sort
+them in alphabetical order okay but as mentioned the problem is if we just run
+sort on you know one two three a hundred uh two thousand let's do four here and
+How to sort numbers?
+let's do 20 there the problem is we'll treat these as strings so by default
+it'll actually you know look at the actual characters so if we actually want
+to sort it based on the actual amount this is why it's useful to have that negative or positive number thing
+because effectively then we pass a function in and we can just do a and b so in other words it just Loops through
+the items and then it Compares each one of them all that we do is we do a minus B and B minus a for the other way around
+you can always just go to reversed as well you want to as well so what happens
+here so effectively it takes one and then minus is four from it that means
+that it's a negative number it's minus three so it's less than zero so that
+means it puts a in front of B so it kind of keeps the order that it is then it go
+it takes four and then minus is 20 from it and that also gives a negative number so it keeps it the way it is it takes 20
+and it minus is three so that will give a positive number it will give 17 which
+means that it actually swaps it around so then it puts B in front of a essentially we can say that if it's zero
+or lower than zero so let's say you know zero or lower than zero then it keeps it
+in place if it is more than zero then it swaps it around we can use so you can do
+this but then like for numbers but you can also manually set this so we can say
+that you know let's say we have a true false true true false false and let's
+How to sort other types?
+say we want to order these so two sorted and we can effectively just say and just
+have the following condition so we can say that if so let's assume by default
+we want all the truths and then we want all the falses so we can say if a is
+false and B is true then return one
+otherwise let's return 0 in other words keep it in place oops and we need to say
+minus one not there we go so right and then obviously we can just
+swap it around if we want um it the other way around okay so you
+can do lots of different things um as long as you can just say if it returns zero don't do anything more often than
+not I don't ever really return zero you either just return a number that's
+bigger than zero or less than zero and yeah and you can create your own conditions in terms of how it should
+sort if you have for example objects you can even do the following so let me just
+open fig Jam so let's say we have our tasks here and we want to sort our tasks then we can go obviously result and
+How to sort dates?
+tasks dot two sorted and we just take A and B so let's actually start with the
+dates first so what we can say is effectively let's say a date and B date
+and let's first say a DOT do and if it doesn't exist just make it 0 and we also
+want to turn it into a number so get time and get time so into the epoch number so in other words the amount of
+milliseconds that has passed in 1970 it is as simple as a date minus B date and
+that'll arrange it for you in order with all the the ones that don't have dates
+at the end if you want all the ones that don't have dates to be at the front you can just say if a do and B do not exist
+then you turn one and it should put it at the front otherwise do a comparison and then check and so then lastly the
+Setting custom alphabetic sorting
+other thing is let's say you want to sort based on urgency so you might want to go a
+urgency and B urgency but how do you now actually sort this alphabetically
+because you can't go a minus B urgency because effectively obviously these are
+strings and you can't minus strings so what you can do is you can turn the
+string into its actual Unicode value and then it compares the Unicode values as
+if it's numbers and so you can actually compare the two Unicode numbers so you
+just use something called Locale compare B and that should just return 0 or 1. so
+that should be sufficient actually like order it alphabetically based on a
+nested value oh obviously sorry we need to do a do not do urgency and B
+urgency and so let's actually check that out so if we put it down here and let's run that in the browser and we actually
+made a typo there should be tasks multiple and we obviously need to log result okay so high low low and normal
+so it obviously arranges it alphabetical so obviously High H is before L and
+before n but but this obviously doesn't make sense in terms of what the things actually mean so one thing that we can
+do is we can create an array that specifies like the order so we can go
+Defining custom matching order
+you know like let's just say order low normal high normal and low so we don't
+want it to be alphabetical instead what we wanted to do is base it on the position in here so then what we can do
+is we can say the order so in order get the index of a urgency and just minus
+the index of B urgency so we just actually uses the indexes to determine
+and so now it just puts all the high ones first then the normal ones then the
+low ones and so forth so yeah like you can do loads of things here it's up to
+you to figure out how you want to order it purely just by either it returning
+one zero or minus this one or any value below you know zero or so forth okay so
+that's basically sorting it's actually really powerful and you can imagine like it allows us to build like a lot of
+".reduce" MDN documentation
+filtering and sorting and things into your apps and for example our to-do app so now I'm gonna get to the really scary
+one which is reduce so let's look at the mdn documentation first so it
+effectively says reduce executes a user supplied reducer callback function on
+each element of the array passing in the return value from the calculation on the preceding element okay so I'll show I'll
+kind of illustrate in a second what this means but effectively a reducer takes an
+array and it can turn it into anything by mapping over it whereas a map it
+takes it around turns it into a new array it has so it takes a function and
+it passes four things to that function so the first one is the accumulator so
+Four arguments passed to ".reduce"
+so this is effectively the result of the reduce up until that point on that
+iteration and so the first time this gets called you can specify the initial value otherwise it just starts with the
+first value in the array then it takes the current value of where it is looping
+at the moment then current index and the array itself and you can also specify
+initial value where it should start from I encourage you to maybe watch some
+videos on YouTube on reduce um most of those videos would be able to explain it better than I would but I'm
+just going to give it a go and also I don't necessarily have the time that half an hour video or a 20 minute video
+can take to actually just dive into reduce but I'm gonna see maybe I can explain it simply enough
+so effectively let's say we have an array so we have you know one two three
+four five six seven let's just write our reduce Handler separately from reduce
+Basic ".reduce" example
+itself okay and let's just put that in result and let us console log result
+console log result all right so effectively what does our handler do so
+our Handler takes four things when we put it in reduce four things get passed
+to it the accumulator the current value the index and the array itself more
+often than not I just use the first two in some cases I use this never I I
+actually use the array itself so you don't need to use all of these and another thing is as well you can give it
+something to start with so let's say we pass it it starts with a hundred actually put it here it's the second
+thing in reduce so even if that is the case um and I have like an array a then I
+usually just go like a raise zero or whatever if I actually want that I would rather explicitly give it something to
+start with okay but let's start with 100 here now so what happens so it goes so
+let's write our handle let's leave index for now let's just say the accumulator and current okay so let's keep it super
+simple so what does it return just the accumulator plus the current that's it okay so we pass that to it so what
+happens it starts with a hundred it iterates over the first item in our array which is you know one and so it
+passes it to the Handler so the accumulator and the current or and we specify what it should do and
+effectively we just add it so it gives us 101. okay then it goes to the next one and so this creates the next
+accumulator so whatever your return gets passed on to the next one so now we have 101 and then we plus two so that's a
+hundred and three okay and because this gets returned it actually gets passed on
+to the next one and so forth and so forth and so forth so what we can do
+then if this is a zero then what this effectively does is going to calculate the the sum of all of these combined so
+one some all of them together and that gives us like an actual value because it
+Loops over them and it kind of every time adds it to a final value let's look
+Advanced ".reduce" example
+at some examples okay so maybe what we can do is we can say hey we want to know
+how many times the word c comes up in titles all right so let's do the
+following so let's just write our reducer right in here and obviously we start with zero we start with there's no
+C yet in any title and then what we do so we get the accumulator so obviously
+that starts at zero and then we get the value that's getting looped over we can even destructure straight in here so
+let's just grab the title from that let's just take the title and let's say
+title as array so let's turn it into an array of letters so we can do title
+split let's filter out everything that is in a c okay so let's say total C so
+title as array and alter and let's just say chart or character and we just check
+is the Char is the Char is equal to C and this can be lowercase or uppercase
+so let's force it to be lowercase two lowercase I'm not sure I think maybe you
+Composing ".filter" inside ".reduce"
+write it like that we'll see in a second so if force it to be lowercase and then we stick if it's lowercase is it a c
+then we just check the length so we just return the accumulator plus the total C
+all the previous counts we added to all the previous counts so every time we go over each item and then results should
+just be the amount of sees in titles and once again I should just make this tasks
+plural and to lowercase and I think I got it wrong I think it is actually like
+that total C total C's plural as well yeah I'm really getting tripped up here
+without my static type checking three okay so there's a total of three C's so
+let's check something else let's say a how many A's are there seven um so you can do really cool stuff like
+Adding "if" inside ".reduce"
+this um you can even have if statements in there so let's say it should only check
+four C's so only if there is no date so let's also just pull out uh do and so we
+say only if there is no due date so if there is a due date we just return the
+accumulator as is without doing anything with that otherwise we calculate a new
+accumulator all right so I think it should be two now well let's see here's a c e and there's no date here is a c
+but there is a due date and the essay should actually just be one because there's no C here let's see one all
+right and then obviously the other way around it's going to be two all right so this was a very very very brief summary
+of reduce um there's a lot of really great material out there including the mdn
+article itself um I don't want to get too deeply into reduce in this lesson
+um it is already quite long and then the goal is just to talk about higher order functions of which reduce is one but I
+encourage you to watch some other videos I encourage you to actually read up on it a bit I use reduce all over the place
+".map" and ".reduce" is useful
+it is super powerful it's probably reducing map all the two map I would say
+is probably the most powerful reduce probably the second most powerful um so I would definitely encourage you
+to kind of learn how to use reduce it's going to feel like a superpower like you would be able to express something like
+this something as complex as how many tasks that don't have due dates how many
+times does the letter c come up in them you know like this is such a very specific thing and you can express it in
+such an elegant like an expressive manner by using a reduce all right so I
+will see you guys in the next lesson the final lesson where we're gonna touch on state machines and we're also going to
+Conclusion
+finish up our app and then once we have a kind of a final version of our app we're going to go into JavaScript
+Frameworks because then we know all the big Concepts that Frameworks try and
+solve for us and we can then actually compare Frameworks and discuss Frameworks in the context of talking
+about encapsulation polymorphism the clarity of uis higher order functions
+all these things how these Frameworks actually use these principles to
+abstract away all the low level stuff and give you a really really nice abstraction that you can actually use to
+create your app logic I will see you in the next video
