@@ -1,0 +1,9 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--sl-font-sans);
+    background: var(--sl-color-neutral-100)
+}

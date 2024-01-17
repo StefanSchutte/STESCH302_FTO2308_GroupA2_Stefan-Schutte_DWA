@@ -1,0 +1,353 @@
+Recap general framework concepts
+so one thing that you can do is you can lift the state so if I go back to that react visualized and once again this is
+looking through it through the lens of react but you can probably already see a couple of things here that we have
+spoken about because you find these exact same Concepts in react the way it
+maybe just does it the way I add abstracts it is maybe a bit different so we spoke about rendering we spoke about
+re-rendering and then I also kind of spoke about this idea of you know react
+is effectively just composed functions all the way down so you have your state
+and then you have all these composed functions that run that turn that state into a UI so in react you wouldn't
+necessarily do this type of thing where we have a method and then you know like
+we call that method and we directly you can't for example do this in react you can't just manually go and change the
+state update the state manually Target Something and update it but and sometimes gives react a bit of a higher
+learning curve but we will get to that when we touch on Frameworks and then also just this idea of components and so
+State and so the way reactors that so the way react does this thing you know
+like keeping state in components is through hooks so one of them being used
+State and we'll talk about that and props so you should know what props are by now
+um and it's effectively these things so those are things that can be passed down
+to components from outside um although in lit every all of these
+things are properties and some of them are just state or just properties that
+are State um in react it usually makes a difference between things that are State and things that are property it treats
+these as differently instead of just bundling all of them together in one thing so you would specify your state
+things differently than properties let's say instead of tracking that state into internally and we rather want to have it
+passed through then we just do that that means like whether it's open or not comes from its parent we scroll down so
+once again just to recap uh you very clearly saw the pain of doing it in this
+Benefit of using declarative UI
+way you very clearly saw what is the benefit of writing your HTML declaratively and then you know one of
+the first tabs added MVC resulted in a lot of boilerplate code AS mentioned you
+know if they thought Redux was a lot of like code just to get it to work uh MVC
+generally results in a lot of code and then there's this idea that was pioneered by angularjs so the very first
+version of angular also keep in mind I mentioned that angular 234 onwards is a
+completely different framework from angularjs the first one those just have the same name but for all intents and
+One-way vs. Two-way binding
+purposes they are not the same thing in classic Google fashion so this is two-way data binding you can still do it
+in the new angulars you can do it in view as well so what two-day data biting
+just means like if it updates here it keeps the view in sync but if it updates in the view it keeps the model in sync
+as well and then we just spoke about this idea of view as a function of your
+state which to a certain degree all the Frameworks do when it comes to
+declarative UI so in this case you know this is this is just a function although
+what react does um is react everything this like even this is a function not just the actual
+HTML that you express all your event listeners everything is part of a function you would literally create your
+components by going like adding as a function and there you go you know and you pass like and the props is actually
+just like like a regular function all Frameworks do you a certain degree do this a react just does it all the way
+from the top to the bottom and so you know effectively when the state changes the functions run and it calculates the
+new state so scroll down a bit once again like most Frameworks share a lot
+of these things because reactors are so popular at the moment a lot of the
+material is react specific but these are generally applicable to most Frameworks so we in depth looked at you know this
+idea of components of you know not splitting out your HTML CSS and JavaScript and instead breaking it up in
+What are "components"?
+terms of responsibilities instead of just Technologies and so effectively here is how you would write this with
+jsx which is very similar to what we're now doing with HTML with that HTML
+function in lit although this isn't a string okay but that's just react so you
+should understand so effectively you can think about props as attributes with web components so we can pause attributes
+What are component "props"?
+all the way down into nested components so through components down to their children so for example here's an
+example and so what we sometimes want to do is we need to figure out where the
+state of something specific lives in our app so in this case whether the model is open or closed that can be in several
+places it can be all the way in the top at in the store itself which is maybe
+not a bad idea or it can be in the modal itself or it
+What does "lifting state" mean?
+can be one level above the modal which is the actual TV adding component that
+wraps all that functionality so we need to figure out where that state is going to live and so the problem is now is we
+have exactly this problem so there's two components that need to know a single
+piece of state so we have a button so button needs to know if it's open or closed and the modal itself but the
+problem is both of them keep their own version of the state so what we need to do is we need to lift the state so it
+can be shared by both of them so effectively if you have a look here you lift it up and then you pass it through
+as props so it's only in one place okay and that is what we're going to do now so effectively the the SL dialog itself
+keeps track of if it's open or not and then we have this open here in the
+Two versions of "open" state
+parents so inside SL dialog itself as well and in the parent itself so the
+first thing we need to do is we need to stop this from controlling its own state so it does accept this at the moment but
+it's both internally controlling its own State and getting state from outside so
+in other words if we go add task and we close it internally it resets its own
+state to closed but it never tells the stuff above it it never tells its parent
+that it's closed so according to the parent so according to the adding component it still thinks it's it's open
+which is why if we click it again then it sets it to closed and then we have to click again to set it back to open so
+let's look at the shoelace documentation and how we would actually prevent it from actually closing itself and have
+Controlled" vs "Uncontrolled
+the closing and have the parent actually take control of it in react there's also this idea of control of controlled and
+uncontrolled components and you can read up a bit more about this generally find this type of thing in most Frameworks as
+well but yeah most of the writing about it is on react for obvious reasons so
+let's go dialogue and let's see I actually don't know how to do this maybe there's a property that we thought I
+actually don't know how to do this maybe there is a property that we passed where we tell it like listen don't control it
+own state or we intercept the event listener or something let's see and you can think almost about this in the same
+way that you know we need to stop a form in HML from following its own internal
+logic where it refreshes the page because we're actually doing something outside of it that it doesn't know about
+so you need to tell it like don't do the thing you usually do don't control your own State and we are going to actually
+tell you what to do so we are going to tell you when you need to be open we are going to tell you when you need to be closed okay so this emits when it opens
+this emits when it closes a SL request closed Okay so there's two ways to
+approach this the one would be to just let the parent know that it closed and
+Two ways to "lift" open state
+the other one might be to intercept it and prevent it from closing and only give the parent permission to close it
+and open it and then like like stop it from closing itself and tell the parent to close it I would have actually gone
+for this one but because the documentation says avoid use this let's
+actually just go with the other option where it tells the parent that it closed so emitted when the dialogue closes so
+we need to listen for SL hide and we can actually listen for custom events Inlet
+itself so we can go at SL hide like that and then tell it to toggle open so this
+Using custom events in Lit
+should fix the issue so it should say when this component internally the state changes to hiding also let the parent
+know so the parent state is also in sync okay this should solve the problem let's try again to add ask close add task cool
+so it works now so it actually just changes this and once again like this type of thing is a bit easier in some
+Frameworks in react this is very hard react usually isn't a big fan if you try
+and keep the state of two components in sync uh purely just because of kind of
+its functional programming underpinnings within react we'll need to figure out another way to do this but in lit you
+can actually just ensure that they are kept in sync so now we want to handle the submit as well so this is pretty
+easy we can just go here at subnet and let's just create a function that is
+this handle subnet and so let's do handle submit okay and we take the event
+and so we do const so we can grab all that logic we previously did here and I
+think it's in our script still commented out yes let's just grab that sure dispatch we don't necessarily maybe so
+Readding form submit logic
+here here we decide whether we were on a talk directly to the store or maybe just
+let the parent know and I think maybe we just bubble this up to the parent and the parent can decide whether it wants
+to send it to the store or not let's actually this batch a custom event from this component and let's actually start
+marking this component up so because this is true State like you actually won't know if it is open or closed so
+Define custom event in component
+let's just write a bit of documentation let's say no so the element is PD adding
+and what is this element what does this component do so effectively managers
+provides users with the means to add new
+tasks we'll only show an add task button
+however once button is clicked will open an overlay with a form inside that
+provides the means to add a task so the only thing that we're going to have in
+here is actual event that fires so what you didn't do is you say fires and you
+actually say the the name of it so let's say a save and then you specify what
+goes in details and so if you remember correctly when we spoke about custom events in custom events you can actually
+pass details so let's just create this up here so add type Def and let's just
+call it response okay and it's an object and it has the following props on it let's have a look and see so title view
+du and and urgency and I think urgency was low
+normal and high and this is null or a date and title is just a string and it's
+obviously required this isn't standard J stock I actually don't know if we're going to get Auto completion on this but
+this is still pretty great just in terms of documentation if someone looks at this component then they can at the
+really see and let's also just put a note here that is weather open or closed
+internally with own State all right so what's also cool here is because we now
+have that type definition we can go response and we can set it here to say
+Create "save" custom event logic
+this needs to be type response and then it's actually going to ensure that it you know this contract that we set that
+it actually matches this probably need to just convert that to a string like we did last time so do and we need we can
+pull that from these let me just check what the names of the inputs are so we
+have do you we don't have something on here so let's just say the name is
+urgency and so do we could say if D if there's not du then null otherwise new
+date just passed due because I think this is a string yeah everything we get
+back from the submission is an actual string which is why we need to actually
+use a ternary to say if there's no du make it null otherwise coerce it into a
+date and the only thing it's unhappy about is urgency and it's probably going to complain because it's going to say
+urgency conscious via string we need to know whether it is low and high and and
+so forth so let's just put a condition in here let's say if urgency is not low or it is not normal
+or it is not high then Pro new error invalid
+urgency value and so what is and not or so if all three of these conditions are
+made then is not valid so is it smart enough to know then what urgency is yes
+and it no longer gives us a error so then we know for a fact that response
+corresponds with that shape and let's look how we dispatch custom events in lit dispatch events so dispatching
+events so all the stuff up here is about listening for events so we want to look at dispatching events we can just go new
+event bubbles true compose but we need to use a custom event if we want to add
+details let's see how the dispatch oh so let's go this new custom event all right
+that seems reasonable so then what we do is we just reset the form so what we
+Dispatch event to parent
+then do is we close the form we can just go this toggle open on this function itself that should just update the state
+reset the form dispatch event new custom event let's just call it save I think is
+what we said settings so bubbles yes it does bubble composed yes and the detail
+is just response so let's now try and capture it in the parent component so in
+here let's do at save let's just cancel log it for now cool so it actually
+caught it and we can have a look at detail and here is all the stuff so what's really cool is now we've created
+this little piece of encapsulated behavior which is just behind this component and that component just does
+one thing and I just like we can just say add a listener to actually check if
+something if it's if it's saved and it'll let us know when save happens but otherwise it's just going to handle its
+own thing it's just going to do its own thing we don't need to know about like yeah what it does so it's handling all of this for us and so forth closing
+adding tasks and so forth until we save and only then does it actually do
+something and you'll see there's a moment where it kind of um jumps a bit and and the reason is
+Manually setting "open" state
+because we need to actually be able to not only toggle from the current but
+let's also say that you can actually set the value so we can just say this open
+is value if value is undefined then just do the opposite of what it currently is
+otherwise set it to value and then we can also just mark this up and go Boolean and that's optional and so what
+that allows us to tell it allows us to just toggle from what it currently is set it to something specific so this is
+going to be a bit more helpful because it's kind of like a bit of a janky animation because it's trying to figure
+out what it should be but we know that it should be closed so let's just say
+Passing function vs. calling function
+false and likewise over here and if we want to force it we can actually wrap it
+in another function in here so we can go like that and say we can't do this
+because remember now this is actually going to evaluate so let's actually write it as a function that we pass into
+click we can do the same for our cancel over here and just say false and let's
+do the same in here to check that out that's working nicely now but what's
+Prevent dispatch if invalid
+going on with save and I think it's we are trying to submit it yes so we're
+trying to submit it even if it's not so we obviously want to tell it like okay only do this if these things are correct
+although I stop don't continue the submission process so it is actually gonna submit it so let's go to adding
+and in this logic over here let us actually check whether we should
+continue so we can just say there's only one condition that's going to stop it and that is
+um if there's no title or if response title trim equals an empty string it's
+just empty spaces then just return like don't continue with this stuff don't do this stuff so let's see so only if that
+passes does it continue and dispatches it and all of that all right so now
+let's actually do the tasks and so let's just create a single TD task JS and
+let's just super quickly go class task extends let's pull in that Lit HTML lit
+Create "td-task" component
+element and let's just do a Constructor up here so super okay and let's do our
+static property so this one is going to be a bit more reliant on properties I don't actually think it's going to have
+any state of its own so title is type string completed which is type Boolean
+let's just have urgency in here and that is this right so this should automatically populate it for us based
+on the attributes of the same names so let's just quickly do a render okay and
+remember so I'm not going to type this up exactly right now let's just set the returns to any for now okay and we need
+to remember to Define it and this is just TD task and we just do task and we
+obviously need to import it so in our scripts let's pull it in here it actually doesn't matter what order you
+actually import them in then in our app let's uh you know Li and TD task let's
+see okay so one two three um and I'm also now going to show you how would you actually do custom styling
+How to style LitElement?
+in here so in the class itself you would go static dial so I think we need to
+pull CSS from there and then Styles and CSS and let's just do Li all Li elements
+have list style none margin of zero and padding of zero and so remember this is
+the shadow root so it's only going to apply to that if we put a unordered list
+in here it's obviously not gonna see there it actually works so it only applies to the shadow Dom of the actual
+element that you are working with them and let's also just add a ul and I think
+we also need to do margin zero to override that or I think it's padding let's just do both all right there we go
+so let's quickly just build out a basic task here let's go to shoelace and let's
+just check the check box and we also just check elevation while we're at it so uh yeah let's say we actually want
+the SL Shadow large so let's quickly just do that while we're here we need to import CSS as well here and we go a
+static Styles equals CSS so this actually does some clever stuff with constructable style sheets and so forth
+behind the scenes so which is why you actually want to do it this way and not put it in your render itself so this is
+closer to what you would do with a template whereas this is dynamically generated each time shadow of War oh we
+need to obviously assign it to something so let's do hey okay there we go okay so let's actually put our spacing element
+inside it as well so TD spacing and let's do top medium bottom medium lift
+medium and right medium it also just creates a bit of spacing for us around that uh let's also just in here give
+this a slight white background a gray background background and let's just do
+RGB I think what was it let's have a look at the variables for colors and
+neutral SL color 50 let's go with that SL color neutral 200 yeah let's go to
+Passing attributes to "td-task"
+100 that's maybe subtle enough and then obviously in the comp in the task itself
+so let's go TD task uh title hello and
+let's say completed remember we can only pass strings down so it probably need to do is so we have two options here so
+either we passed U as an actual string so you know we go for example like the
+date and then we and we convert it to a string before we pass it down and then we convert it back to a date in the
+component itself um or we can just pass it as an actual prop uh because so we start the dot so
+because of properties you can pass anything so dot and then we can go you know do or whatever but let's just leave
+do you for now in other words it's null so let's see if we have access to this so so in here let's see if we can do
+this Dot title cool and there we go so let's uh bring in a checkbox element
+Add HTML inside Shadow DOM
+from shoelace so let's first bring in the check box okay and we want a large
+one and we don't want a label with it so just like okay let's put it on the side
+and close it and we want the title to so you should be able to click the title to
+open more info about the task so for now let's actually just put it in a button
+and we can look at The Styling in a second so text only button so variant
+text so that would be SL button and the variant would be text okay so we can
+click on that as well we can toggle this and then if it has been clicked we can
+delete it we want an icon button at the end so we can put SL icon in it let's
+just get the medium one all right so that looks good and but we don't want gear we want let's see what are all the
+icons at our disposal uh let's trash or delete here let's go this one and let's
+just make the label the lead so this is what it'll show if we hover over it and so this will just be what gets shown
+um for accessibility and so forth so let's also say delete task so here we might need to do a bit of classes so
+let's say class outside and class inside and so outside the Shadow and whatever
+inside is just where we actually do display flicks and justify content space
+between and align items we can also put some padding let's put some padding in
+our app itself as well or we can just do TD spacing once again let's just do lift
+medium right medium let's just do a top large and bottom extra large okay and
+let's close that down here and let's also do a bit of Border radius on the outside of that border radius and if I'm
+not mistaken SL I think there's radius let's go with medium so let's just fill
+this up with some more tasks and once again what's really cool is now this is completely encapsulated away and even
+better let's actually create some mock tasks up here so let's just say tasks
+add all in the shape of the tasks from our store so model uh store and I think
+Adding fake task data
+it's just task let's just create testing which is just a let's say an array of
+tasks type array task and we added ID title let's grab those ones we created
+in fig Jam actually there are some stuff missing here yes so we need to also add
+urgency which can be low normal or high and then also so we have created we want
+due as well which is date or null and complete it as well
+um in any other circumstance I would actually write some documentation here but yeah we want to get this working and
+I think we should now get an error on our action as well because it doesn't Supply us with everything we need from
+Update "Store" actions
+here we also know so there's needs completed so completed always starts as false du is dependent on what gets
+passed and urgency as well just pick what we need so we can go pick task so
+we need the title we need you and we need completed oops urgency not
+completed there we go the task all right what what does urgency yeah it's times
+like this where like it kind of feels to me like sure I really like that we have went through the effort of getting the
+static type checking going and so let's uh just grab our tasks example that we
+created in fig Jam it's actually just put it in here and it actually complains
+because uh there's some stuff here so completed all of these are falselets
+toggled in false and groove Falls and crew just so we can see the visual effect let's make this one true and then
+what else created an mutate all of them are created right now so then let's map
+".map" to create tasks list
+over testing we can do it up here or straight in my HDM I prefer to just keep it separate it makes it more readable so
+let's just say list is map and so we can just de-structure directly from there
+and we return HTML and so that is Li with the closing Li and then just a TD
+task inside okay and then we can just specify this is where it goes so list let's see what we can de-structure from
+here completed created do IDE title and urgency so obviously all of the titles
+at the moment are hello let's just pass the actual title cool there we go watch the dog so forth
+completed and so we can if we're working with a Boolean we can just do this and
+Configure "completed" logic
+you saw sometimes I forgo this it doesn't matter if you put the quotes around it or not we can actually just
+write it like that as well and we can say completed and that's because in the component itself we need to actually
+state that to be the condition I think it's checked let's see so let's just
+pass it as a prop so checked and this completed so why don't we have access to
+this completed this title we I think we maybe need to write it like that yes okay I was actually wrong you don't
+write it like this you actually pass the class for that type itself in all that we do is we just tell it there is
+something completed so we can just put it up here we don't assign anything to it we just tell it there is a thing
+called completed and this seems strange but you know that's JavaScript classes for you now so similar to that task we
+Add "sl-dialog" for task
+also want uh tasks themselves to handle them total that shows up so we can
+actually just copy some stuff from here so just SL dialog put it over here it's
+hidden and so let's just put it below that and let's just set it to open for now just so we can see what it looks
+like and SL hide and so forth and the label is just a task let's just use an
+unordered list for now if we show it this is not the prettiest but you know like I just want to show you guys the
+JavaScript so we can just put the title here as well and we can also have
+whether it is completed or not so we can say this completed so if it is completed
+just show completed otherwise show the text and not completed okay there we go
+clean room not completed this dot urgency okay and we are actually not
+passing urgency to that so let's add some extra things here so I've created
+Update "reactive properties"
+is type date do is okay so at the moment I don't know
+so we can just not give it a type and then it's not going to try and convert it if it's an attribute which is okay
+because we actually don't want to pause these as attributes we want to pass them as props let's just get rid of that up
+there so now so this urgency so remember what we can do is we can do urgency created
+uh du okay and what's a title so now it should know all of those exist
+urgency should show there and we're not passing anything in Via urgency so
+urgency okay like that and do and that
+needs to be passed as a prop because it can actually be a date everything else can be passed at as strings obvious
+except for completed which can be true or false created also gets passed as a
+prop because it's a date not a string well and you'll see low but we maybe want to map those to something nicer so
+what we can do is we can say you know urgency display map and low would be
+Labels for "urgency" values
+this low urgency okay so we map the actual values to how they would be
+displayed and so this is nicer than you know just a chain of if statements and
+then we just use the value over here as the actual key okay so that just shows
+it a bit nicer and then freelance actually has some cool stuff that allow us to format dates nicely so there's
+"Shoelace" relative time utility
+some utility stuff here uh format date there's also another one called relative
+time that allows us to say how long until that so SL and then we just pass
+it so let's do Li and let's over here just convert it to a string so create a
+function that's going to calculate that for us so let's just say let's just call it const calc due and so we just accept
+you and do is null or a date If U does
+Function to return Lit AST
+not exist then just return the following HTML span no due date we can actually
+check if you has passed already so if let's just say cons so technically here
+it should assume that the U does exist has passed so let's get the current date
+okay and get time let's also convert you to time get time so the epoch numbers
+and all we do is we check if the current time is larger or equal to U so if it
+has passed then maybe just strong due date asked and we passed that as I'll
+remember we're passing in AST meaning it's actually passing an object technically we can just say return any
+and then lastly if none of these conditions are met there's a relative time and we also just convert to you to
+a string so let's just say display and this is just due dot to string throw
+that in there and also this needs to be wrapped in an HTML so that's a nice
+function so calc do is just going to return some an a AST for us so you can
+even you know evaluate a function in here and then we just pass this view okay obviously it opens now for every
+single one SL relative time what's going on here oh no due date two years seven
+years again then you can also just have I think there's also a shoelace for
+"Shoelace" date utility
+um just showing like regular dates a utility so there are some cool utilities here that you can use the format date
+yeah let's just say we want it like that it's just start this with new and let's
+start this with create it and then we just throw that in there because there needs to be a created I think I think it
+takes the current time if we don't pass anything and we can just do this created
+to to string created and and let's actually make the title the label okay
+and so then down here let's add some buttons uh maybe in the way that we had
+Remaining "sl-dialog" HTML
+it previously so so we can just use adding and let's just grab those put them down here and to cancel save so we
+can just have close so the primary one can just be closed but then we also have a edit so you can edit it in here as
+well and let's just remove the event listeners for now and this is not a submit that's close so let's just handle
+the close for now but you'll probably start seeing like sure there's a lot of different states that this thing can be
+in and this is where I want to introduce State machines all right so let's have a look at what is a statement and how can
+this help us manage all the different states that one of these tasks can be in

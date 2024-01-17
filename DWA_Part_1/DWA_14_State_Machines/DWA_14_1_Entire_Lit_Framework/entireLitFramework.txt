@@ -1,0 +1,348 @@
+Using "td-spacing"
+but let's continue with our app all right so so in here let's just put some
+spacing there at some point I think I'm gonna have to break this up into a web component but let's keep it at this for
+now let's just around our input do TD spacing and just give it some bottom
+spacing so bottom and let's go with large for now okay so this already looks much better I think we can even bring it
+down to cool and you also see what's really cool about the hot module reloading it updates immediately so you
+can actually just tweak the values here and it updates we need to specify lot
+and let's have a look at the slots ah footer so this is just for semantic
+reasons uh we don't need to care too much about this so you can actually
+pause label as a string or actually use a label slot why oh because I put it on
+the form I should put it on the dialog or let's say new task let's also make
+that this name and just because of the way this is laid out we might want to
+let's do XL bottom spacing just add more spacing at the bottom okay that looks a bit better
+Add remaining form inputs
+and so let's add the other ones as well so we had let's add three more okay and
+so they are maybe a bit tied together so inside it we can also just use our spacing let's just and do small spacing
+below let's wrap these in our spacing uh utility component and obviously these
+won't be named so this will be let's just say title and this will be due date
+this is called a due and this will be urgency and name is just urgency okay so
+these are fine but let's maybe update them so so let's do select okay and it
+Add "sl-select" component
+also has a fold version and so instead of input this should be select and the
+options are I can't even remember I think it's it was high normal and low
+but we can always change that and by default the value is normal and it's not
+clearable you do need to select one but but normal being the default alright and
+we can also just say this is fold and I think we also need to provide a label
+urgency do you take let's see if there is a date selector shoelace not seeing
+anything here otherwise we can just use the browser one I think we can just go type date that's the bolt in HTML
+Built-in HTML date selector
+because remember this extends HTML so you should still get the default HML
+ones and there we go we need to set that to actually be a submit button type
+submit and let's also just indicate that the other one is just a regular type
+button cool so it actually adds the tasks but we obviously need to close this now so in our store and if you
+remember correctly we said that open should actually be dependent on whether
+the state is adding so here is where it gets interesting because because is
+Controlling dialog visible state
+remember you just say open if you say open false that's still treated as actual open so ironically you know it's
+considered open the only way to have it not be open is to not pause open so one
+way would be to use a ternary so you can go phase equals adding and then you know
+open if it is adding otherwise just an empty string okay so we can do that and
+you'll see it as unhappy because it's hard for and this is also what's cool about that Lit plugin that I showed it
+Can only calculate attribute value
+effectively says like listen this this is very hard for lit to actually do in an optimized manner like you're you're
+really this is going to become really gross so what lit actually provides us it provides us a way to set props
+directly in the same way we set attributes so we can effectively go as
+if we actually grab this object and set something on it whether that is you know the class name or whatever in the domain
+itself so just search for lit HTML syntax okay and here is the syntax
+reference so go here just explains how we can control attributes and so it
+Different ways to pass values in Lit
+effectively says we can't do this we can't do that which is what we try to do right now so in order for it to actually
+work in a performant and useful way it needs to set some rules in terms of what
+we can do and what we can't do you'll find this to be the case in a lot of Frameworks specifically like for example
+react hooks so react hooks also you know has specific rules and you can actually
+get it yes plugin that actually warns you when you break those rules so the
+way we do it is to set a Boolean attribute we start with a question mark
+okay but we can also so this would probably be what we want to do here but
+we can also set properties directly by just doing a DOT you can even attach
+event listeners here to elements for now I'm keeping all my event listeners
+outside of this but you can actually write your event listeners like this as well and we might I might show you how
+Pass as DOM property syntax
+to do that a bit later all that we want to do is we want to say dot okay and
+then what that is going to do it's going to set it as a property with JavaScript instead of as an attribute in the HTML
+so we can just say phase is adding okay it's automatically going to set that
+property not the attribute directly so you should remember the difference between attributes and properties when
+we touched on the Dom the very first time all right so now that we've actually set this to be bound to whether
+DOM "properties" vs HTML "attributes"
+it's adding or not at the moment it's not adding so it's not going to be open but if but if we for example say if it's
+idle cool then it's open all right so then how do we toggle these states so
+there's all really a lot of functionality that's happening here and so what I'm going to do now is I'm going
+Introducing full "Lit Framework"
+to pull in a lit HTML the actual framework to show how we can continue
+with this um we are going to touch on it later again but we're going to look at how we
+can actually use it along with typescript and something like mob X and
+so forth but for now I'm going to pull in the framework so I'm gradually showing you how we're kind of pulling in
+frame parts of Frameworks to solve specific problems for us what I've shown is I've shown how we how we pull in that
+Lit HTML to give us a way to declaratively write our view or HTML so
+like this so we don't have to go and attach event handlers and all of that stuff and data attributes and you know
+What "lit-html" solves for us?
+manually update values so this is a lot easier to reason about looking at this seeing what happens then that example
+example we had where we where we manually added a pain child remove element updated actual the check boxes
+themselves and so forth so this is also just if you're a new developer on this project this is a lot easier just to
+read at a glance and see what happens and see this as a declarative statement
+in other words what gets shown here is the task as array length which is much
+easier to read than if you were to go document query find this thing get the
+value updated and then figure out what are all the cases that it can update in here because data can only flow in One
+Direction and it only this function only runs on a re-render you know like in
+what cases is this gonna update and what is going to cause it to update and also what will the value be when it updates
+so it's very declarative it's very easy to reason about it's very easy to read and this is one of the primary problems
+that Frameworks solve for us but then I'm going to pull in the rest of the lit framework you show you some of the other
+What full "Lit Framework" solves?
+ones and one of them is actually managing interactivity in other words not having to worry about event
+listeners registering event listeners unsubscribing event listeners finding the thing that the event should be
+attached to figuring out where it actually came from the right thing all of that so this all actually fits with
+in this description of hiding the noise so all that noise so the actual traversing the Dom seeing where events
+came from all that stuff and elevating the essence and what is the essence of what we're trying to do the essence is
+effectively we just want to say then when something happens on this thing perform this action as simple as that we
+don't wanna we don't want to worry about the Dom we don't want to worry about event bubbling we want all of that to be
+hidden and just focus on the essence of what we're trying to express and Frameworks help us do that so we can
+also pull in lit via CDN once again this is not recommended and and when we start
+talking about Frameworks I'm going to show you how we would actually bootstrap it with npm and then also with type
+Using "Lit Framework" via CDN
+script but for now we're just using the CDN because there's a lot of other things we need to cover before we can
+actually look at that so let's just look for lit CDN and so if we go on let's go
+to the latest documentation keep in mind this is for the actual framework itself that we're going to be pulling in when
+we use the framework we actually don't need to handle the renders ourselves there's only two abstractions that we
+use in that is the HTML so creating the AST and then the lit element and the lit element handles for us the actual
+rendering the event listeners all of that so we just work with the lit element abstraction and we actually use
+"LitElement" replaces "render" function
+inheritance to extend it it's effectively the lit element so we can actually have a look and see at the
+inheritance of the slit element and as ranges are generally prefer composition over inheritance but because lit works
+so close to the actual Dom it almost really doesn't have a choice when something like react really abstracts
+the Dom far away um let's specifically works very close to the Dom so by that itself it needs to
+use inheritance so you can actually have a look this doesn't mean you you can't use composition in lit it's just the way
+it creates its own abstraction is through inheritance but that has no bearing on how you actually write your
+Lit build on "HTMLElement" prototype
+code you'll see that actually have an entire chapter here just on composition and actually how you can create your
+components with composition but if we go on the API here and we go to LIT element we can actually look at the source code
+it actually extends something called reactive element and then if we go to reactive element you'll see that it
+further extends HTML element you things here and if you remember
+correctly what I said is that JavaScript classes don't have implements and they
+don't allow you to create abstract classes but here we see abstract and we see implements so what is going on here
+Lit internally built with TypeScript
+and so the thing is effectively you'll see also this file is dot TS so this
+isn't actually a Javascript file this is actually typescript which we are going to cover when we get to Frameworks but
+for all intents and purposes be mindful now the typescript is by definition a different language than JavaScript it it
+even has its own extension okay so this is typescript but the extension part is
+the same so this is the same thing that gets extended so this is the HTML element that we have worked with and you
+also see they they have a lot of change Doc in their documentation itself and so if you're curious you know definitely
+Example JSDoc in Lit source code
+have a look in the actual documentation in the source code itself given a read like see if you can kind of understand
+and some of the principles it is obviously very high level if you understood everything then you're way
+overqualified for this course like you can actually go and work with the lit team and bold let but there might be
+some things that you kind of understand here and there so here's some J stock a function that indicates if a property
+should be considered changed when it is set the function should take new value and old value and return true if an
+update should be requested cool has changed Value Old value and Boolean and
+this type here this is just typescript and we'll get to that later so let every
+pool inlet and then I will show you how we can actually start using it if we go
+getting started and we can just use this straight up or we can do what what I've done and which I actually prefer is just
+put it in our project itself and so it does say here lit is available as single file bundles and this is if you would
+prefer to use this rather than npm and build tools it does say that they are of
+NPM always prefered over CDN
+type module but it does have a big warning here that says if you're using npm you should use the lit package not
+these bundles so it says this can cause your page to download more code than it
+needs so in other words there are some performance implications but for now we're still learning so it's okay and so
+let's also grab the one that has all so let's get that and you'll see this is much bigger it has a couple of other
+things Beyond just um the HTML and the render so control a control C to copy it and let's just
+Copy all functionality into project
+replace what is currently in here and once again I don't want prettier to try
+and clean this up we can leave the copyright info here we can leave it exactly as is Ctrl shift p or command
+shift B and save without formatting okay so we have updated that maybe means that
+our app is going to break because that specific version of it I don't think
+abstracts render because now it requires the lit elements to actually handle the
+rendering so that probably means our app is no longer going to work create over here Ed and just the app itself so to do
+Custom "td-app" component
+app all right so let's import Libs lit htmljs and let's see what it exports all
+right so there's a ton of stuff what we want is we want lit element and HTML we
+say class and let's just call this app extends lit element so the extension
+comes with a method called render and that just needs to return and HTML and
+AST so every component needs a render method that returns an ASD and it
+render" method on "LitElement
+actually and this is a case so for now all that we can do is let's just set the
+type on this to be any for now let's just override this to say it returns in here okay for now we can get to this
+part later so then custom elements Define and let's do TD app and app and
+let's import it let's just comment this out because we're now going to handle this in or app component but let's keep
+on importing our 3D spacing so you can use that actually alongside HTML so
+where you so as I mentioned you know web components you can use plain web components with any framework so that
+Move existing HTML to "td-app"
+just means in our HTML we just need to call this TD app call one two three there we go so let's grab all of this
+and put it in our app now okay and let's just remove this one now and set this to
+open so here is our app okay but none of this works yet the way that Lit works is
+we can actually specify State inside our components themselves so let's just
+quickly go over the lit documentation you just quickly get a sense of what can
+LitElement "reactive properties"
+we do with the actual lit HTML component I'm just going to give it a quick glance
+I recommend you give it a more intense read so let's click overview so it just talks about how do you define an element
+a rendering reactive properties Styles and life cycle so let's quickly start
+with reactive properties so reactive properties actually allow us to set
+State inside our actual components themselves so this is very similar to
+like the whole private properties all of that stuff we did but we don't need to fiddle around with Setters and Getters
+it does all of this for us under the hood so it abstracts away that low level logic um in Getters and Setters so when you
+see this at don't worry about this this is just using decorators uh decorators
+Ignore JavaScript "decorators"
+are is still experimental in JavaScript so um you'll see here using decorators
+decorators or proposed feature you'll need to use a compiler like Babel or typescript so we're just going to ignore
+this phone also when you see like ad property or whatever just ignore it for now um I'm not comfortable using decorators
+in JavaScript just yet um it can still change quite a bit and so forth so yeah just ignore it for now
+it actually gives us a warning here that says like unless you're using Babel or typescript maybe ignore decorators for
+now so then we actually set our properties like this and this will actually expose it on the HTML element
+itself it actually tells us here to avoid setting properties through rather use the static properties instead of
+Avoid assigning on class itself
+setting properties directly on the class itself it says here that JavaScript classes and have a problematic
+interaction with reactive properties and a big reason for this is because as mentioned you know JavaScript classes
+aren't actual classes they're actually prototypes which is why these type of things pop up all the time so this is
+one way to get around it and this is also one of the reasons why I don't necessarily work with classes that much
+but because lit tries to be as close to the Dom as possible in terms of
+Frameworks it's probably the one that's the closest to the Dom it does have to work with properties which is also why I
+Lit is smallest framework abstraction
+start with lit because I think lit is a is a nice stepping stone into the world of Frameworks because it is the closest
+to the actual Dom it has it's the smallest abstraction so it makes sense to incrementally build on that and get
+into deeper and deeper abstractions and so it says here you know according to the rules of JavaScript instance
+property tax precedence over and hides prototype property yeah here is that
+scary word prototype you don't need to understand what this means just understand that I did mention prototypes
+are icky and gross and this is one of the reasons and you don't need to know
+why this is sticky or gross just follow their advice and use this to create
+properties on your web components Inlet don't set it directly on the class itself so when we specify properties
+these are the things that we can set so we can say whether that property is associated with an attribute on the HTML
+thing itself if it's false then it doesn't if we set converter then it
+Configuring "reactive properties"
+actually which specify how the attribute should be converted into a property once
+again remember the difference between properties and attributes reflect means that it keeps the attributes and
+properties in sync because by definition usually if a property updates the HTML
+attribute doesn't update as well so reflect does that but only use reflect
+if you need to because it has performance implication patients keeping those two things in sync and then
+there's also type but it does say here if attribute is false then all these
+others are con are ignored so they are a bit further down so as mentioned you can also pass a converter which tells it how
+to convert an attribute to a prop has changed you can provide it a callback that it can use to determine whether the
+property changed or not so we did something almost similar when we used Getters and Setters so there were
+instances where we checked if this value didn't change just return immediately don't do anything so it does that by
+Override default equality with "hasChanged"
+default by default it just does a hard check against the value itself but because you have things like objects and
+so forth that have references you might want to actually create your own custom way to check or there might be some
+other logic where it's dependent on something else whether it should consider changed or not so no accessor
+don't worry about this this is very Advanced um just keep it false on the default
+reflect as I said what this does is that if the property changes you can tell it to actually change the attribute as well
+don't set this to True unless there's a reason why because as mentioned you know
+it's false for a Reason by default and that's because it does have a performance implication so then State
+and state is kind of what we're going to use now for the most part and state is effectively it's just internal State
+it's an internal property you can't influence it from outside so it
+automatically sets attributes to false and so forth so this is just internally tracking state of something inside the
+"state" prevents access from outside
+component without you being able to access that state from outside because obviously lit uses Shadow Dom and all
+those things under the hood and the other thing is attributes by default are always strings when you pass them so you
+can actually specify a type so if you say it's a number it automatically converts it for you to a number or a
+Boolean or any of those stuff remember remember we had to check previously whether it is not null or whether it is
+Convert string attributes to properties
+an empty string to determine if it's true or false so it just does those type of things for you automatically and so
+for ehere it shows how to create state with a decorator as mentioned we're just going to ignore decorators for now so
+here it shows how to do it without a decorator and this is how we do it so decorate is just abstract this away for
+us so we still need to set the default state in our Constructor when we declare
+it in properties so it says here you know State shouldn't be referenced from outside the component this underscore
+Define defaults in constructor
+and this is only for typescript you don't need to do this in plain JavaScript so it does say here you
+should indicate private properties like this uh I'm not a fan I I don't do that
+so it says it recommends using a convention like this um but I don't know like it's I'm not
+necessarily a fan of this but you can do it if you want and so it says effectively the thing of state is the it
+doesn't match an actual attribute or a property so you can't access it from outside and so here just goes into the
+details like what actually happens if a property changes and so forth and this is where lit the actual framework comes
+"Lit" framework controls rerendering
+in because up until now we've used lit HTML which gave us a way to render our
+HTML declaratively express our view declaratively but now there's another question that's at a higher level of
+abstraction than the clarity of expression of Hashim Allen views and that is when do you render so you'll see
+the actual lit framework doesn't give us the render function and the reason for that is the framework itself figures out
+when to render it takes that away from you it moves that to the low level of
+the abstraction because it doesn't see that as the essence of creating apps you shouldn't actually manually tell the UI
+when to re-render you should just say how it should render and then just write your logic and the framework is self
+should figure out when it re-renders so this is the other key pillar of Frameworks is that Frameworks also
+handle for you not only a declarative way to express how your app should read how your app should render but it also
+handles the internal logic based on other things in the framework in terms of when it should actually render when
+should it up and the way that Lit does it is whenever any of these things that
+you declare here in properties changes it's going to run the render function again so then it's going to create those
+two asts and compare them and if those ASDS are exactly the same then it's not
+Rerender if reactive properties change
+going to update the HTML but that process of comparing the asts obviously takes computational resources so you
+don't want to compare those to create a new ASD and compare them if it's not needed so once your app reaches a
+certain size it's no longer enough just actually not rewriting the entire HTML
+every render but you also want to announce start preventing unnecessary evaluations in your app itself whether
+Compare AST influences performance
+it should render or not so once again you know now we're moving into a higher level of decision making and this is a
+pattern that you'll find over and over and over again as we get deeper into abstractions the type of decisions we
+make and the type of code we write gradually become of a higher nature
+because now we're dealing with should it actually even determine whether it should re-render or not but so we
+gradually work our way up that abstraction because if you're just jumping into something like react
+Understanding when AST compared
+without understanding the Dom understanding any of this you're going to have a hard time understanding what
+is the relationship between properties AST or the virtual Dom and also why is
+it even important to be able to determine whether a property has changed so we need to kind of build our
+understanding of these abstractions up incrementally for you to actually understand why a certain things are
+important this brings us back to that conversation I had about just learning the abstraction if you just learn the
+abstraction if you just learn this is how you do it and this is what you do when weird things happen so for example
+if your component so let's say you accidentally set has changed to true now all of a sudden your app is going to be
+Hard to debug if not understand mechanism
+really really slow because it's always going to check if it should re-render and if you don't understand some of this
+lower level logic you're not going to be able to debug that you're not going to know why the app is slow so we're
+gradually working our way up that abstraction so one way properties can change is from outside so if the parent
+changes what gets passed to a component that component will re-render or it will revaluate but another way is from inside
+the component itself and that is by means of event listeners we touched on this super briefly when we looked at lit
+HTML but effectively here's an example so this add click so we can actually
+Lit framework handles event listeners
+write our event listeners in here and it binds it for us and everything thing we
+don't need to find the node we don't need to attach it to a Dom node we can actually write our event listener as a
+method and then just attach it and so what this does is it takes the count value in here that we specify there and
+it actually just updates it down here is an example there we go and if this is looking very strange ensure that it's
+not set on typescript so up here you'll see various and TS so on TS it's like what language is this this doesn't look
+Ensure Lit documentation is not "TS"
+like JavaScript and yeah rightfully so um it isn't it's a different language so just ensure it's set to JS otherwise
+it's going to look a bit wacky all right so here's our TD app and let's continue working inside it so let us actually
+create yet another abstraction and this is going to contain all the logic that
+handles the adding of tasks and let's call it adding so let's just copy and paste the code from here and just
+Create "td-adding" component
+extract the parts that related to the adding and I think we have the button and then just the hidden dialog below it
+but so these two are bound together as a single unit and let's call it adding and
+TD adding and in our app let's remove all of this put it over here as PD
+adding so import compare opponent and TD adding should show up there why is it
+not let's just cancel log whoops the debut wrote this is STD adding that
+is definitely not what we want all right editing so and let us actually create
+the interface for that so you can go static properties and that
+just returns an object and so let's keep all the properties just inside it for now let's say open which is type Boolean
+Declare static "properties" object
+and also state is true oh sorry my bad it's actually we specified actually as
+an object like that so then in our Constructor let's set that this open
+equal starts as false and it's unhappy because remember we need to call Super so remember what it says is we shouldn't
+do this like that so we shouldn't set it like that we should set it in the Constructor
+um otherwise this is just the way let works and because of weirdness in JavaScript we need to do this so then
+what we can do in our render let me just cancel log it this open when we render
+and so if I bring this in here you will see it's false then we need to obviously bind this and you know remember we want
+to actually set the prop as follows so this should be bound to this open let us
+create a method for us in this component that toggles with its open or closed so let's just say toggle open that's just a
+method and all it does is it takes this open and it sets it to the opposite of
+Create "toggleOpen" method
+this open let's add an event listener on this button so what we can do is we can
+say add click in a lit you specify that it should attach an event listener in
+this manner and then what should that call call this toggle open they're still going to do all the things in terms of
+passing the event and all of that but it's just a more declarative way to indicate actions instead of going and
+imperatively adding the event listener and looking at the event and so forth
+cool works as easy as that but something strange is happening here and you'll see if we say add task and we close it and
+we click add task again it doesn't open it again so let's see what's going on so console log what open is going to set to
+when open toggles bring this in here just ignore this okay so it's set to
+"open" state tracked in two places
+true you click and that doesn't actually update open and then if we click here it sends it to false and only then to add I
+said the reason is because this component has its own State you know a lot of times that is kind of one of the
+things you need to manage because unfortunately the reality is you can't
+put everything in your Redux store because otherwise your app will just get too slow and I've seen people do this
+Balancing "global" vs "local" state
+type of thing and it always starts out really nicely but it becomes very unmaintainable I've literally seen
+people go and every time someone puts a character in an input they update the
+entire store and that's usually when you see apps where as you're typing it slows
+down as you're typing and it lags a bit that's usually when someone's doing something crazy like that they're
+updating the entire store with on every key press so you do need to keep some
+localized State and this is also where that kind of container pattern comes in so the containers are the points where
+your components connect to the store but your components themselves should also
+have local state and honestly this is a hard thing it's a hard architectural thing figuring out where like whether
+the state should be local or whether should be in the global store the answer isn't to make everything local or to
+make everything part of the global store that is unfortunately something that with time as you gain more experience
+you'll get a better feel for I also do feel it's similar to abstraction and so
+forth the only way to learn is to mess it up and get it wrong but with time you get a better sense for that and this is
+also where State machines come in and I'll talk about State machines in a second and I'll illustrate how thinking
+about components as state machines this actually helps us make better decisions
+in terms of where the state should lift
