@@ -1,10 +1,20 @@
-import { LitElement, html, css } from '../../../package.json';
+import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 
+document.addEventListener('DOMContentLoaded', () => {
 const MAX_NUMBER = 15;
 const MIN_NUMBER = -5;
 const STEP_AMOUNT = 1;
+console.log('hi')
 
+/**
+ * LitInput is custom element for input field.
+ * @extends LitElement
+ */
 class LitInput extends LitElement {
+  /**
+   * Styles for the LitInout custom element.
+   * @type {CSSResult}
+   */
   static styles = css`
         :host {
             display: block;
@@ -18,11 +28,20 @@ class LitInput extends LitElement {
         }
     `;
 
+  /**
+   * @type {Object}
+   * @property {Number} value - The value of the input.
+   * @property {Boolean} readonly - Whether the input is read-only.
+   */
   static properties = {
     value: { type: Number },
     readonly: { type: Boolean },
   };
 
+  /**
+   * Renders the LitInput custom element.
+   * @returns {TemplateResult}
+   */
   render() {
     return html`<input .value="${this.value}" ?readonly="${this.readonly}" />`;
   }
@@ -30,7 +49,16 @@ class LitInput extends LitElement {
 
 customElements.define('lit-input', LitInput);
 
+/**
+ * LitButton is a custom element for a button.
+ * @extends LitElement
+ */
 class LitButton extends LitElement {
+
+  /**
+   * Styles for the LitButton custom element.
+   * @type {CSSResults}
+   */
   static styles = css`
         :host {
             display: block;
@@ -55,14 +83,28 @@ class LitButton extends LitElement {
         }
     `;
 
+  /**
+   * Properties for the LitButton custom element.
+   * @type {Object}
+   * @property {Boolean} disabled - Whether the button is disabled.
+   */
   static properties = {
     disabled: { type: Boolean },
   };
 
+  /**
+   * Renders the LitButton custom element.
+   * @returns {TemplateResult}
+   */
   render() {
     return html`<button ?disabled="${this.disabled}" @click="${this._onClick}"><slot></slot></button>`;
   }
 
+  /**
+   * Handles the click event on the button.
+   * Dispatches a 'click' event.
+   * @private
+   */
   _onClick() {
     this.dispatchEvent(new CustomEvent('click'));
   }
@@ -70,18 +112,31 @@ class LitButton extends LitElement {
 
 customElements.define('lit-button', LitButton);
 
+/**
+ * Counter variable to keep track of the current value.
+ * @type {number}
+ */
 let counter = 0;
 
+/**
+ * Event handlers for subtracting from the counter.
+ */
 const subtractHandler = () => {
   counter -= STEP_AMOUNT;
   updateColor();
 };
 
+/**
+ * Event handler for adding to the counter.
+ */
 const addHandler = () => {
   counter += STEP_AMOUNT;
   updateColor();
 };
 
+/**
+ * Updates the color based on the counter value.
+ */
 const updateColor = () => {
   // Logic to update color based on counter value
   const colorStepsAmount = 250 / (MAX_NUMBER - MIN_NUMBER);
@@ -89,13 +144,7 @@ const updateColor = () => {
   const distMin = counter - MIN_NUMBER;
   const red = distMax * colorStepsAmount;
   const green = distMin * colorStepsAmount;
-
-  // Update styles or perform other actions based on the calculated color
-  // For example: elements.number.style.color = `rgb(${red}, ${green}, 0)`;
-};
-
-const elements = {
-  // Add any additional elements if needed
 };
 
 updateColor();
+})
