@@ -1,10 +1,8 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 
-document.addEventListener('DOMContentLoaded', () => {
 const MAX_NUMBER = 15;
 const MIN_NUMBER = -5;
 const STEP_AMOUNT = 1;
-console.log('hi')
 
 /**
  * LitInput is custom element for input field.
@@ -38,12 +36,17 @@ class LitInput extends LitElement {
     readonly: { type: Boolean },
   };
 
+  constructor() {
+    super();
+    this.value = 0;  // Initialize value property
+  }
+
   /**
    * Renders the LitInput custom element.
    * @returns {TemplateResult}
    */
   render() {
-    return html`<input .value="${this.value}" ?readonly="${this.readonly}" />`;
+    return html`<input .value="${String(this.value)}" ?readonly="${this.readonly}" />`;
   }
 }
 
@@ -97,7 +100,7 @@ class LitButton extends LitElement {
    * @returns {TemplateResult}
    */
   render() {
-    return html`<button ?disabled="${this.disabled}" @click="${this._onClick}"><slot></slot></button>`;
+    return html`<button ?disabled="${this.disabled}" @click="${() => this._onClick()}"><slot></slot></button>`;
   }
 
   /**
@@ -124,6 +127,8 @@ let counter = 0;
 const subtractHandler = () => {
   counter -= STEP_AMOUNT;
   updateColor();
+  updateCounterValue();
+  console.log('cc')
 };
 
 /**
@@ -132,6 +137,7 @@ const subtractHandler = () => {
 const addHandler = () => {
   counter += STEP_AMOUNT;
   updateColor();
+  updateCounterValue();
 };
 
 /**
@@ -146,5 +152,26 @@ const updateColor = () => {
   const green = distMin * colorStepsAmount;
 };
 
+/**
+ * Function to update the counter value in the UI.
+ */
+const updateCounterValue = () => {
+  const litInput = document.querySelector('.counter_value');
+  if (litInput) {
+    litInput.value = counter;
+  }
+};
+
+// do we use this when we have lit-html?
+document.addEventListener('DOMContentLoaded', () => {
+  const subtractButton = document.querySelector('.counter_actions lit-button:first-child');
+  const addButton = document.querySelector('.counter_actions lit-button:last-child');
+
+  if (subtractButton && addButton) {
+    subtractButton.addEventListener('click', subtractHandler);
+    addButton.addEventListener('click', addHandler);
+    console.log('c')
+  }
+});
+
 updateColor();
-})

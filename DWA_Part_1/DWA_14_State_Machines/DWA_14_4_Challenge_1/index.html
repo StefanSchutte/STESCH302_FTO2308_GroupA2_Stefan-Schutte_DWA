@@ -1,36 +1,35 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
   <title>Lit Tally Count</title>
 
-  <script type="module" src="./scripts.js" defer></script>
-
-
+  <script type="module" src="./script.js" defer></script>
   <link rel="stylesheet" href="styles.css">
+  <script type="module" src="https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js"></script>
+
 </head>
-<body>
-<header class="header">
-  <h1 class="header_title">
-    Lit Tally Count
-  </h1>
-</header>
+  <body>
 
-<noscript>
-  <p class="error">This app requires JavaScript to work.</p>
-</noscript>
+    <header class="header">
+      <h1 class="header_title">
+        Lit Tally Count
+      </h1>
+    </header>
 
-<main class="counter">
-  <lit-input class="counter_value" .value="${counter}" readonly></lit-input>
-  <div class="counter_actions">
-    <lit-button @click="${subtractHandler}" .disabled="${counter <= MIN_NUMBER}">-</lit-button>
-    <lit-button @click="${addHandler}" .disabled="${counter >= MAX_NUMBER}">+</lit-button>
-  </div>
-</main>
+    <noscript>
+      <p class="error">This app requires JavaScript to work.</p>
+    </noscript>
 
-<footer class="footer">
-  Inspired by <a class="footer_link" href="https://tallycount.app/">Tally Count</a>. Note this is a practice project for learning Lit.
-</footer>
-</body>
+    <lit-tally-count></lit-tally-count>
+
+    <footer class="footer">
+      Inspired by <a class="footer_link" href="https://tallycount.app/">Tally Count</a>. Note this is a practice project for learning Lit.
+    </footer>
+
+  </body>
 </html>
