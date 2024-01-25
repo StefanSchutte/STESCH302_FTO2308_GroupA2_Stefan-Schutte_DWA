@@ -1,0 +1,162 @@
+CORE CONCEPTS PART 1
+
+- Focus on specific aspects of documentation in this lesson
+- Cover code documentation practices, including comments in JavaScript
+- Dive deeper into JSDoc and demonstrate its usage
+- Explore static typing in JavaScript and its benefits
+- Introduce Behavioral Driven Development (BDD) as a concept
+- Emphasize writing documentation before coding in BDD
+- Discuss user stories and how work is assigned to developers
+- Highlight the importance of expressing problems in user stories
+- Acknowledge that teams may not always follow best practices
+- Introduce documentation-related tools such as Markdown, UML, and Mermaid
+- Emphasize the significance of feature-level documentation
+- Demonstrate the structure of a user story, including the "who," "what," and "why"
+- Discuss the concept of README.md files in repositories, showcasing examples
+- Showcase real-world README files from projects on platforms like GitHub
+- Stress the importance of a good README file for effective communication
+- Briefly overview markdown files and their role in rendering formatted text
+- Provide examples of projects consisting solely of markdown files
+- Aim to equip learners with knowledge about effective documentation practices and tools.
+
+- **Overview of Markdown:**
+  - Markdown is a lightweight markup language for formatting plain text.
+  - It includes specific syntax for creating headings, links, bullet lists, code snippets, and more.
+  - Commonly used in README files on platforms like GitHub.
+
+- **Creation of Example .MD File:**
+  - Demonstrates the creation of a sample Markdown file for a to-do app.
+  - Emphasizes the simplicity of Markdown syntax.
+  - Explains the use of hashtags for headings, dashes for bullet lists, and curly brackets for links.
+
+- **Markdown's Origins:**
+  - Markdown was created by John Gruber and Aaron Swartz.
+  - Markdown files use the .MD file extension.
+  - Markdown provides a flexible and readable way to structure plain text documents.
+
+- **Writing User Stories in Markdown:**
+  - Utilizes ChatGPT to draft user stories for a to-do app.
+  - Describes the app's simplicity, user-friendliness, and basic features.
+  - Integrates emojis for emphasis and provides a brief introduction.
+
+- **Adding Hyperlinks in Markdown:**
+  - Explains the syntax for including hyperlinks in Markdown.
+  - Demonstrates linking to external resources like Google Chrome and MDN.
+  - Highlights the importance of providing clear requirements and getting started instructions.
+
+- **Code Snippets in Markdown:**
+  - Shows how to include code snippets and inline code in Markdown.
+  - Uses backticks for code blocks and illustrates syntax highlighting.
+  - Advocates for using Markdown for clear and formatted documentation.
+
+- **Markdown All in One Plugin:**
+  - Introduces the "Markdown All in One" VS Code plugin.
+  - Discusses its features, such as generating a table of contents.
+  - Emphasizes the importance of previewing Markdown files to see how they render.
+
+- **Mermaid Diagrams in Markdown:**
+  - Introduces Mermaid as a tool for creating diagrams in Markdown.
+  - Shows an example of a flowchart using Mermaid syntax.
+  - Emphasizes the lightweight and Markdown-friendly nature of Mermaid diagrams.
+
+- **Sketching App Interactions:**
+  - Demonstrates the process of visually sketching app interactions.
+  - Uses simple drawings to represent screens, buttons, and modals.
+  - Stresses that sketches are for personal understanding and not documentation artifacts.
+
+- **UML and Formal Documentation:**
+  - Mentions Unified Modeling Language (UML) as a structured diagramming approach.
+  - Expresses a preference for lighter tools like Mermaid over formal UML tools.
+  - Encourages starting with rough sketches before creating formal documentation.
+
+- **Task Management App Features:**
+  - Illustrates the visual thinking process for implementing user stories.
+  - Sketches screens for adding, editing, deleting tasks, and setting task urgency.
+  - Covers features like task completion, confirmation steps, and sorting/filtering options.
+
+- **Conversion to Formal Documentation:**
+  - Emphasizes the transition from visual sketches to formal documentation.
+  - Encourages writing documentation before coding to clarify implementation plans.
+  - Acknowledges the iterative nature of software development and the importance of learning from experience.
+
+  CORE CONCEPTS PART 2
+
+  Here's a summarized bullet point list based on the provided text:
+
+  - **Introduction to Behavior-Driven Development (BDD):**
+    - Emphasizes writing documentation before code.
+    - Not about excessive planning but understanding what needs to be done.
+    - Acknowledges the dynamic nature of development, allowing for prototyping.
+
+  - **Mapping Out App Components:**
+    - Identifying key components, e.g., tasks.
+    - Suggests starting with concrete examples rather than abstract thinking.
+    - Illustrates the use of code blocks to define JavaScript objects.
+
+  - **Storing Tasks in Objects:**
+    - Proposes using objects instead of arrays for task storage.
+    - Highlights the need for a unique identifier (UUID) for each task.
+    - Discusses considerations for enforcing uniqueness in keys.
+
+  - **Task Object Properties:**
+    - Defines properties for tasks, including title, completed status, creation date, urgency, and due date.
+    - Introduces the concept of displaying tasks based on an array of IDs.
+    - Adds filters for search, urgency, and sorting options (most recent, oldest, upcoming).
+
+  - **Documentation and JSDoc:**
+    - Advocates using JSDoc for documenting code.
+    - Demonstrates JSDoc syntax for parameters, returns, and optional parameters.
+    - Introduces the `@type` keyword for creating custom types.
+    - Explains the use of the pipe operator for type unions.
+    - Encourages the creation of custom types for objects, such as the task type.
+
+  - **VS Code and Type Checking:**
+    - Mentions the use of `@ts-check` at the top of files in VS Code for type checking.
+    - Shows how VS Code can provide warnings for type-related issues.
+    - Recommends using `any` as a temporary solution for unknown types but advises against it for security reasons.
+
+  - **Custom Types for Objects:**
+    - Illustrates creating custom types, such as `Task` and `Location`.
+    - Highlights the use of Pascal case for custom type names.
+    - Discusses the potential application of custom types throughout the application.
+
+  - **Conclusion:**
+    - Encourages the use of documentation, especially in the context of BDD.
+    - Demonstrates the importance of planning and understanding what needs to be done before implementation.
+    - Provides insights into structuring code and utilizing tools like JSDoc for better maintainability and error prevention.
+
+    Certainly! Here's a summarized bullet-point list based on the provided code and comments:
+
+    **Types and Custom Types:**
+    - Created custom types for "Filters" and "Sorting" to manage tasks.
+    - Used union types to extend the "Urgency" type, allowing for specific urgencies or a generic "any" option.
+    - Described the types and added short explanations for better understanding.
+
+    **State Management:**
+    - Defined a custom type "State" to represent the application state.
+    - Used the "Record" keyword for dynamic object types (e.g., tasks) with predefined keys and values.
+    - Started creating documentation for the state, including the structure and purpose of each property.
+
+    **Function Documentation:**
+    - Demonstrated how to document functions using JSDoc comments.
+    - Provided a sample function ("createID") documentation with details about its purpose and expected parameters.
+    - Utilized the `@link` keyword to reference other parts of the documentation.
+
+    **Static Type Checking:**
+    - Enabled TypeScript static type checking with `// @ts-check`.
+    - Showcased how static type checking helps catch errors, ensuring that values match the specified types.
+    - Emphasized the benefits of static type checking for maintaining code integrity.
+
+    **Readme Documentation:**
+    - Suggested creating a higher-level overview in the readme file, summarizing the application state and its components.
+    - Mentioned the possibility of using diagrams, like Entity Relationship (ER) diagrams, for a visual representation.
+
+    **GitHub Integration:**
+    - Pushed the code to a GitHub repository.
+    - Demonstrated how diagrams and documentation appear on GitHub, providing a visual representation of the project structure.
+
+    **Conclusion:**
+    - Emphasized the importance of documentation in understanding and maintaining code.
+    - Encouraged users to explore and experiment with the provided code, mentioning the use of the "any" type for cases where specific types are not yet known.
+
+    If you have any specific questions or if there's anything else you'd like to discuss, feel free to ask!
