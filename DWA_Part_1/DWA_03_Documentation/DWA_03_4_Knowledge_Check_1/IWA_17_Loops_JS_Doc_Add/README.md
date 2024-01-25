@@ -15,4 +15,4 @@ Custom Styling: Different CSS classes are applied to cells based on whether they
 Readability: The calendar is easy to read and visually organized, with weeks labeled on the sidebar.
 
 ### License
-This calendar belongs to [CodeSpace Academy](https://www.codespace.co.za/). I'm using it merely as a educational tool. Feel free to use, modify, and distribute it according to the terms of the license
+This calendar belongs to [CodeSpace Academy](https://www.codespace.co.za/). I'm using it merely as an educational tool. Feel free to use, modify, and distribute it according to the terms of the license
