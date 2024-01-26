@@ -54,6 +54,40 @@ need to be run everytime
 ESLint pluging
 how it works
 
+ESLINT quick start
+
+1st greate package.json
+npm init
+name
+v
+y
+
+npm init @eslint/config
+proceed y
+what want to do - check, find, enforce
+modules - js modules
+framework
+typescript no
+where browser
+populat styleguide airbnb
+config - json
+install y
+package manager npm
+
+
+PRETTIER
+
+npm install --save-dev --save-exact prettier
+
+make prettier config file = .prettierrc.json
+
+install with eslint
+npm install --save-dev eslint-config-prettier
+
+put it in extends: in eslint config file
+
+select a formatter. format with... set prettier
+
  */
 
 const data = {}
