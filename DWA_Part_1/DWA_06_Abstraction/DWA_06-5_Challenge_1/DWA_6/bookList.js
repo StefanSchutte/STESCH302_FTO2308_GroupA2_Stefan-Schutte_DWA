@@ -265,6 +265,7 @@ class BookList {
     });
   }
 
+
   /**
    * Updates the book list based on the filtered result.
    * @method
