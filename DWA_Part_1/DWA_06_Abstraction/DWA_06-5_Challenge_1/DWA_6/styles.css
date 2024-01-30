@@ -311,7 +311,7 @@ option {
 }
 
 .overlay__button:hover {
-  background-color: rgba(var((var(--color-blue))), 0.2);
+  background-color: rgba(var(var(--color-blue)), 0.2);
 }
 
 
