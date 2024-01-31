@@ -1,6 +1,7 @@
 // @ts-check
 
 import { state, Task } from "./modules/state.js";
+import {addTask} from "./modules/tasks"
 console.log("It works");
 
 window.addEventListener('error', () => {
@@ -10,5 +11,5 @@ window.addEventListener('error', () => {
 addTaskToHTML()
 
 addTaskToHTML('test')
-updatHtmlTask('test', {title: 'wash the dog' });
+updateHtmlTask('test', {title: 'wash the dog' });
 

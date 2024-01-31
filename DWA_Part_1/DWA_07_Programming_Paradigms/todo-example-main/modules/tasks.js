@@ -53,7 +53,3 @@ export const addTask = () => {
     };
 }
 
-/**
- *
- */
-export const addTask = () => {};
