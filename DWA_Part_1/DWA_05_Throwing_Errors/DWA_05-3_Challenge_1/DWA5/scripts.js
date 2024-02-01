@@ -41,7 +41,7 @@ form.addEventListener("submit", (event) => {
         /**
          * Checks if divider is less than 0.
          */
-        if (divider <= 0) {
+        if (divider || dividend <= 0) {
             throw new Error(`Invalid number provided. Try again`);
         }
 
