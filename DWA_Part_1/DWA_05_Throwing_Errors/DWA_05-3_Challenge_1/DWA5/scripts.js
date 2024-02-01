@@ -2,8 +2,8 @@ const form = document.querySelector("[data-form]");
 const result = document.querySelector("[data-result]");
 
 /**
- * Handlles submission to perform division and display result.
- * @param {Event}} event - submit event triggered vy form.
+ * Handles submission to perform division and display result.
+ * @param {Event} event - submit event triggered by form.
  */
 form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -20,40 +20,44 @@ form.addEventListener("submit", (event) => {
      * @property {number|string} dividend - Dividend input value.
      * @property {number|string} divider - Divider input value.
      */
-    const {dividend, divider} = Object.fromEntries(entries);
+    const { dividend, divider } = Object.fromEntries(entries);
 
     try {
         /**
-         * Check if both fields are filled in, if not throws err.
+         * Check if both fields are filled in, if not update result with error message and return.
          */
         if (!dividend || !divider) {
-            throw new Error("Both values are required in inputs. Try again");
+            result.innerText = "Both values are required in inputs. Try again";
+            return;
         }
 
         /**
-         * Checks if either is not a number. Throws err if true.
+         * Checks if either is not a number. Updates result with error message and return if true.
          */
-        if (isNaN(dividend) || isNaN(divider) ) {
-            document.body.innerHTML = 'Something critical went wrong. Please reload the page.'
-            console.error('Something critical went wrong. Please reload the page.')//huh
+        if (isNaN(dividend) || isNaN(divider)) {
+            document.body.innerHTML = 'Something critical went wrong. Please reload the page.';
+            console.error('Something critical went wrong. Please reload the page.');
+            return;
         }
 
         /**
-         * Checks if divider is less than 0.
+         * Checks if divider is less than or equal to 0.
+         * Updates result with error message and return if true.
          */
         if (divider <= 0) {
-            throw new Error(`Invalid number provided. Try again`);
+            result.innerText = `Invalid number provided. Try again`;
+            return;
         }
 
         /**
-         * Calc floor of division result and updates display.
+         * Calculates floor of division result and updates display.
          * @type {number}
          */
         result.innerText = Math.floor(dividend / divider);//round result
 
     } catch (error) {
         /**
-         * Updates result display with err msg.
+         * Updates result display with error message.
          * @type {string}
          */
         result.innerText = `Division not performed. ${error.message}`;
