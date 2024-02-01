@@ -1,42 +1,27 @@
-import {
-  books,
-  authors,
-  genres,
-  BOOKS_PER_PAGE
-} from './data.js';
+import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
+
+/**
+ * Sets up event listeners for various elements in the application.
+ *
+ * @function
+ * @name setupEventListeners
+ * @returns {void}
+ */
+const setupEventListeners = () => {
+  document.querySelector('[data-search-cancel]').addEventListener('click', () => closeSearchOverlay());
+  document.querySelector('[data-settings-cancel]').addEventListener('click', () => closeSettingsOverlay());
+  document.querySelector('[data-header-search]').addEventListener('click', () => openSearchOverlay());
+  document.querySelector('[data-header-settings]').addEventListener('click', () => openSettingsOverlay());
+  document.querySelector('[data-list-close]').addEventListener('click', () => closeListActive());
+  document.querySelector('[data-settings-form]').addEventListener('submit', (event) => handleSettingsFormSubmit(event));
+  document.querySelector('[data-search-form]').addEventListener('submit', (event) => handleSearchFormSubmit(event));
+  document.querySelector('[data-list-button]').addEventListener('click', () => loadMoreBooks(bookList));
+  document.querySelector('[data-list-items]').addEventListener('click', (event) => handleBookItemClick(event));
+};
 
 let bookList
 
-/**
- * Creates a book element.
- *
- * @function
- * @name createBookElement
- * @param {string} id - The unique identifier of the book.
- * @param {string} image - The URL of the book cover image.
- * @param {string} title - The title of the book.
- * @param {string} author - The author of the book.
- * @returns {HTMLButtonElement} - The created book element.
- */
-const createBookElement = (id, image, title, author) => {
-  const element = document.createElement('button');
-  element.classList = 'preview';
-  element.setAttribute('data-preview', id);
-
-  element.innerHTML = `
-    <img
-      class="preview__image"
-      src="${image}"
-    />
-    
-    <div class="preview__info">
-      <h3 class="preview__title">${title}</h3>
-      <div class="preview__author">${author}</div>
-    </div>
-  `;
-
-  return element;
-};
+//Dropdown
 
 /**
  * Populates a dropdown with options.
@@ -72,6 +57,39 @@ const populateDropdown = (dropdownId, data) => {
 const populateDropdowns = () => {
   populateDropdown('genre', genres);
   populateDropdown('author', authors);
+};
+
+//Book element and render
+
+/**
+ * Creates a book element.
+ *
+ * @function
+ * @name createBookElement
+ * @param {string} id - The unique identifier of the book.
+ * @param {string} image - The URL of the book cover image.
+ * @param {string} title - The title of the book.
+ * @param {string} author - The author of the book.
+ * @returns {HTMLButtonElement} - The created book element.
+ */
+const createBookElement = (id, image, title, author) => {
+  const element = document.createElement('button');
+  element.classList = 'preview';
+  element.setAttribute('data-preview', id);
+
+  element.innerHTML = `
+    <img
+      class="preview__image"
+      src="${image}"
+    />
+
+    <div class="preview__info">
+      <h3 class="preview__title">${title}</h3>
+      <div class="preview__author">${author}</div>
+    </div>
+  `;
+
+  return element;
 };
 
 /**
@@ -111,6 +129,26 @@ const renderInitialBooks = (matches, booksPerPage) => {
   updateListButton(matches, 1, booksPerPage);
 };
 
+//LOAD MORE
+
+/**
+ * Loads more books and appends them to the document.
+ *
+ * @function
+ * @name loadMoreBooks
+ * @param {Object} bookList - The BookList object containing page, matches, and booksPerPage.
+ * @returns {void}
+ */
+const loadMoreBooks = (bookList) => {
+  const fragment = document.createDocumentFragment();
+  const start = bookList.page * bookList.booksPerPage;
+  const end = (bookList.page + 1) * bookList.booksPerPage;
+  renderBooksFragment(fragment, bookList.matches.slice(start, end));
+  document.querySelector('[data-list-items]').appendChild(fragment);
+  bookList.page += 1;
+  updateListButton(bookList.matches, bookList.page, bookList.booksPerPage);
+};
+
 /**
  * Updates the list button based on the current page and remaining books.
  *
@@ -132,6 +170,8 @@ const updateListButton = (matches, page, booksPerPage) => {
   `;
 };
 
+//OVERLAYS
+
 /**
  * Closes the search overlay.
  *
@@ -141,25 +181,6 @@ const updateListButton = (matches, page, booksPerPage) => {
  */
 const closeSearchOverlay = () => {
   document.querySelector('[data-search-overlay]').open = false;
-};
-
-/**
- * Sets up event listeners for various elements in the application.
- *
- * @function
- * @name setupEventListeners
- * @returns {void}
- */
-const setupEventListeners = () => {
-  document.querySelector('[data-search-cancel]').addEventListener('click', () => closeSearchOverlay());
-  document.querySelector('[data-settings-cancel]').addEventListener('click', () => closeSettingsOverlay());
-  document.querySelector('[data-header-search]').addEventListener('click', () => openSearchOverlay());
-  document.querySelector('[data-header-settings]').addEventListener('click', () => openSettingsOverlay());
-  document.querySelector('[data-list-close]').addEventListener('click', () => closeListActive());
-  document.querySelector('[data-settings-form]').addEventListener('submit', (event) => handleSettingsFormSubmit(event));
-  document.querySelector('[data-search-form]').addEventListener('submit', (event) => handleSearchFormSubmit(event));
-  document.querySelector('[data-list-button]').addEventListener('click', () => loadMoreBooks(bookList));
-  document.querySelector('[data-list-items]').addEventListener('click', (event) => handleBookItemClick(event));
 };
 
 /**
@@ -207,42 +228,7 @@ const closeListActive = () => {
   document.querySelector('[data-list-active]').open = false;
 };
 
-/**
- * Loads more books and appends them to the document.
- *
- * @function
- * @name loadMoreBooks
- * @param {Object} bookList - The BookList object containing page, matches, and booksPerPage.
- * @returns {void}
- */
-const loadMoreBooks = (bookList) => {
-  const fragment = document.createDocumentFragment();
-  const start = bookList.page * bookList.booksPerPage;
-  const end = (bookList.page + 1) * bookList.booksPerPage;
-  renderBooksFragment(fragment, bookList.matches.slice(start, end));
-  document.querySelector('[data-list-items]').appendChild(fragment);
-  bookList.page += 1;
-  updateListButton(bookList.matches, bookList.page, bookList.booksPerPage);
-};
-
-/**
- * Handles the form submission for settings and updates the theme.
- *
- * @function
- * @name handleSettingsFormSubmit
- * @param {Event} event - The form submission event.
- * @returns {void}
- */
-const handleSettingsFormSubmit = (event) => {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const {
-    theme
-  } = Object.fromEntries(formData);
-  updateTheme(theme);
-  closeSettingsOverlay();
-};
-
+//FILTER
 /**
  * Handles the form submission for search, filters books, and updates the book list.
  *
@@ -256,7 +242,6 @@ const handleSearchFormSubmit = (event) => {
   const formData = new FormData(event.target);
   const filters = Object.fromEntries(formData);
 
-  // Use the bookList object directly
   bookList.page = 1;
   bookList.matches = filterBooks(filters);
   updateBookList(bookList);
@@ -317,6 +302,7 @@ const updateBookList = (bookList) => {
   });
   closeSearchOverlay();
 };
+
 /**
  * Handles the click event on a book item and opens the active list view for the selected book.
  *
@@ -359,6 +345,26 @@ const openListActive = (book) => {
   document.querySelector('[data-list-description]').innerText = book.description;
 };
 
+//THEME
+
+/**
+ * Handles the form submission for settings and updates the theme.
+ *
+ * @function
+ * @name handleSettingsFormSubmit
+ * @param {Event} event - The form submission event.
+ * @returns {void}
+ */
+const handleSettingsFormSubmit = (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const {
+    theme
+  } = Object.fromEntries(formData);
+  updateTheme(theme);
+  closeSettingsOverlay();
+};
+
 /**
  * Updates the theme of the app based on the selected theme.
  *
@@ -378,6 +384,8 @@ const updateTheme = (theme) => {
     root.style.setProperty('--color-light', '255, 255, 255');
   }
 };
+
+//INIT
 
 /**
  * Initializes the BookList application by rendering initial books, setting up event listeners, and initializing dropdowns.
