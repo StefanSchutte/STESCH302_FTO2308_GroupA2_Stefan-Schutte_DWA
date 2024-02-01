@@ -1,7 +1,7 @@
 // @ts-check
 
 import { state, Task } from "./modules/state.js";
-import {addTask} from "./modules/tasks"
+import {addTask, addTaskToHTML, updateHtmlTask} from "./modules/tasks"
 console.log("It works");
 
 window.addEventListener('error', () => {

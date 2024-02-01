@@ -7,7 +7,7 @@ export const addTask = () => {
      *..
      * @param {string} id - ..
      */
-    const addTaskToHTML = (id) => {
+    export const addTaskToHTML = (id) => {
 
         if (doesHtmlExist("task", id)) {
             throw new Error('Task with that ID already added')
@@ -46,7 +46,7 @@ export const addTask = () => {
      * @param {string} id
      * @param {Partial<Pick<Task, 'completed' | 'due' | 'title' | 'urgency'>>} changes
      */
-    const updateHtmlTask = (id, changes) => {
+    export const updateHtmlTask = (id, changes) => {
         const element = document.querySelector(`[data-task="${id}"]`);
         const isHtmlElement = element instanceof HTMLElement;
         if (!isHtmlElement) throw new Error("")
