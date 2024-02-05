@@ -44,3 +44,15 @@ export const doesHtmlExist = (dataAttr, value) => {
 
   return isHtmlElement
 }
+
+/**
+ * @return {string}
+ */
+export const createUniqueId = () => {
+  const array = [
+    Math.round(Math.random() * 10000000000),
+    new Date().getTime(),
+    Math.round(Math.random() * 10000000000),
+  ];
+  return array.join('-')
+}

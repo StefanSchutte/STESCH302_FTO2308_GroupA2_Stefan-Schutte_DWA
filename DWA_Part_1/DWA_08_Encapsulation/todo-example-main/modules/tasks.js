@@ -21,7 +21,7 @@
  * @prop {Urgency} urgency - A user specified indication of how important the task
  */
 
-import { doesHtmlExist, getHtml, createUniqueID } from './helper.js'
+import { doesHtmlExist, getHtml, createUniqueId } from './helper.js'
 // eslint-disable-next-line no-unused-vars
 import { Task } from './state.js'
 

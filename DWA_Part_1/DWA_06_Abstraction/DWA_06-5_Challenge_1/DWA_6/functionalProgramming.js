@@ -1,5 +1,8 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
 
+let bookList
+
+
 /**
  * Sets up event listeners for various elements in the application.
  *
@@ -19,7 +22,6 @@ const setupEventListeners = () => {
   document.querySelector('[data-list-items]').addEventListener('click', (event) => handleBookItemClick(event));
 };
 
-let bookList
 
 //Dropdown
 

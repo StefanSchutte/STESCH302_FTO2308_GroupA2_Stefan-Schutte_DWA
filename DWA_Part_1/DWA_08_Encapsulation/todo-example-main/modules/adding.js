@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getHtml } from './helper.js'
 
 
