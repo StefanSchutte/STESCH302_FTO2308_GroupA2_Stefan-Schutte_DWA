@@ -121,7 +121,7 @@ const createEvent = (props) =>{
     }
 }
 
-const event = eventInstance  ({
+const eventInstance = createEvent ({
         title: 'Annual 2015 Inspection',
     attendees: [
         createColleague('Schalk Venter'),

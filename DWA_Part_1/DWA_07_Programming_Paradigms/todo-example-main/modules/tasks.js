@@ -1,6 +1,6 @@
 //@ts-check
 import { doesHtmlExist, getHtml } from './helper.js'
-import {Task} from './state.js';
+import {Task, state} from './state.js';
 
 export const addTask = () => {
     /**
@@ -8,6 +8,8 @@ export const addTask = () => {
      * @param {string} id - ..
      */
     export const addTaskToHTML = (id) => {
+
+        //const isExisting = getHtml('list')
 
         if (doesHtmlExist("task", id)) {
             throw new Error('Task with that ID already added')
@@ -49,7 +51,7 @@ export const addTask = () => {
     export const updateHtmlTask = (id, changes) => {
         const element = document.querySelector(`[data-task="${id}"]`);
         const isHtmlElement = element instanceof HTMLElement;
-        if (!isHtmlElement) throw new Error("")
+        if (!isHtmlElement) throw new Error("'data-list' attribute not found in HTML")
     };
 }
 
