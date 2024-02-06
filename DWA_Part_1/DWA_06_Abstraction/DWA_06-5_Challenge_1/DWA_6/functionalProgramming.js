@@ -59,7 +59,7 @@ const populateDropdown = (dropdownId, data) => {
  * @function
  * @name populateDropdowns
  */
-const populateDropdowns = () => {
+const populateDropdownsForGenresAndAuthors = () => {
   populateDropdown('genre', genres);
   populateDropdown('author', authors);
 };
@@ -444,7 +444,7 @@ const initBookList = () => {
 
   bookList = { page, matches, booksPerPage };
 
-  populateDropdowns();
+  populateDropdownsForGenresAndAuthors();
 
   renderInitialBooks(matches, booksPerPage);
 
@@ -456,3 +456,4 @@ const initBookList = () => {
 };
 
 initBookList();
+
