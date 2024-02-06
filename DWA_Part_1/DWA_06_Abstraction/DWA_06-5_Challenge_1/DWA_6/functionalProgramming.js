@@ -27,12 +27,15 @@ const setupEventListeners = () => {
 
 /**
  * Populates a dropdown with options.
+ * Selects the dropdown element using the provided dropdownId.
+ * Creates and appends the first option element with a value of 'any' and inner text representing all options in the dropdown.
+ * Iterates over each key-value pair in the data object.
+ * Creates an option element with the key as the value and the corresponding value as the inner text, then appends it to the dropdown element.
  *
  * @function
  * @name populateDropdown
  * @param {string} dropdownId - The ID of the dropdown.
  * @param {Object} data - The data to populate the dropdown with.
- * @returns {void}
  */
 const populateDropdown = (dropdownId, data) => {
   const dropdown = document.querySelector(`[data-search-${dropdownId}s]`);
@@ -51,6 +54,7 @@ const populateDropdown = (dropdownId, data) => {
 
 /**
  * Populates genre and author dropdowns.
+ * Calling populateDropdown for genres and for authors, with the respective data.
  *
  * @function
  * @name populateDropdowns
@@ -65,6 +69,10 @@ const populateDropdowns = () => {
 
 /**
  * Creates a book element.
+ * Creates a new button element using document.createElement('button').
+ * Assigns the class 'preview' to the button using element.classList.
+ * Sets the data-preview attribute to the book's id using element.setAttribute.
+ * Sets the inner HTML of the button, which includes an image tag for the book cover and a div for the book's title and author.
  *
  * @function
  * @name createBookElement
@@ -96,12 +104,14 @@ const createBookElement = (id, image, title, author) => {
 
 /**
  * Renders a fragment of books and appends it to the document.
+ * Iterates over each book object in the books array using a destructuring loop.
+ * For each book, it calls createBookElement to create a button element representing the book.
+ * Appends the created button element to the provided fragment.
  *
  * @function
  * @name renderBooksFragment
  * @param {DocumentFragment} fragment - The document fragment to append books to.
  * @param {Object[]} books - The array of books to render.
- * @returns {void}
  */
 const renderBooksFragment = (fragment, books) => {
   for (const {
@@ -117,12 +127,15 @@ const renderBooksFragment = (fragment, books) => {
 
 /**
  * Renders the initial set of books on page load.
+ * Creates a new document fragment starting.
+ * Calls renderBooksFragment to render book elements into the starting fragment, using a slice of the matches array.
+ * Appends the starting fragment containing the book elements to the document.
+ * Update the state of the list button based on the current page and number of books per page.
  *
  * @function
  * @name renderInitialBooks
  * @param {Object[]} matches - The array of books to display initially.
  * @param {number} booksPerPage - The number of books to display per page.
- * @returns {void}
  */
 const renderInitialBooks = (matches, booksPerPage) => {
   const starting = document.createDocumentFragment();
@@ -135,11 +148,16 @@ const renderInitialBooks = (matches, booksPerPage) => {
 
 /**
  * Loads more books and appends them to the document.
+ * Creates a new document fragment to hold the loaded book elements.
+ * Calculates the start index and end index of the books to be loaded based on the current page and books per page.
+ * Calls the renderBooksFragment function to render book elements into the fragment, using a slice of bookList.matches array to load more books.
+ * Appends the fragment containing the newly loaded book elements to the document inside the element.
+ * Increments the page property of the bookList object.
+ * Update the state of the list button
  *
  * @function
  * @name loadMoreBooks
  * @param {Object} bookList - The BookList object containing page, matches, and booksPerPage.
- * @returns {void}
  */
 const loadMoreBooks = (bookList) => {
   const fragment = document.createDocumentFragment();
@@ -153,13 +171,15 @@ const loadMoreBooks = (bookList) => {
 
 /**
  * Updates the list button based on the current page and remaining books.
+ * Calculates the remaining number of books by subtracting the total number of books displayed so far from the total number of books in matches.
+ * Disables button is no book remaining.
+ * Updates List button remaining number of books.
  *
  * @function
  * @name updateListButton
  * @param {Object[]} matches - The array of books to display.
  * @param {number} page - The current page number.
  * @param {number} booksPerPage - The number of books to display per page.
- * @returns {void}
  */
 const updateListButton = (matches, page, booksPerPage) => {
   const remaining = Math.max(0, bookList.matches.length - (bookList.page * bookList.booksPerPage));
@@ -179,7 +199,6 @@ const updateListButton = (matches, page, booksPerPage) => {
  *
  * @function
  * @name closeSearchOverlay
- * @returns {void}
  */
 const closeSearchOverlay = () => {
   document.querySelector('[data-search-overlay]').open = false;
@@ -190,7 +209,6 @@ const closeSearchOverlay = () => {
  *
  * @function
  * @name closeSettingsOverlay
- * @returns {void}
  */
 const closeSettingsOverlay = () => {
   document.querySelector('[data-settings-overlay]').open = false;
@@ -201,7 +219,6 @@ const closeSettingsOverlay = () => {
  *
  * @function
  * @name openSearchOverlay
- * @returns {void}
  */
 const openSearchOverlay = () => {
   document.querySelector('[data-search-overlay]').open = true;
@@ -213,7 +230,6 @@ const openSearchOverlay = () => {
  *
  * @function
  * @name openSettingsOverlay
- * @returns {void}
  */
 const openSettingsOverlay = () => {
   document.querySelector('[data-settings-overlay]').open = true;
@@ -224,7 +240,6 @@ const openSettingsOverlay = () => {
  *
  * @function
  * @name closeListActive
- * @returns {void}
  */
 const closeListActive = () => {
   document.querySelector('[data-list-active]').open = false;
@@ -233,11 +248,13 @@ const closeListActive = () => {
 //FILTER
 /**
  * Handles the form submission for search, filters books, and updates the book list.
+ * Extracts the form data using FormData to obtain search filters.
+ * Calls the filterBooks function to filter the books based on the obtained search filters.
+ * Updates the book list.
  *
  * @function
  * @name handleSearchFormSubmit
  * @param {Event} event - The form submission event.
- * @returns {void}
  */
 const handleSearchFormSubmit = (event) => {
   event.preventDefault();
@@ -251,6 +268,11 @@ const handleSearchFormSubmit = (event) => {
 
 /**
  * Filters books based on search criteria.
+ * Takes the search filters as input.
+ * Iterate over the books array and apply the filtering logic.
+ * Checks if each book matches the search criteria.
+ * Books are filtered based on title, author, and genre.
+ * If a book matches all criteria, it is included in the filtered array.
  *
  * @function
  * @name filterBooks
@@ -278,6 +300,12 @@ const filterBooks = (filters) => {
 
 /**
  * Updates the book list based on the filtered result.
+ * Updates the book list UI.
+ * Clears the existing book list.
+ * If filtered results are empty, displays a message.
+ * Creates a new document fragment (newItems) to hold the updated list of books.
+ * renderBooksFragment is called to render book elements based on the filtered books and appends them to the newItems fragment.
+ * Show more button is updated.
  *
  * @function
  * @name updateBookList
@@ -307,6 +335,12 @@ const updateBookList = (bookList) => {
 
 /**
  * Handles the click event on a book item and opens the active list view for the selected book.
+ * Triggered when a click event occurs on a book item.
+ * Creates an array pathArray by converting the event's path or composed path into an array.
+ * Iterates over each element in pathArray.
+ * Checks if the dataset.preview attribute exists, and retrieves the corresponding book object from the books array using the find method.
+ * If a matching book is found, it sets the active variable to that book object.
+ * Calls the openListActive function to open the active list view for the selected book.
  *
  * @function
  * @name handleBookItemClick
@@ -332,6 +366,8 @@ const handleBookItemClick = (event) => {
 
 /**
  * Opens the active list view for a selected book.
+ * Sets the open attribute to true, making the active list view visible.
+ * Updates elements in active view. Populating image, title, description, author.
  *
  * @function
  * @name openListActive
@@ -351,11 +387,12 @@ const openListActive = (book) => {
 
 /**
  * Handles the form submission for settings and updates the theme.
+ * Retrieves data using FormData to access the values submitted.
+ * Extracts the selected theme from the form data using object destructuring.
  *
  * @function
  * @name handleSettingsFormSubmit
  * @param {Event} event - The form submission event.
- * @returns {void}
  */
 const handleSettingsFormSubmit = (event) => {
   event.preventDefault();
@@ -369,11 +406,12 @@ const handleSettingsFormSubmit = (event) => {
 
 /**
  * Updates the theme of the app based on the selected theme.
+ * Retrieves the root element of the document to access its style properties.
+ * Updates the CSS custom properties
  *
  * @function
  * @name updateTheme
  * @param {string} theme - The selected theme ('night' or 'day').
- * @returns {void}
  */
 const updateTheme = (theme) => {
   const root = document.documentElement;
@@ -391,6 +429,12 @@ const updateTheme = (theme) => {
 
 /**
  * Initializes the BookList application by rendering initial books, setting up event listeners, and initializing dropdowns.
+ * Initializes local variables page, matches, and booksPerPage.
+ * Creates a bookList object containing page, matches, and booksPerPage.
+ * Calls populateDropdowns to initialize and populate the genre and author dropdowns.
+ * Calls renderInitialBooks to render the initial set of books on the page load.
+ * Sets up event listeners.
+ * Invokes the initBookList function to initiate the BookList application
  *
  * @function
  * @name initBookList
