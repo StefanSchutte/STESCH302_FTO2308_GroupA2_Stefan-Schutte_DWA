@@ -58,7 +58,6 @@ const populateDropdown = (dropdownId, data) => {
  *
  * @function
  * @name populateDropdowns
- * @returns {void}
  */
 const populateDropdowns = () => {
   populateDropdown('genre', genres);
@@ -177,11 +176,8 @@ const loadMoreBooks = (bookList) => {
  *
  * @function
  * @name updateListButton
- * @param {Object[]} matches - The array of books to display.
- * @param {number} page - The current page number.
- * @param {number} booksPerPage - The number of books to display per page.
  */
-const updateListButton = (matches, page, booksPerPage) => {
+const updateListButton = () => {
   const remaining = Math.max(0, bookList.matches.length - (bookList.page * bookList.booksPerPage));
   document.querySelector('[data-list-button]').disabled = remaining < 1;
 
