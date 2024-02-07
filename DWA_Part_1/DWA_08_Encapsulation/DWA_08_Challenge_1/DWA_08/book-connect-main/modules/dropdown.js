@@ -1,4 +1,4 @@
-import { authors, genres } from '../book-connect-main/data.js'
+import { authors, genres } from '../data.js'
 
 /**
  * Populates a dropdown with options.

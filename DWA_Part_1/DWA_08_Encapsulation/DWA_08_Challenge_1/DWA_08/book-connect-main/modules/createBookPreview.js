@@ -1,4 +1,4 @@
-import { authors } from '../book-connect-main/data.js'
+import { authors } from '../data.js'
 
 /**
  * Creates a book element.

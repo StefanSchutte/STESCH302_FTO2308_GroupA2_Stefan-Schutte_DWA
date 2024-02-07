@@ -1,5 +1,5 @@
 import { createBookElement } from './createBookPreview.js'
-import { authors } from '../book-connect-main/data.js'
+import { authors } from '../data.js'
 import { updateListButton } from './seeMore.js'
 
 /**

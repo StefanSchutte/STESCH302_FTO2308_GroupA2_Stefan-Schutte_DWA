@@ -1,11 +1,11 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
-import { createBookElement, openListActive } from '../modules/createBookPreview.js'
-import { populateDropdownsForGenresAndAuthors } from '../modules/dropdown.js'
-import { closeSearchOverlay, closeSettingsOverlay, overlayEventListeners } from '../modules/overlays.js'
-import { loadMoreBooks, updateListButton } from '../modules/seeMore.js'
-import { handleSettingsFormSubmit, updateTheme } from '../modules/theme.js'
-import { handleSearchFormSubmit } from '../modules/filters.js'
-import { renderInitialBooks } from '../modules/render.js'
+import { createBookElement, openListActive } from './modules/createBookPreview.js'
+import { populateDropdownsForGenresAndAuthors } from './modules/dropdown.js'
+import { closeSearchOverlay, closeSettingsOverlay, overlayEventListeners } from './modules/overlays.js'
+import { loadMoreBooks, updateListButton } from './modules/seeMore.js'
+import { handleSettingsFormSubmit, updateTheme } from './modules/theme.js'
+import { handleSearchFormSubmit } from './modules/filters.js'
+import { renderInitialBooks } from './modules/render.js'
 
 export let bookList;
 

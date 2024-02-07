@@ -1,5 +1,5 @@
-import { bookList } from '../book-connect-main/index.js'
-import { books } from '../book-connect-main/data.js'
+import { bookList } from '../index.js'
+import { books } from '../data.js'
 import { closeSearchOverlay } from './overlays.js'
 import { renderBooksFragment } from './render.js'
 import { updateListButton } from './seeMore.js'

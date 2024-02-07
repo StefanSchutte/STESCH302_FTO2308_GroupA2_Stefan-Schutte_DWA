@@ -1,4 +1,4 @@
-import { bookList } from '../book-connect-main/index.js'
+import { bookList } from '../index.js'
 import { renderBooksFragment } from './render.js'
 
 /**
