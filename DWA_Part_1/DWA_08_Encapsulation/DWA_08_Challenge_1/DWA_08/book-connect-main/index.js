@@ -14,7 +14,6 @@ export let bookList;
  *
  * @function
  * @name setupEventListeners
- * @returns {void}
  */
 const setupEventListeners = () => {
   document.querySelector('[data-settings-form]').addEventListener('submit', (event) => handleSettingsFormSubmit(event));
