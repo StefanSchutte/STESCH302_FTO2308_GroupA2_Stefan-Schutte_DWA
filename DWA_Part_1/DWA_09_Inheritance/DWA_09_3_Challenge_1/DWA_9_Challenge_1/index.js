@@ -1,5 +1,5 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
-import {  openListActive } from './modules/createBookPreview.js'
+import { openListActive } from './modules/createBookPreview.js'
 import { populateDropdownsForGenresAndAuthors } from './modules/dropdown.js'
 import { closeSearchOverlay, closeSettingsOverlay, overlayEventListeners } from './modules/overlays.js'
 import { loadMoreBooks, updateListButton } from './modules/seeMore.js'

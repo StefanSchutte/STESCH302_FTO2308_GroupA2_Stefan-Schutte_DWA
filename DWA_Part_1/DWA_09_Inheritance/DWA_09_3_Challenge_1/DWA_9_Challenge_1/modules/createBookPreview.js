@@ -95,6 +95,8 @@ export class BookPreview extends HTMLElement {
 
 customElements.define('book-preview', BookPreview);
 
+
+
 /**
  * Opens the active list view for a selected book.
  * Sets the open attribute to true, making the active list view visible.
@@ -113,3 +115,49 @@ export const openListActive = (book) => {
   document.querySelector('[data-list-subtitle]').innerText = `${authors[book.author]} (${new Date(book.published).getFullYear()})`;
   document.querySelector('[data-list-description]').innerText = book.description;
 };
+//
+// export class OpenListActive extends HTMLElement {
+//   constructor() {
+//     super();
+//     if (!OpenListActive.instance) {
+//       OpenListActive.instance = this;
+//       this.attachShadow({ mode: 'open' });
+//       this.shadowRoot.innerHTML = `
+//         <style>
+//           /* Define your component's styles here */
+//         </style>
+//
+//         <dialog class="overlay" data-list-active>
+//           <div class="overlay__preview"><img class="overlay__blur" data-list-blur src=""/><img class="overlay__image" data-list-image src=""/></div>
+//           <div class="overlay__content">
+//             <h3 class="overlay__title" data-list-title></h3>
+//             <div class="overlay__data" data-list-subtitle></div>
+//             <p class="overlay__data overlay__data_secondary" data-list-description></p>
+//           </div>
+//
+//
+//           <div class="overlay__row">
+//             <button class="overlay__button overlay__button_primary" data-list-close>Close</button>
+//           </div>
+//         </dialog>
+//       `;
+//     }
+//   }
+//
+//
+//   openListActive(book) {
+//     this.shadowRoot.querySelector('[data-list-active]').open = true;
+//     this.shadowRoot.querySelector('[data-list-blur]').src = book.image;
+//     this.shadowRoot.querySelector('[data-list-image]').src = book.image;
+//     this.shadowRoot.querySelector('[data-list-title]').innerText = book.title;
+//     this.shadowRoot.querySelector('[data-list-subtitle]').innerText = `${authors[book.author]} (${new Date(book.published).getFullYear()})`;
+//     this.shadowRoot.querySelector('[data-list-description]').innerText = book.description;
+//   }
+//
+//   closeListActive() {
+//     this.shadowRoot.querySelector('[data-list-active]').open = false;
+//   }
+// }
+//
+// // Define the custom element separately from its class definition
+// customElements.define('book-list-view', OpenListActive);
