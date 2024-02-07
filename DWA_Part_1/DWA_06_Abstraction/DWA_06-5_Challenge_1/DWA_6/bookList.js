@@ -5,6 +5,8 @@ import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
  * @class BookList
  */
 class BookList {
+  static matches
+
   /**
    * Creates an instance of the BookList class.
    * Initializes the page, matches, books per page and calls the init method.

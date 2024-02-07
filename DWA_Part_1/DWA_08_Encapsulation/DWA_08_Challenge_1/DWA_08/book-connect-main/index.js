@@ -1,327 +1,141 @@
-//@ts-check
-import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
-import { createBookPreview } from './createBookPreview.js';
+import { books, authors, genres, BOOKS_PER_PAGE } from './data.js';
+import { createBookElement, openListActive } from '../modules/createBookPreview.js'
+import { populateDropdownsForGenresAndAuthors } from '../modules/dropdown.js'
+import { closeSearchOverlay, closeSettingsOverlay, overlayEventListeners } from '../modules/overlays.js'
+import { loadMoreBooks, updateListButton } from '../modules/seeMore.js'
+import { handleSettingsFormSubmit, updateTheme } from '../modules/theme.js'
+import { handleSearchFormSubmit } from '../modules/filters.js'
+// import { filterBooks } from '../modules/filters.js'
+
+export let bookList;
+
+/**
+ * Sets up event listeners for various elements in the application.
+ *
+ * @function
+ * @name setupEventListeners
+ * @returns {void}
+ */
+const setupEventListeners = () => {
+  document.querySelector('[data-settings-form]').addEventListener('submit', (event) => handleSettingsFormSubmit(event));
+  document.querySelector('[data-search-form]').addEventListener('submit', (event) => handleSearchFormSubmit(event));
+  document.querySelector('[data-list-button]').addEventListener('click', () => loadMoreBooks(bookList));
+  document.querySelector('[data-list-items]').addEventListener('click', (event) => handleBookItemClick(event));
+};
+
+
+//Book element and render
+
+/**
+ * Renders a fragment of books and appends it to the document.
+ * Iterates over each book object in the books array using a destructuring loop.
+ * For each book, it calls createBookElement to create a button element representing the book.
+ * Appends the created button element to the provided fragment.
+ *
+ * @function
+ * @name renderBooksFragment
+ * @param {DocumentFragment} fragment - The document fragment to append books to.
+ * @param {Object[]} books - The array of books to render.
+ */
+export const renderBooksFragment = (fragment, books) => {
+  for (const {
+    author,
+    id,
+    image,
+    title
+  } of books) {
+    const element = createBookElement(id, image, title, authors[author]);
+    fragment.appendChild(element);
+  }
+};
+
+/**
+ * Renders the initial set of books on page load.
+ * Creates a new document fragment starting.
+ * Calls renderBooksFragment to render book elements into the starting fragment, using a slice of the matches array.
+ * Appends the starting fragment containing the book elements to the document.
+ * Update the state of the list button based on the current page and number of books per page.
+ *
+ * @function
+ * @name renderInitialBooks
+ * @param {Object[]} matches - The array of books to display initially.
+ * @param {number} booksPerPage - The number of books to display per page.
+ */
+const renderInitialBooks = (matches, booksPerPage) => {
+  const starting = document.createDocumentFragment();
+  renderBooksFragment(starting, matches.slice(0, booksPerPage));
+  document.querySelector('[data-list-items]').appendChild(starting);
+  updateListButton(matches, 1, booksPerPage);
+};
 
 
 /**
- * The book list application
- * @class BookList
+ * Handles the click event on a book item and opens the active list view for the selected book.
+ * Triggered when a click event occurs on a book item.
+ * Creates an array pathArray by converting the event's path or composed path into an array.
+ * Iterates over each element in pathArray.
+ * Checks if the dataset.preview attribute exists, and retrieves the corresponding book object from the books array using the find method.
+ * If a matching book is found, it sets the active variable to that book object.
+ * Calls the openListActive function to open the active list view for the selected book.
+ *
+ * @function
+ * @name handleBookItemClick
+ * @param {Event} event - The click event on a book item.
+ * @returns {void}
  */
-class BookList {
-    /**
-     * Creates an instance of the BookList class.
-     * Initializes the page, matches, books per page and calls the init method.
-     * @constructor
-     */
-    constructor() {
-        /**
-         * @member {number} page - The current page number.
-         */
-        this.page = 1;
-        /**
-         * @member {Array} matches - The list of books to display.
-         */
-        this.matches = books;
-        /**
-         * @memeber {number} booksPerPage - The number of books to display per page.
-         */
-        this.booksPerPage = BOOKS_PER_PAGE;
-        this.init();
+const handleBookItemClick = (event) => {
+  const pathArray = Array.from(event.path || event.composedPath());
+  let active = null;
+
+  for (const node of pathArray) {
+    if (active) break;
+
+    if (node?.dataset?.preview) {
+      active = books.find((book) => book.id === node?.dataset?.preview);
     }
+  }
 
-    /**
-     * Initializes the BookList instance.
-     * Calls the methods.
-     * @method init
-     */
-    init() {
-        this.renderInitialBooks();
-        try{
-            this.setupEventListeners();
-        } catch (err){
-            console.error('Error occured while setting up event listeners', err)
-        }
+  if (active) {
+    openListActive(active);
+  }
+};
 
-        this.populateDropdowns();
-    }
+//INIT
 
-    /**
-     * Populates genre and author dropdowns with options.
-     * @method populateDropdowns
-     */
-    populateDropdowns() {
-        this.populateDropdown('genre', genres);
-        this.populateDropdown('author', authors);
-    }
-
-    /**
-     * Populates individual dropdown with options.
-     * @method
-     * @param {string} dropdownId - ID of dropdown to populate.
-     * @param {Object} data - Data to populate the dropdown with.
-     */
-    populateDropdown(dropdownId, data) {
-        const dropdown = document.querySelector(`[data-search-${dropdownId}s]`);
-        const firstElement = document.createElement('option');
-        firstElement.value = 'any';
-        firstElement.innerText = `All ${dropdownId}s`;
-        dropdown.appendChild(firstElement);
-
-        for (const [id, name] of Object.entries(data)) {
-            const element = document.createElement('option');
-            element.value = id;
-            element.innerText = name;
-            dropdown.appendChild(element);
-        }
-    }
-
-    /**
-     * Renders the initial set of books on page load.
-     * @method
-     */
-    renderInitialBooks() {
-        const starting = document.createDocumentFragment();
-        this.renderBooksFragment(starting, this.matches.slice(0, this.booksPerPage));
-        document.querySelector('[data-list-items]').appendChild(starting);
-        this.updateListButton();
-    }
-
-    /**
-     * Sets up event listeners for elements.
-     * @method
-     */
-    setupEventListeners() {
-        document.querySelector('[data-search-cancel]').addEventListener('click', () => this.closeSearchOverlay());
-        document.querySelector('[data-settings-cancel]').addEventListener('click', () => this.closeSettingsOverlay());
-        document.querySelector('[data-header-search]').addEventListener('click', () => this.openSearchOverlay());
-        document.querySelector('[data-header-settings]').addEventListener('click', () => this.openSettingsOverlay());
-        document.querySelector('[data-list-close]').addEventListener('click', () => this.closeListActive());
-        document.querySelector('[data-settings-form]').addEventListener('submit', (event) => this.handleSettingsFormSubmit(event));
-        document.querySelector('[data-search-form]').addEventListener('submit', (event) => this.handleSearchFormSubmit(event));
-        document.querySelector('[data-list-button]').addEventListener('click', () => this.loadMoreBooks());
-        document.querySelector('[data-list-items]').addEventListener('click', (event) => this.handleBookItemClick(event));
-    }
-
-    /**
-     * Renders a fragment of books into specified container
-     * @method
-     * @param {DocumentFragment} fragment - Fragment to render books into.
-     * @param {Array} books - Array of books to render.
-     */
-    renderBooksFragment(fragment, books) {
-        for (const { author, id, image, title } of books) {
-            const bookPreview = createBookPreview(id, image, title, authors[author]);
-            fragment.appendChild(bookPreview);
-        }
-    }
+/**
+ * Initializes the BookList application by rendering initial books, setting up event listeners, and initializing dropdowns.
+ * Initializes local variables page, matches, and booksPerPage.
+ * Creates a bookList object containing page, matches, and booksPerPage.
+ * Calls populateDropdowns to initialize and populate the genre and author dropdowns.
+ * Calls renderInitialBooks to render the initial set of books on the page load.
+ * Sets up event listeners.
+ * Invokes the initBookList function to initiate the BookList application
+ *
+ * @function
+ * @name initBookList
+ * @returns {void}
+ */
+const initBookList = () => {
+  const page = 1;
+  const matches = books;
+  const booksPerPage = BOOKS_PER_PAGE;
 
 
+  bookList = { page, matches, booksPerPage };
 
-    /**
-     * Opens search overlay, focusing on search title input.
-     * @method
-     */
-    openSearchOverlay() {
-        document.querySelector('[data-search-overlay]').open = true;
-        document.querySelector('[data-search-title]').focus();
-    }
+  populateDropdownsForGenresAndAuthors();
 
-    /**
-     * CLoses the search overlay.
-     * @method
-     */
-    closeSearchOverlay() {
-        document.querySelector('[data-search-overlay]').open = false;
-    }
+  renderInitialBooks(matches, booksPerPage);
 
-    /**
-     * Opens settings overlay
-     * @method
-     */
-    openSettingsOverlay() {
-        document.querySelector('[data-settings-overlay]').open = true;
-    }
+  try {
+    setupEventListeners(bookList);
+    overlayEventListeners()
 
-    /**
-     * Closes settings overlay.
-     * @method
-     */
-    closeSettingsOverlay() {
-        document.querySelector('[data-settings-overlay]').open = false;
-    }
 
-    /**
-     * Closes active book list view overlay.
-     * @method
-     */
-    closeListActive() {
-        document.querySelector('[data-list-active]').open = false;
-    }
+  } catch (err) {
+    console.error('Error occurred while setting up event listeners', err);
+  }
+};
 
-    /**
-     * Loads more books and renders into list.
-     * @method
-     */
-    loadMoreBooks() {
-        const fragment = document.createDocumentFragment();
-        const start = this.page * this.booksPerPage;
-        const end = (this.page + 1) * this.booksPerPage;
-        this.renderBooksFragment(fragment, this.matches.slice(start, end));
-        document.querySelector('[data-list-items]').appendChild(fragment);
-        this.page += 1;
-        this.updateListButton();
-    }
+initBookList();
 
-    /**
-     * Updates button based on remaining books.
-     * @method
-     */
-    updateListButton() {
-        const remaining = Math.max(0, this.matches.length - (this.page * this.booksPerPage));
-        document.querySelector('[data-list-button]').disabled = remaining < 1;
-
-        document.querySelector('[data-list-button]').innerHTML = `
-      <span>Show more</span>
-      <span class="list__remaining"> (${remaining})</span>
-    `;
-    }
-
-    /**
-     * Handles the form submission for settings.
-     * Updates the theme based on selected theme and closes settings overlay.
-     * @method
-     * @param {Event} event - The form submission event
-     */
-    handleSettingsFormSubmit(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const { theme } = Object.fromEntries(formData);
-        this.updateTheme(theme);
-        this.closeSettingsOverlay();
-    }
-
-    /**
-     * Handles the form submission for search.
-     * Filters books based on form input, updates the book list and resets the page.
-     * @method
-     * @param {Event} event - The form submission event.
-     */
-    handleSearchFormSubmit(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const filters = Object.fromEntries(formData);
-        const result = this.filterBooks(filters);
-        this.page = 1;
-        this.matches = result;
-        this.updateBookList(result);
-    }
-
-    /**
-     * Filters books based on search criteria.
-     * @method
-     * @param {Object} filters - The search filters.
-     * @returns {Array} = Filtered list of books.
-     */
-    filterBooks(filters) {
-        return books.filter((book) => {
-            let genreMatch = filters.genre === 'any';
-
-            for (const singleGenre of book.genres) {
-                if (genreMatch) break;
-                if (singleGenre === filters.genre) {
-                    genreMatch = true;
-                }
-            }
-
-            return (
-                (filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase())) &&
-                (filters.author === 'any' || book.author === filters.author) &&
-                genreMatch
-            );
-        });
-    }
-
-    /**
-     * Updates the book list based on the filtered result.
-     * @method
-     * @param {Array} result - The filtered list of books.
-     */
-    updateBookList(result) {
-        const listItems = document.querySelector('[data-list-items]');
-        listItems.innerHTML = '';
-
-        if (result.length < 1) {
-            document.querySelector('[data-list-message]').classList.add('list__message_show');
-        } else {
-            document.querySelector('[data-list-message]').classList.remove('list__message_show');
-        }
-
-        const newItems = document.createDocumentFragment();
-        this.renderBooksFragment(newItems, result.slice(0, this.booksPerPage));
-        listItems.appendChild(newItems);
-        this.updateListButton();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        this.closeSearchOverlay();
-    }
-
-    /**
-     * Handles click event on book item.
-     * Finds the clicked book and opens the corresponding active list view.
-     * @method
-     * @param {Event} event - The click event.
-     */
-    handleBookItemClick(event) {
-        const pathArray = Array.from(event.path || event.composedPath());
-        let active = null;
-
-        for (const node of pathArray) {
-            if (active) break;
-
-            if (node?.dataset?.preview) {
-                active = books.find((book) => book.id === node?.dataset?.preview);
-            }
-        }
-
-        if (active) {
-            this.openListActive(active);
-        }
-    }
-
-    /**
-     * Opens the active list view for a selected book.
-     * @method
-     * @param {Object} book - The selected book.
-     */
-    openListActive(book) {
-        document.querySelector('[data-list-active]').open = true;
-        document.querySelector('[data-list-blur]').src = book.image;
-        document.querySelector('[data-list-image]').src = book.image;
-        document.querySelector('[data-list-title]').innerText = book.title;
-        document.querySelector('[data-list-subtitle]').innerText = `${authors[book.author]} (${new Date(book.published).getFullYear()})`;
-        document.querySelector('[data-list-description]').innerText = book.description;
-    }
-
-    /**
-     * Updates the theme of the app based on the selected themme.
-     * @method
-     * @param {string} theme - The selected theme.
-     */
-    updateTheme(theme) {
-        const root = document.documentElement;
-
-        if (theme === 'night') {
-            root.style.setProperty('--color-dark', '255, 255, 255');
-            root.style.setProperty('--color-light', '10, 10, 20');
-        } else {
-            root.style.setProperty('--color-dark', '10, 10, 20');
-            root.style.setProperty('--color-light', '255, 255, 255');
-        }
-    }
-}
-
-// Instantiate the BookList class to start the application
-try {
-    const bookList = new BookList();
-} catch (err) {
-    console.error('Data retrieval failed', err);
-}
