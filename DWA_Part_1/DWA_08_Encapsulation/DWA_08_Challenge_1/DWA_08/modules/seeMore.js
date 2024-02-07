@@ -1,5 +1,5 @@
 import { bookList } from '../book-connect-main/index.js'
-import { renderBooksFragment } from '../book-connect-main/index.js'
+import { renderBooksFragment } from './render.js'
 
 /**
  * Loads more books and appends them to the document.
