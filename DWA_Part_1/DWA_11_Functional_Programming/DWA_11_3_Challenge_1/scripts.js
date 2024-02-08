@@ -1,60 +1,6 @@
-
-
-// Define action types
-const ActionTypes = {
-  ADD: 'ADD',
-  SUBTRACT: 'SUBTRACT',
-  RESET: 'RESET',
-};
-
-const reducer = (state = { count: 0 }, action) => {
-  switch (action.type) {
-    case ActionTypes.ADD:
-      return { count: state.count + 1 };
-    case ActionTypes.SUBTRACT:
-      return { count: state.count - 1 };
-    case ActionTypes.RESET:
-      return { count: 0 };
-    default:
-      return state;
-  }
-};
-
-let currentState = undefined;
-let subscribers = [];
-
-// Get the current state
-const getState = () => currentState;
-
-// Dispatch an action to update the state
-const dispatch = (action) => {
-  currentState = reducer(currentState, action);
-  notifySubscribers();
-};
-
-// Subscribe to state changes
-const subscribe = (callback) => {
-  subscribers.push(callback);
-
-  // Return an unsubscribe function
-  return () => {
-    subscribers = subscribers.filter((subscriber) => subscriber !== callback);
-  };
-};
-
-// Notify all subscribers about the state change
-const notifySubscribers = () => {
-  subscribers.forEach((subscriber) => subscriber());
-};
-
-// Log the current state to the console
-const logStateChange = () => {
-  console.log('Current State:', currentState);
-
-};
-
-// Initial state
-currentState = reducer(undefined, {});
+import { ActionTypes } from "./models/actions.js";
+import { reducer } from "./models/reducers.js";
+import { dispatch, logStateChange, subscribe } from "./models/store.js";
 
 
 // Scenario 1: Initial state

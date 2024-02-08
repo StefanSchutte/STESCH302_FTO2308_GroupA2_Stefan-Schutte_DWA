@@ -1,6 +1,4 @@
-const { reducer } = require('./reducers.js');
-// import { reducer } from './reducers.js';
-//import { ActionTypes } from './actions';
+import { reducer } from './reducers.js';
 
 let currentState = undefined;
 let subscribers = [];

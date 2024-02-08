@@ -1,4 +1,3 @@
-// Reducer function to manage state changes
 import { ActionTypes } from './actions.js'
 
 export const reducer = (state = { count: 0 }, action) => {
