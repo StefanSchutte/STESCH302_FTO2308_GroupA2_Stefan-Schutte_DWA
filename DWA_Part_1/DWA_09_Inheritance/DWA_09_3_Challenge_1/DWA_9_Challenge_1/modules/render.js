@@ -1,4 +1,4 @@
-import { BookPreview } from './createBookPreview.js'
+import '../components/create-book-preview.js'
 import { authors } from '../data.js'
 import { updateListButton } from './seeMore.js'
 
