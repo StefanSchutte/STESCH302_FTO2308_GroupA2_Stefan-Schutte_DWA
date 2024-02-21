@@ -1,4 +1,6 @@
-import { mergeArrays } from '../components/td-spacing.helpers.js;
+// import { mergeArrays } from '../components/td-spacing.helpers.js;
+
+import { mergeArrays } from "../components/td-spacing.helpers";
 
 /**
  * @typedef {'xs'|'s'|'m'|'l'|'xl'} Measurement
