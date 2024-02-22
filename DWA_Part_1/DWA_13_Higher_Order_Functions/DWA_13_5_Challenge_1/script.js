@@ -16,7 +16,7 @@ const newCharactersAmount = names.map(name => name.length);
 console.log(newCharactersAmount);
 
 // create a sorted copy of the provinces array. toSorted??
-const sortedProvinces = provinces.slice().sort();
+const sortedProvinces = provinces.toSorted()
 console.log(sortedProvinces);
 
 // filters out provinces that include the word 'Cape'
